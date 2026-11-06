@@ -4,7 +4,7 @@ ROOT=pathlib.Path(__file__).resolve().parents[1]
 
 class PortableIsolationTests(unittest.TestCase):
     def test_entrypoints_import_with_isolated_python(self):
-        for name in ['install.py','repair.py','run.py','studio.py','upgrade_workflow.py']:
+        for name in ['install.py','repair.py','run.py','studio.py','upgrade_workflow.py','choose_preset.py']:
             with self.subTest(name=name):
                 r=subprocess.run([sys.executable,'-I',str(ROOT/'scripts'/name),'--help'],capture_output=True,text=True,cwd=tempfile.gettempdir())
                 self.assertEqual(r.returncode,0,r.stderr)
@@ -35,4 +35,21 @@ class PortableIsolationTests(unittest.TestCase):
             self.assertEqual(r.returncode,0,r.stderr)
             g=json.loads((pathlib.Path(d)/'baseline.api.json').read_text())
             self.assertEqual(g['2']['class_type'],'H3StudioNativeClipLoader')
+    def test_legacy_select_file_cannot_shadow_stdlib(self):
+        with tempfile.TemporaryDirectory() as d:
+            package=pathlib.Path(d)/'package'
+            shutil.copytree(ROOT/'scripts',package/'scripts',ignore=shutil.ignore_patterns('__pycache__'))
+            for name in ['select.py','selectors.py','socket.py']:
+                (package/'scripts'/name).write_text("raise AssertionError('Package shadowed stdlib')\n")
+            for isolated in [[],['-I']]:
+                r=subprocess.run([sys.executable,*isolated,str(package/'scripts/install.py'),'--help'],capture_output=True,text=True)
+                self.assertEqual(r.returncode,0,r.stderr)
+    def test_repair_import_does_not_load_network_installer(self):
+        code="import runpy,sys; runpy.run_path(sys.argv[1],run_name='repair_module'); assert 'urllib.request' not in sys.modules; assert 'install' not in sys.modules"
+        r=subprocess.run([sys.executable,'-I','-c',code,str(ROOT/'scripts/repair.py')],capture_output=True,text=True)
+        self.assertEqual(r.returncode,0,r.stderr)
+    def test_choose_preset_import_has_no_cli_side_effects(self):
+        code="import runpy,sys; runpy.run_path(sys.argv[1],run_name='choose_module')"
+        r=subprocess.run([sys.executable,'-I','-c',code,str(ROOT/'scripts/choose_preset.py')],capture_output=True,text=True)
+        self.assertEqual(r.returncode,0,r.stderr)
 if __name__=='__main__':unittest.main()
