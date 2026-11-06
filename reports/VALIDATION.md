@@ -38,3 +38,9 @@ Additional CPU mechanics check: gguf.GGUFReader parsed all 902 tensors from the 
 ## v0.2.1 isolated-Python regression
 
 Reproduced the exact reported ModuleNotFoundError with `python -I scripts/repair.py --help` before patching. All six executable Python scripts now bootstrap their own trusted scripts directory before sibling imports. No global ._pth or environment changes. 31 tests pass, including actual isolated subprocess runs for CLI imports, API graph generation and repair against a temporary Portable tree. A repeated repair creates the backup outside custom_nodes and preserves a sentinel model file. No GPU/Windows-render claim is added.
+
+## v0.2.2 standard-library shadowing regression
+
+User's Windows traceback showed scripts/select.py being imported by selectors instead of the embedded select extension. Renamed the utility to choose_preset.py and added a main guard. Bootstrap removes the script directory from earlier positions and appends it after stdlib/extension paths, including normal (non-isolated) invocation. repair.py now imports lightweight portable_paths instead of install, avoiding its urllib/subprocess dependency chain.
+
+34 CPU tests pass. New tests leave poison select.py, selectors.py and socket.py in a temporary scripts directory and confirm install.py imports urllib and displays help in both normal and isolated Python. Repair imports neither install nor urllib.request. choose_preset imports without parsing unrelated CLI arguments. No Windows/GPU execution claim.
