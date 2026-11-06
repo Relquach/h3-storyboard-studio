@@ -46,7 +46,7 @@ Picture 1 luôn là nguyên storyboard. Picture 2/3/4 là sheet nhân vật 1/2/
 
 Benchmark giữ cùng storyboard, sheets, kích thước, thời lượng, seed theo từng vòng. Baseline và Turbo dùng lịch sampling riêng theo mục đích nên đây là so sánh **hai cấu hình hoàn chỉnh**, không phải ablation chỉ một LoRA. Hai vòng dùng hai seed; cache/offload không bảo đảm cold/warm giống nhau. Báo cáo có wall time, history, mẫu VRAM quan sát từ nvidia-smi (không phải đỉnh CUDA tuyệt đối). Không dùng upscale khi benchmark generation mặc định.
 
-Mở video side-by-side và điền CSV theo thang 1–5, cao hơn là tốt hơn: nhận diện mặt, giải phẫu/chuyển động, thứ tự shot, phong cách 3D, ổn định giữa frame. Chỉ khi mọi seed đạt nhận diện/chuyển động ≥4, tiêu chí khác ≥3, `scripts/select.py REPORT.json QUALITY.csv` mới chọn preset nhanh nhất chấp nhận được. Không có điểm chất lượng tự bịa hoặc lựa chọn tốt nhất toàn cục. Với kết quả rỗng hoặc thất bại, chưa chọn được preset.
+Mở video side-by-side và điền CSV theo thang 1–5, cao hơn là tốt hơn: nhận diện mặt, giải phẫu/chuyển động, thứ tự shot, phong cách 3D, ổn định giữa frame. Chỉ khi mọi seed đạt nhận diện/chuyển động ≥4, tiêu chí khác ≥3, `scripts/choose_preset.py REPORT.json QUALITY.csv` mới chọn preset nhanh nhất chấp nhận được. Không có điểm chất lượng tự bịa hoặc lựa chọn tốt nhất toàn cục. Với kết quả rỗng hoặc thất bại, chưa chọn được preset.
 
 Nếu clip sai động tác/méo mặt, tạo lại trước upscale. Không cố cứu hình thể sai bằng sharpen. Để sửa một shot khó có thể tách lượt tạo, nhưng nhánh chính vẫn dùng nguyên storyboard.
 
@@ -76,3 +76,10 @@ Kiểm tra hồi quy mới có bảo toàn ảnh/prompt/liên kết khi migrate,
 Lỗi `ModuleNotFoundError: No module named install` đã được tái hiện với Python isolated mode. Sáu entry script hiện tự thêm đúng thư mục scripts của bộ cài vào sys.path trước khi import nội bộ. Không sửa pythonXY._pth, không cài module tên install qua pip. Tải lại source ZIP mới và chạy UPGRADE.bat trong thư mục vừa giải nén; không tải lại model.
 
 31 bài kiểm tra CPU qua, gồm chạy repair thực tế trong Portable giả lập bằng `python -I`, sao lưu node và bảo toàn model. Đây vẫn chưa phải thử render GPU hoặc chạy trên Windows thật.
+
+
+## Bản vá v0.2.2: tránh trùng module select của Python
+
+Tiện ích chấm/chọn cấu hình đã đổi tên từ scripts/select.py sang scripts/choose_preset.py. Bootstrap hiện đặt thư mục scripts sau thư viện chuẩn và các module nhúng. repair.py cũng dùng portable_paths.py nhẹ, không import installer hoặc urllib để cập nhật node. Bản mới vẫn chạy được nếu bạn giải nén đè và còn file select.py cũ. Không cần tải lại model.
+
+Cách sửa nhanh bản cũ: đổi tên scripts/select.py thành scripts/choose_preset.py rồi chạy lại UPGRADE.bat. Khi dùng CLI chọn cấu hình sau benchmark, dùng tên choose_preset.py.
