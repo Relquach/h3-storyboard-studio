@@ -22,3 +22,14 @@ Release status: experimental prototype, not GPU-qualified.
 - UI export is only accepted after live object_info validation; a CPU fixture is not runtime certification.
 
 The package includes local preflight, real render/benchmark logging and a human quality CSV. Run these on the target machine; provide reports and video outputs to make the next iteration evidence based. Failures must be fixed before calling this production-ready.
+
+
+## v0.2.0 regression repair
+
+Root cause reproduced from the actual Unsloth encoder header: 902 tensors, zero metadata records. The old llama.cpp GGUF text loader explicitly rejects missing general.architecture. A second mmproj was unnecessary: the native file already has 351 visual.* tensors.
+
+All 902 native tensor names match the official Comfy-Org BF16 H3 encoder header. Exactly one shape differs: visual.patch_embed.proj.weight is stored [3456,2,16,16] instead of [1152,3,2,16,16]; loader restores the 5D view and decodes BF16 literals for vision operations. Same element count, no interpolation or new learned weights.
+
+28 CPU regression tests pass, including format rejection, vision presence, duration conversion, graph migration and non-mutating Vietnamese layout. PowerShell scripts are syntax checked separately. These checks still do NOT constitute a successful full encoder forward pass or GPU video render. No new speed/quality claim.
+
+Additional CPU mechanics check: gguf.GGUFReader parsed all 902 tensors from the actual header in a sparse synthetic-payload file. BF16 vision patch data was decoded and reshaped to [1152,3,2,16,16]; a real PyTorch CPU Conv3D operation produced [1,1152,1,1,1]. The payload used zeros, so this tests the repaired layout/decode mechanics only, not the original model values, full encoder or visual quality. Browser extension passed Node.js syntax validation; all four PowerShell scripts passed the real PowerShell parser.
