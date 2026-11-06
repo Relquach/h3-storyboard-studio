@@ -10,7 +10,6 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 MODELS = {
  'dit': 'minimax_h3_ref2va_pruned-Q3_K.gguf',
  'clip': 'qwen3vl_32b_minimax_h3-Q2_K_M.gguf',
- 'mmproj': 'MiniMax-H3-encoder-mmproj-F16.gguf',
  'vae': 'minimax_h3_video_vae_fp16.safetensors',
  'audio': 'minimax_h3_audio_vae_fp32.safetensors',
  'turbo': 'minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors',
@@ -84,12 +83,13 @@ def build(p, preset='baseline', enhance=False):
     def add(i,typ,**inputs): g[str(i)]={'class_type':typ,'inputs':inputs}
     def link(i,o=0): return [str(i),o]
     add(1,'H3ModelLoaderAny',model_name=MODELS['dit'],activation_reserve_gb=0.0)
-    add(2,'H3ClipLoaderAny',clip_name=MODELS['clip'],type='minimax',mmproj_name=MODELS['mmproj'])
+    add(2,'H3StudioNativeClipLoader',clip_name=MODELS['clip'])
     add(3,'VAELoader',vae_name=MODELS['vae']); add(4,'VAELoader',vae_name=MODELS['audio'])
     add(5,'LoadImage',image=p['storyboard'])
+    add(9,'H3StudioDuration',seconds=float(seconds))
     ref={'clip':link(2),'vae':link(3),'audio_vae':link(4),'storyboard':link(5),
          'prompt':text,'roles_json':json.dumps(roles,ensure_ascii=False),'width':p['width'],'height':p['height'],
-         'length':frames,'ref_image_size':p.get('reference_size','match')}
+         'length':link(9),'ref_image_size':p.get('reference_size','match')}
     for i,c in enumerate(p['characters']):
         add(6+i,'LoadImage',image=c['file']);ref[f'character_{i+1}']=link(6+i)
     add(10,'H3StudioReferences',**ref)
@@ -167,8 +167,10 @@ def to_ui(g,info):
                 num=len(links)+1;typ=src['outputs'][v[1]]['type']
                 links.append([num,int(v[0]),v[1],int(nid),slot,typ])
                 src['outputs'][v[1]]['links'].append(num);dest['inputs'][slot]['link']=num
-    return {'last_node_id':max(map(int,g)),'last_link_id':len(links),'nodes':nodes,'links':links,
+    result = {'last_node_id':max(map(int,g)),'last_link_id':len(links),'nodes':nodes,'links':links,
             'groups':[],'config':{},'extra':{},'version':0.4}
+    from workflow_ui import beautify
+    return beautify(result)
 
 
 def main():
