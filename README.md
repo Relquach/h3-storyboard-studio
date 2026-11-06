@@ -69,3 +69,10 @@ Nếu bạn gặp `This gguf file is incompatible with llama.cpp` tại H3 CLIP 
 **Giao diện:** nhóm ảnh màu xanh lá; prompt/tham chiếu màu xanh lam; seed và sampling màu xanh ngọc; kết quả màu vàng; model nâng cao thu gọn phía dưới. Tiêu đề, nhãn cổng, nhãn widget và hướng dẫn tiếng Việt. Mã node/socket/tag Picture và prompt tiếng Anh giữ nguyên. Extension không đổi ngôn ngữ menu ComfyUI toàn hệ thống.
 
 Kiểm tra hồi quy mới có bảo toàn ảnh/prompt/liên kết khi migrate, chống nhân đôi ô thời lượng, phát hiện thiếu vision và phát hiện nhầm GGUF llama.cpp. Header thật của encoder đã đối chiếu đủ 902 tên tensor với safetensors H3 chính thức; chưa có lần encode/render GPU sau bản sửa này.
+
+
+## Bản vá v0.2.1: Python nhúng không tìm thấy install.py
+
+Lỗi `ModuleNotFoundError: No module named install` đã được tái hiện với Python isolated mode. Sáu entry script hiện tự thêm đúng thư mục scripts của bộ cài vào sys.path trước khi import nội bộ. Không sửa pythonXY._pth, không cài module tên install qua pip. Tải lại source ZIP mới và chạy UPGRADE.bat trong thư mục vừa giải nén; không tải lại model.
+
+31 bài kiểm tra CPU qua, gồm chạy repair thực tế trong Portable giả lập bằng `python -I`, sao lưu node và bảo toàn model. Đây vẫn chưa phải thử render GPU hoặc chạy trên Windows thật.
