@@ -13,7 +13,7 @@ sys.path.insert(0,str(ROOT/'scripts'))
 import studio
 import install
 spec=importlib.util.spec_from_file_location('adapter',ROOT/'custom_nodes/h3_storyboard_studio/__init__.py')
-adapter=importlib.util.module_from_spec(spec);spec.loader.exec_module(adapter)
+adapter=importlib.util.module_from_spec(spec);sys.modules['adapter']=adapter;spec.loader.exec_module(adapter)
 
 class WorkflowTests(unittest.TestCase):
     def setUp(self):self.p=json.loads((ROOT/'examples/project.json').read_text())
@@ -22,7 +22,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('At 00:02.000',text);self.assertIn('At 00:03.000',text)
         self.assertIn('matching <Picture 2>',text);self.assertEqual(len(roles),2)
         g=studio.build(self.p)
-        self.assertEqual(g['10']['inputs']['length'],124)
+        self.assertEqual(g['10']['inputs']['length'],['9',0]);self.assertEqual(g['9']['inputs']['seconds'],5.0)
         self.assertEqual(g['10']['inputs']['character_1'],['6',0])
     def test_long_clip_rejected(self):
         self.p['shots'][0]['seconds']=30
