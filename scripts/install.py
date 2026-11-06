@@ -4,7 +4,10 @@
 # Add only this trusted package directory; never change global Python settings.
 import sys as _sys
 from pathlib import Path as _Path
-_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+_script_dir = _Path(__file__).resolve().parent
+# Keep stdlib and embedded extension modules ahead of sibling utilities.
+_sys.path[:] = [entry for entry in _sys.path if _Path(entry or ".").resolve() != _script_dir]
+_sys.path.append(str(_script_dir))
 import argparse
 import hashlib
 import json
@@ -18,8 +21,7 @@ import urllib.parse
 import urllib.request
 import zipfile
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-DEFAULT_PORTABLE = pathlib.Path(r'C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable')
+from portable_paths import ROOT, DEFAULT_PORTABLE, portable_path
 
 
 def sha256(path):
@@ -75,12 +77,6 @@ def safe_extract(archive,target):
             if not resolved.is_relative_to(target) or '\\' in info.filename:raise RuntimeError('Unsafe archive path')
         z.extractall(target)
 
-
-def portable_path(value):
-    path=pathlib.Path(value).resolve()
-    if not (path/'python_embeded/python.exe').is_file() or not (path/'ComfyUI/main.py').is_file():
-        raise ValueError('Select the Portable root containing python_embeded and ComfyUI, not the ComfyUI subfolder.')
-    return path
 
 
 def install(portable, skip_models=False, dry_run=False):
