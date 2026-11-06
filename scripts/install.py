@@ -1,4 +1,10 @@
 """Idempotent installer for an existing Windows ComfyUI Portable; stdlib downloads."""
+
+# Portable bootstrap: pythonXY._pth may omit the script directory.
+# Add only this trusted package directory; never change global Python settings.
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
 import argparse
 import hashlib
 import json
