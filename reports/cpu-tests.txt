@@ -16,8 +16,18 @@ test_resume_and_checksum (test_studio.WorkflowTests.test_resume_and_checksum) ..
 test_roles_count_rejected (test_studio.WorkflowTests.test_roles_count_rejected) ... ok
 test_schema_mismatch_detected (test_studio.WorkflowTests.test_schema_mismatch_detected) ... ok
 test_ui_conversion_links_roundtrip (test_studio.WorkflowTests.test_ui_conversion_links_roundtrip) ... ok
+test_llama_format_not_silently_reinterpreted (test_upgrade.UpgradeTests.test_llama_format_not_silently_reinterpreted) ... ok
+test_manifest_no_extra_vision_download (test_upgrade.UpgradeTests.test_manifest_no_extra_vision_download) ... ok
+test_migration_idempotent (test_upgrade.UpgradeTests.test_migration_idempotent) ... ok
+test_migration_preserves_user_prompt_images_and_links (test_upgrade.UpgradeTests.test_migration_preserves_user_prompt_images_and_links) ... ok
+test_missing_vision_rejected (test_upgrade.UpgradeTests.test_missing_vision_rejected) ... ok
+test_native_header_with_embedded_vision (test_upgrade.UpgradeTests.test_native_header_with_embedded_vision) ... ok
+test_new_graph_uses_native_loader_and_seconds (test_upgrade.UpgradeTests.test_new_graph_uses_native_loader_and_seconds) ... ok
+test_style_does_not_rewire_execution (test_upgrade.UpgradeTests.test_style_does_not_rewire_execution) ... ok
+test_visible_duration_control (test_upgrade.UpgradeTests.test_visible_duration_control) ... ok
+test_wrong_model_dimensions_rejected (test_upgrade.UpgradeTests.test_wrong_model_dimensions_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 18 tests in 0.005s
+Ran 28 tests in 0.012s
 
 OK
