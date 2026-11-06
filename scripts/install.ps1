@@ -10,7 +10,7 @@ if (-not (Test-Path (Join-Path $portable 'python_embeded\python.exe'))) {
 }
 $python = Join-Path $portable 'python_embeded\python.exe'
 if (-not (Test-Path $python)) { throw 'Embedded Python not found.' }
-Write-Host 'Installing pinned community nodes and downloading about 32 GB of model weights.'
+Write-Host 'Installing pinned community nodes and downloading about 30 GB of model weights.'
 Write-Host 'Dependencies are installed into this Portable Python; close ComfyUI first.'
 & $python -s (Join-Path $PSScriptRoot 'install.py') --portable $portable
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
