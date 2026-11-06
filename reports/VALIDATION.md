@@ -33,3 +33,8 @@ All 902 native tensor names match the official Comfy-Org BF16 H3 encoder header.
 28 CPU regression tests pass, including format rejection, vision presence, duration conversion, graph migration and non-mutating Vietnamese layout. PowerShell scripts are syntax checked separately. These checks still do NOT constitute a successful full encoder forward pass or GPU video render. No new speed/quality claim.
 
 Additional CPU mechanics check: gguf.GGUFReader parsed all 902 tensors from the actual header in a sparse synthetic-payload file. BF16 vision patch data was decoded and reshaped to [1152,3,2,16,16]; a real PyTorch CPU Conv3D operation produced [1,1152,1,1,1]. The payload used zeros, so this tests the repaired layout/decode mechanics only, not the original model values, full encoder or visual quality. Browser extension passed Node.js syntax validation; all four PowerShell scripts passed the real PowerShell parser.
+
+
+## v0.2.1 isolated-Python regression
+
+Reproduced the exact reported ModuleNotFoundError with `python -I scripts/repair.py --help` before patching. All six executable Python scripts now bootstrap their own trusted scripts directory before sibling imports. No global ._pth or environment changes. 31 tests pass, including actual isolated subprocess runs for CLI imports, API graph generation and repair against a temporary Portable tree. A repeated repair creates the backup outside custom_nodes and preserves a sentinel model file. No GPU/Windows-render claim is added.
