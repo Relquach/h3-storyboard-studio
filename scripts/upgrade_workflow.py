@@ -4,7 +4,10 @@
 # Add only this trusted package directory; never change global Python settings.
 import sys as _sys
 from pathlib import Path as _Path
-_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+_script_dir = _Path(__file__).resolve().parent
+# Keep stdlib and embedded extension modules ahead of sibling utilities.
+_sys.path[:] = [entry for entry in _sys.path if _Path(entry or ".").resolve() != _script_dir]
+_sys.path.append(str(_script_dir))
 import argparse,copy,json,pathlib
 from workflow_ui import beautify
 
