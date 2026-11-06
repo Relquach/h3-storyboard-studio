@@ -113,6 +113,12 @@ def install(portable, skip_models=False, dry_run=False):
         for m in manifest['models']:
             url=m.get('url') or f'https://huggingface.co/{m["repo"]}/resolve/{m["revision"]}/{urllib.parse.quote(m["file"],safe="/")}'
             download(url,comfy/m['destination'],m['bytes'],m['sha256'])
+    # Catch the previous wrong llama.cpp-loader choice before queueing a GPU task.
+    encoder=comfy/'models/text_encoders/qwen3vl_32b_minimax_h3-Q2_K_M.gguf'
+    if encoder.exists():
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('native_header',ROOT/'custom_nodes/h3_storyboard_studio/native_encoder.py')
+        mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);mod.inspect_native_header(encoder)
     (ROOT/'local.json').write_text(json.dumps({'portable':str(portable),'comfy':str(comfy)},indent=2))
     inputs=comfy/'input/h3studio';inputs.mkdir(parents=True,exist_ok=True)
     print('Installed. Run START-STUDIO.bat. GPU inference is not yet validated; inspect reports after the first render.')
