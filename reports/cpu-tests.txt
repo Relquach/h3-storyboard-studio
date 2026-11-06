@@ -1,5 +1,8 @@
 test_builder_runs_in_isolation (test_portable_isolation.PortableIsolationTests.test_builder_runs_in_isolation) ... ok
+test_choose_preset_import_has_no_cli_side_effects (test_portable_isolation.PortableIsolationTests.test_choose_preset_import_has_no_cli_side_effects) ... ok
 test_entrypoints_import_with_isolated_python (test_portable_isolation.PortableIsolationTests.test_entrypoints_import_with_isolated_python) ... ok
+test_legacy_select_file_cannot_shadow_stdlib (test_portable_isolation.PortableIsolationTests.test_legacy_select_file_cannot_shadow_stdlib) ... ok
+test_repair_import_does_not_load_network_installer (test_portable_isolation.PortableIsolationTests.test_repair_import_does_not_load_network_installer) ... ok
 test_repair_runs_in_isolation_and_preserves_models (test_portable_isolation.PortableIsolationTests.test_repair_runs_in_isolation_and_preserves_models) ... ok
 test_archive_traversal_blocked (test_studio.WorkflowTests.test_archive_traversal_blocked) ... ok
 test_bad_checksum_never_committed (test_studio.WorkflowTests.test_bad_checksum_never_committed) ... ok
@@ -31,6 +34,6 @@ test_visible_duration_control (test_upgrade.UpgradeTests.test_visible_duration_c
 test_wrong_model_dimensions_rejected (test_upgrade.UpgradeTests.test_wrong_model_dimensions_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 31 tests in 0.467s
+Ran 34 tests in 0.502s
 
 OK
