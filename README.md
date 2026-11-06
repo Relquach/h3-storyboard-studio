@@ -7,7 +7,7 @@ Dành cho RTX 4060 Ti 16 GB, RAM 32 GB, ComfyUI Windows Portable. Nguyên storyb
 ## Cài và dùng
 
 1. GitHub → **Code → Download ZIP**, giải nén vào một thư mục cố định. Đóng ComfyUI trước khi cài.
-2. Nhấp **INSTALL.bat**. Bộ cài thử đường dẫn `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`; nếu không có, chọn thư mục chứa `python_embeded` và `ComfyUI`. Tự cài hai bộ custom node đã khóa commit, node của dự án và tải 7 file model (~30,85 GB), xác minh SHA-256. Cần thêm dung lượng dự phòng. Không cần Git cho bước cài.
+2. Nhấp **INSTALL.bat**. Bộ cài thử đường dẫn `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`; nếu không có, chọn thư mục chứa `python_embeded` và `ComfyUI`. Tự cài hai bộ custom node đã khóa commit, node của dự án và tải 6 file model (~29,65 GB), xác minh SHA-256. Cần thêm dung lượng dự phòng. Không cần Git cho bước cài.
 3. Nhấp **START-STUDIO.bat**, chờ ComfyUI sẵn sàng. Nếu ComfyUI đã chạy, dùng phiên đang chạy, không mở thêm server.
 4. Nhấp **PREPARE-INPUTS.bat**, chọn project JSON do skill xuất (hoặc `examples/project.json`), nguyên ảnh storyboard rồi đúng sheet từng nhân vật. Ảnh được sao chép vào thư mục input bằng tên duy nhất; ảnh gốc không bị sửa.
 5. Nhấp **PREFLIGHT.bat**. Kiểm tra node, model enum, liên kết và ảnh trên runtime thật; sinh `workflows/baseline.json` và `turbo4.json` để kéo vào ComfyUI. Đừng import `*.api.json` như workflow giao diện.
@@ -17,10 +17,10 @@ Bộ cài chưa tự cập nhật ComfyUI core hoặc đè node cũ. Nếu core 
 
 ## Model và node
 
-`manifest.json` là nguồn chính: URL/repository, commit, dung lượng, SHA-256. Chọn H3 Ref2VA pruned Q3 và encoder Q2 + vision sidecar explicit; cặp encoder/vision khác nguồn vẫn cần lần encode/render đầu xác minh shape và chất lượng thực tế. Không gọi nó là một bộ đã benchmark.
+`manifest.json` là nguồn chính: URL/repository, commit, dung lượng, SHA-256. Chọn H3 Ref2VA pruned Q3 và encoder native Q2 có sẵn vision. Dùng loader riêng H3StudioNativeClipLoader; vẫn cần lần encode/render đầu xác minh thực thi và chất lượng. Không gọi nó là một bộ đã benchmark.
 
 - `unsloth/MiniMax-H3-GGUF`: Ref2VA pruned Q3, H3 Qwen3-VL Q2 encoder, video VAE FP16, audio VAE FP32.
-- `joeygambino/MiniMax-H3-encoder-GGUF`: mmproj F16; không thể bỏ vision sidecar khi dùng ảnh.
+- Không tải thêm mmproj trong v0.2: encoder Q2 đã tích hợp vision; giữ lại file mmproj cũ trên máy nếu đã tải, workflow mới không dùng nó.
 - `Comfy-Org/MiniMax-H3`: LightX2V Ref2V Turbo 4-step (nhánh so sánh, chưa xác minh kết quả trên GGUF này).
 - `xinntao/Real-ESRGAN`: x2plus cho upscale cuối theo từng batch nhỏ.
 - `city96/ComfyUI-GGUF` + `jlucasmcrell/ComfyUI-H3-Multishot`: nạp GGUF và encoder/vision H3. **Không dùng sampler seamless-chain của pack**: clip có cut theo storyboard, không biến mọi cảnh thành một take.
@@ -57,3 +57,15 @@ Nếu clip sai động tác/méo mặt, tạo lại trước upscale. Không c�
 ## Phạm vi và giấy phép
 
 Code do dự án viết: MIT (`LICENSE`). Các model/node bên thứ ba giữ giấy phép riêng của chúng; tải từ upstream, không phân phối lại trọng số trong repo. Repo không gồm ComfyUI Portable/NVIDIA driver/FFmpeg binary hay model sinh storyboard. Skill đã được hoàn thiện để xuất prompt storyboard/video và project JSON cho bộ cài này.
+
+## Bản sửa v0.2.0: encoder, giao diện tiếng Việt và thời lượng
+
+Nếu bạn gặp `This gguf file is incompatible with llama.cpp` tại H3 CLIP Loader với encoder Q2 của bộ cài, **không tải lại model**. File đó là native-key GGUF của H3, không phải llama.cpp GGUF. Nó chứa cả encoder văn bản và 351 tensor thị giác; không cần mmproj riêng. Loader mới `H3StudioNativeClipLoader` đọc trực tiếp định dạng này. Có một tensor Conv3D thị giác được sd.cpp dàn thành 4 chiều; loader khôi phục đúng shape 5 chiều của encoder chính thức. Không sửa metadata, không đổi tên file để giả định dạng, không patch global loader.
+
+**Người đã cài:** tải ZIP v0.2.0, giải nén vào thư mục bộ cài, đóng ComfyUI rồi chạy **UPGRADE.bat**. Chọn workflow JSON đã Export nếu muốn giữ ảnh/prompt đang dùng. Nó tạo file mới `*-VI-v0.2.json`, không sửa bản gốc. Sau đó mở lại ComfyUI, Ctrl+F5 và nạp file mới. Nếu không chọn workflow, dùng PREFLIGHT với project.json hiện có để sinh lại UI.
+
+**Thời lượng:** ô `THỜI LƯỢNG CLIP (GIÂY)` nằm ngay trên prompt. Nhập 4–15 giây; đầu ra tự nối tới `length`. Ví dụ 15 giây → 362 frame (~15,08 giây); 5 giây → 124 frame (~5,17 giây). Đây là thời lượng clip nguồn, tách biệt nhịp từng shot trong prompt.
+
+**Giao diện:** nhóm ảnh màu xanh lá; prompt/tham chiếu màu xanh lam; seed và sampling màu xanh ngọc; kết quả màu vàng; model nâng cao thu gọn phía dưới. Tiêu đề, nhãn cổng, nhãn widget và hướng dẫn tiếng Việt. Mã node/socket/tag Picture và prompt tiếng Anh giữ nguyên. Extension không đổi ngôn ngữ menu ComfyUI toàn hệ thống.
+
+Kiểm tra hồi quy mới có bảo toàn ảnh/prompt/liên kết khi migrate, chống nhân đôi ô thời lượng, phát hiện thiếu vision và phát hiện nhầm GGUF llama.cpp. Header thật của encoder đã đối chiếu đủ 902 tên tensor với safetensors H3 chính thức; chưa có lần encode/render GPU sau bản sửa này.
