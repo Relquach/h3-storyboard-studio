@@ -106,3 +106,40 @@ class H3StudioSaveVideo:
 
 NODE_CLASS_MAPPINGS['H3StudioSaveVideo']=H3StudioSaveVideo
 NODE_DISPLAY_NAME_MAPPINGS['H3StudioSaveVideo']='H3 Studio — Save MP4 + Audio'
+
+# Kept separate to allow bounded header inspection in CPU-only tests.
+from .native_encoder import H3StudioNativeClipLoader
+NODE_CLASS_MAPPINGS['H3StudioNativeClipLoader']=H3StudioNativeClipLoader
+NODE_DISPLAY_NAME_MAPPINGS.update({
+    'H3StudioNativeClipLoader':'02 · Bộ mã hóa H3 — GGUF native có thị giác',
+    'H3StudioReferences':'04 · Ghép storyboard và đúng nhân vật',
+    'H3StudioUpscale':'06 · Tăng độ phân giải theo từng khung hình',
+    'H3StudioSaveVideo':'07 · Lưu video MP4 và âm thanh',
+})
+WEB_DIRECTORY='./web'
+
+
+def duration_to_frames(seconds):
+    import math
+    if not isinstance(seconds,(float,int)) or not math.isfinite(seconds) or not 4<=seconds<=15:
+        raise ValueError('Thời lượng clip local phải từ 4 đến 15 giây.')
+    frames=math.ceil((round(seconds*24)-5)/17)*17+5
+    return min(362,max(107,frames))
+
+
+class H3StudioDuration:
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {'required':{'seconds':('FLOAT',{'default':5.0,'min':4.0,'max':15.0,'step':0.1,
+            'tooltip':'Thời lượng mong muốn. H3 cần số frame 17n+5; clip nguồn có thể dài hơn một chút.'})}}
+    RETURN_TYPES=('INT','FLOAT')
+    RETURN_NAMES=('Số frame hợp lệ','Thời lượng thực (giây)')
+    FUNCTION='calculate'
+    CATEGORY='H3 Storyboard Studio'
+    def calculate(self,seconds):
+        frames=duration_to_frames(seconds)
+        return (frames,frames/24.0)
+
+
+NODE_CLASS_MAPPINGS['H3StudioDuration']=H3StudioDuration
+NODE_DISPLAY_NAME_MAPPINGS['H3StudioDuration']='THỜI LƯỢNG CLIP (GIÂY)'
