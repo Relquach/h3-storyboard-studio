@@ -1,0 +1,212 @@
+{
+  "1": {
+    "class_type": "H3ModelLoaderAny",
+    "inputs": {
+      "model_name": "minimax_h3_ref2va_pruned-Q3_K.gguf",
+      "activation_reserve_gb": 0.0
+    }
+  },
+  "2": {
+    "class_type": "H3ClipLoaderAny",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+      "type": "minimax",
+      "mmproj_name": "MiniMax-H3-encoder-mmproj-F16.gguf"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3studio/storyboard.png"
+    }
+  },
+  "6": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3studio/character_01.png"
+    }
+  },
+  "10": {
+    "class_type": "H3StudioReferences",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "audio_vae": [
+        "4",
+        0
+      ],
+      "storyboard": [
+        "5",
+        0
+      ],
+      "prompt": "subject_definitions:\n<Subject 1> is An (CHAR_01), matching <Picture 2>: The stylized 3D young adult woman in the reference sheet, silver hair tied in a high ponytail, blue eyes, white shirt and turquoise earrings. Preserve her face, proportions, jewelry and outfit..\n<Picture 1> is the complete 1 by 3 storyboard, not a start-frame collage. Read left to right, then row by row. Repeated appearances across panels are the same characters, not extra people.\n\nsummary:\n[reference generation] A young woman notices someone she loves arriving, sits down, then smiles warmly toward them.\n\nretention_analysis:\nPreserve each character identity and design from its assigned sheet. Use storyboard panels for composition and action order, not a multi-panel output.\n\ndetailed_description:\nStylized 3D animated film, large expressive eyes, softly shaded skin, finely detailed hair, delicate jewelry, soft cinematic lighting. Preserve the reference character design and facial proportions; do not turn characters into live-action humans.\n[Shot 1] storyboard panel row 1, column 1, labeled SHOT 1. Medium close-up in the cafe, CHAR_01 on the left looking right. She notices an arrival and slowly turns her head toward the cafe doorway. One clear movement, restrained anticipation. Static camera. Planned duration 2.0 seconds.\n[Shot 2] At 00:02.000, cut to storyboard panel row 1, column 2, labeled SHOT 2. Medium shot in the same cafe. CHAR_01 sits down onto the chair in one quick natural motion. Her body remains proportionate; her hair follows with a small natural sway. Static camera. Planned duration 1.0 seconds.\n[Shot 3] At 00:03.000, cut to storyboard panel row 1, column 3, labeled SHOT 3. Close-up of CHAR_01, looking toward the doorway on screen right, smiling softly with recognition. Her face is unobstructed. Gentle camera push-in. Planned duration 2.0 seconds.\nRender sequential full-screen shots, never a grid or split-screen. Do not reproduce panel labels, borders, sheet layouts or white studio backgrounds. Preserve character count, facial identity, clothes and props. Clear natural-speed action; no unintended slow motion. No subtitles or watermarks.\n\noverall_soundscape:\nQuiet cafe ambience, chair movement. No dialogue and no music.\n\nnon_diegetic_music:\nN/A",
+      "roles_json": "[\"Storyboard, 1 rows by 3 columns: chronological shot order, staging, actions and setting.\", \"CHAR_01, An: The stylized 3D young adult woman in the reference sheet, silver hair tied in a high ponytail, blue eyes, white shirt and turquoise earrings. Preserve her face, proportions, jewelry and outfit.. Identity reference only; not another story panel.\"]",
+      "width": 640,
+      "height": 384,
+      "length": 124,
+      "ref_image_size": "match",
+      "character_1": [
+        "6",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "conditioning": [
+        "10",
+        0
+      ]
+    }
+  },
+  "13": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 112004
+    }
+  },
+  "14": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "res_multistep"
+    }
+  },
+  "15": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "scheduler": "beta",
+      "steps": 20,
+      "denoise": 1.0
+    }
+  },
+  "16": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "13",
+        0
+      ],
+      "guider": [
+        "12",
+        0
+      ],
+      "sampler": [
+        "14",
+        0
+      ],
+      "sigmas": [
+        "15",
+        0
+      ],
+      "latent_image": [
+        "10",
+        1
+      ]
+    }
+  },
+  "17": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "16",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "18": {
+    "class_type": "VAEDecodeAudio",
+    "inputs": {
+      "samples": [
+        "16",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    }
+  },
+  "20": {
+    "class_type": "H3StudioSaveVideo",
+    "inputs": {
+      "images": [
+        "17",
+        0
+      ],
+      "audio": [
+        "18",
+        0
+      ],
+      "fps": 24.0,
+      "filename_prefix": "h3studio/EP01_TEST_baseline_112004",
+      "crf": 18
+    }
+  },
+  "21": {
+    "class_type": "UpscaleModelLoader",
+    "inputs": {
+      "model_name": "RealESRGAN_x2plus.pth"
+    }
+  },
+  "22": {
+    "class_type": "H3StudioUpscale",
+    "inputs": {
+      "images": [
+        "17",
+        0
+      ],
+      "upscale_model": [
+        "21",
+        0
+      ],
+      "batch_size": 1
+    }
+  },
+  "24": {
+    "class_type": "H3StudioSaveVideo",
+    "inputs": {
+      "images": [
+        "22",
+        0
+      ],
+      "audio": [
+        "18",
+        0
+      ],
+      "fps": 24.0,
+      "filename_prefix": "h3studio/EP01_TEST_baseline_112004_upscaled",
+      "crf": 18
+    }
+  }
+}

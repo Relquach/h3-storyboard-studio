@@ -1,0 +1,17 @@
+research/
+.cache/
+__pycache__/
+*.pyc
+local.json
+/project.json
+reports/*
+!reports/VALIDATION.md
+!reports/cpu-tests.txt
+workflows/*
+!workflows/baseline.api.json
+!workflows/turbo4.api.json
+!workflows/README.md
+*.mp4
+*.png
+*.jpg
+*.rar

@@ -1,0 +1,23 @@
+test_archive_traversal_blocked (test_studio.WorkflowTests.test_archive_traversal_blocked) ... ok
+test_bad_checksum_never_committed (test_studio.WorkflowTests.test_bad_checksum_never_committed) ... ok
+test_duplicate_character (test_studio.WorkflowTests.test_duplicate_character) ... ok
+test_durations_and_mapping (test_studio.WorkflowTests.test_durations_and_mapping) ... ok
+test_enhance_preserves_audio (test_studio.WorkflowTests.test_enhance_preserves_audio) ... ok
+test_existing_model_never_overwritten (test_studio.WorkflowTests.test_existing_model_never_overwritten) ... ok
+test_long_clip_rejected (test_studio.WorkflowTests.test_long_clip_rejected) ... ok
+test_missing_reference_rejected (test_studio.WorkflowTests.test_missing_reference_rejected) ... ok
+test_no_accidental_turbo_stacking (test_studio.WorkflowTests.test_no_accidental_turbo_stacking) ... ok
+test_no_nan_duration (test_studio.WorkflowTests.test_no_nan_duration) ... ok
+test_one_second_shot_retained (test_studio.WorkflowTests.test_one_second_shot_retained) ... ok
+test_portable_root_validation (test_studio.WorkflowTests.test_portable_root_validation) ... ok
+test_reference_gap_rejected (test_studio.WorkflowTests.test_reference_gap_rejected) ... ok
+test_reference_wrapper_forwards_original_grid (test_studio.WorkflowTests.test_reference_wrapper_forwards_original_grid) ... ok
+test_resume_and_checksum (test_studio.WorkflowTests.test_resume_and_checksum) ... ok
+test_roles_count_rejected (test_studio.WorkflowTests.test_roles_count_rejected) ... ok
+test_schema_mismatch_detected (test_studio.WorkflowTests.test_schema_mismatch_detected) ... ok
+test_ui_conversion_links_roundtrip (test_studio.WorkflowTests.test_ui_conversion_links_roundtrip) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.005s
+
+OK

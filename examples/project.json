@@ -1,0 +1,38 @@
+{
+  "episode_id": "EP01_TEST",
+  "storyboard": "h3studio/storyboard.png",
+  "characters": [
+    {
+      "id": "CHAR_01",
+      "name": "An",
+      "file": "h3studio/character_01.png",
+      "description": "The stylized 3D young adult woman in the reference sheet, silver hair tied in a high ponytail, blue eyes, white shirt and turquoise earrings. Preserve her face, proportions, jewelry and outfit."
+    }
+  ],
+  "grid": [
+    1,
+    3
+  ],
+  "width": 640,
+  "height": 384,
+  "seed": 112004,
+  "summary": "A young woman notices someone she loves arriving, sits down, then smiles warmly toward them.",
+  "shots": [
+    {
+      "id": "SHOT 1",
+      "seconds": 2.0,
+      "description": "Medium close-up in the cafe, CHAR_01 on the left looking right. She notices an arrival and slowly turns her head toward the cafe doorway. One clear movement, restrained anticipation. Static camera."
+    },
+    {
+      "id": "SHOT 2",
+      "seconds": 1.0,
+      "description": "Medium shot in the same cafe. CHAR_01 sits down onto the chair in one quick natural motion. Her body remains proportionate; her hair follows with a small natural sway. Static camera."
+    },
+    {
+      "id": "SHOT 3",
+      "seconds": 2.0,
+      "description": "Close-up of CHAR_01, looking toward the doorway on screen right, smiling softly with recognition. Her face is unobstructed. Gentle camera push-in."
+    }
+  ],
+  "sound": "Quiet cafe ambience, chair movement. No dialogue and no music."
+}

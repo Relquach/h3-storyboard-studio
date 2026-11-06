@@ -1,0 +1,1 @@
+API graphs are drafts generated from examples/project.json. They require real input images and installed models. Do not import API JSON as a UI workflow. PREFLIGHT.bat retrieves the running ComfyUI object_info, validates enum values and socket types, then generates baseline.json and turbo4.json for UI import. Runtime verification is still required before inference.

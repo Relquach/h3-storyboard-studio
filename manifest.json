@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "experimental-not-gpu-benchmarked",
+  "models": [
+    {
+      "repo": "unsloth/MiniMax-H3-GGUF",
+      "revision": "babc040eff0084465460ead58fdb8ec44296f8dd",
+      "file": "minimax_h3_ref2va_pruned-Q3_K.gguf",
+      "destination": "models/diffusion_models/minimax_h3_ref2va_pruned-Q3_K.gguf",
+      "bytes": 8716105824,
+      "sha256": "1e93dbb3b88177c2ea459bcc86bed45c98e60dd39447306ce65680b590045559"
+    },
+    {
+      "repo": "unsloth/MiniMax-H3-GGUF",
+      "revision": "babc040eff0084465460ead58fdb8ec44296f8dd",
+      "file": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+      "destination": "models/text_encoders/qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+      "bytes": 13102161024,
+      "sha256": "a8ccadccd57ef34c838ffb8a7da8368bb554721b2760274a1d3b0df63960b997"
+    },
+    {
+      "repo": "unsloth/MiniMax-H3-GGUF",
+      "revision": "babc040eff0084465460ead58fdb8ec44296f8dd",
+      "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "destination": "models/vae/minimax_h3_audio_vae_fp32.safetensors",
+      "bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48"
+    },
+    {
+      "repo": "unsloth/MiniMax-H3-GGUF",
+      "revision": "babc040eff0084465460ead58fdb8ec44296f8dd",
+      "file": "vae/minimax_h3_video_vae_fp16.safetensors",
+      "destination": "models/vae/minimax_h3_video_vae_fp16.safetensors",
+      "bytes": 5207808496,
+      "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522"
+    },
+    {
+      "repo": "joeygambino/MiniMax-H3-encoder-GGUF",
+      "revision": "faf0a82600ca485ee658b8c1d604da430d0293b0",
+      "file": "MiniMax-H3-encoder-mmproj-F16.gguf",
+      "destination": "models/text_encoders/MiniMax-H3-encoder-mmproj-F16.gguf",
+      "bytes": 1200333792,
+      "sha256": "448b7ab3ca0b1f92a5ebca9cc6a4b56e7dbb45b0e313c9d34d8a1154eb49d7ea"
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "loras/minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+      "destination": "models/loras/minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+      "bytes": 1956193000,
+      "sha256": "5b9ab5ade15d0775676d01a907268a69a1468dc6033b3b0d3ded5502f3ebb84c"
+    },
+    {
+      "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth",
+      "file": "RealESRGAN_x2plus.pth",
+      "destination": "models/upscale_models/RealESRGAN_x2plus.pth",
+      "bytes": 67061725,
+      "sha256": "49fafd45f8fd7aa8d31ab2a22d14d91b536c34494a5cfe31eb5d89c2fa266abb"
+    }
+  ],
+  "custom_nodes": [
+    {
+      "repo": "city96/ComfyUI-GGUF",
+      "revision": "6ea2651e7df66d7585f6ffee804b20e92fb38b8a",
+      "folder": "ComfyUI-GGUF"
+    },
+    {
+      "repo": "jlucasmcrell/ComfyUI-H3-Multishot",
+      "revision": "d7d197709fc93c1afb125e3db1dfd4ac0ae28c60",
+      "folder": "ComfyUI-H3-Multishot"
+    }
+  ],
+  "core_inspected_commit": "63e5bf594339f676b4b15e072529873e3448409e"
+}
