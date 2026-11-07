@@ -1,3 +1,5 @@
+> **Hướng dẫn workflow gốc — 36 trang có ảnh:** [Đọc/tải PDF](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.pdf) · [Word có thể chỉnh sửa](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.docx) · [Tải gói đầy đủ](docs/workflow-guide/Huong-dan-MiniMax-H3-tron-bo.zip) · [Cách đọc tài liệu](docs/workflow-guide/README.md). Giải thích setting, ảnh-node-Picture, quy trình tạo nháp → chọn take → upscale và ví dụ Lan 15 giây. Gói đầy đủ có thêm HTML ngoại tuyến tìm kiếm được và prompt mẫu.
+
 > **Sửa lỗi 10 node thiếu — bản1.1:** [Tải ZIP mới](dist/H3-Original-Missing-Parts-v1.1.0.zip). Giải nén và chạy **SUA_10_NODE.bat** để cài take/finishing từ Drive, PlagueKind upscale/size và Pixaroma vào đúng ComfyUI đang dùng. Chế độ này không tải model. [Hướng dẫn](original-workflow-missing-fix/README.md). Đã thử luồng cài node và import đủ11 loại bằng ComfyUI thật trên CPU; chưa chạy Windows/GPU.
 
 > **Bản vá các phần thiếu trong workflow gốc:** [Tải ZIP](dist/H3-Original-Missing-Parts-v1.0.0.zip) · [Hướng dẫn](original-workflow-missing-fix/README.md). Chạy CAI_PHAN_CON_THIEU.bat để thêm Pixaroma, Realism People LoRA và video VAE INT8 vào đúng Portable hiện có (~2.94 GB model). Giữ nguyên workflow, Torch và ComfyUI core.
@@ -51,7 +53,7 @@ Tham khảo: [ComfyUI H3](https://github.com/Comfy-Org/docs/blob/main/tutorials/
 
 Picture 1 luôn là nguyên storyboard. Trong chuỗi tham chiếu mới, Picture 2 trở đi theo thứ tự các ô đang bật; mỗi ô giữ tên và loại tài sản riêng. `project.json` ghi ID, tên, file và mô tả từng người; code sinh prompt và dây nối từ cùng dữ liệu, không đánh số riêng bằng tay. Sheet nên có khuôn mặt rõ và trang phục giống các ô storyboard. Lặp lại người trong các ô là cùng một nhân vật; prompt loại lưới, nhãn và nền sheet khỏi video.
 
-Ảnh bạn cung cấp trong chat **không được đăng lên repo**. Ví dụ chỉ mô tả phong cách bằng chữ; để thử đúng, bạn cần chọn storyboard và character sheet do bạn tạo/duyệt từ ảnh đó. Bộ cài không tự có ảnh riêng trong cuộc trò chuyện và không tự huấn luyện LoRA nhân vật.
+Các bộ cài không kèm ảnh riêng làm đầu vào render. Tài liệu hướng dẫn mới có ảnh Lan và storyboard minh họa đã được người dùng cho phép công khai; để chạy workflow, chọn storyboard và character sheet của bạn trên máy. Bộ cài không tự có ảnh riêng trong cuộc trò chuyện và không tự huấn luyện LoRA nhân vật.
 
 `grid` là [số hàng, số cột], không cố định 6/9 ô. Thời lượng từng shot tùy hành động, có thể 1 giây; project mỗi lượt 4–15 giây, số frame bám lưới 17n+5, nên thời lượng clip nguồn có thể dài hơn timeline dự kiến. Dựng/cắt cuối để đạt thời lượng tập. Cut trong prompt là mục tiêu, không bảo đảm đúng từng frame.
 
@@ -102,3 +104,4 @@ Lỗi `ModuleNotFoundError: No module named install` đã được tái hiện v
 Tiện ích chấm/chọn cấu hình đã đổi tên từ scripts/select.py sang scripts/choose_preset.py. Bootstrap hiện đặt thư mục scripts sau thư viện chuẩn và các module nhúng. repair.py cũng dùng portable_paths.py nhẹ, không import installer hoặc urllib để cập nhật node. Bản mới vẫn chạy được nếu bạn giải nén đè và còn file select.py cũ. Không cần tải lại model.
 
 Cách sửa nhanh bản cũ: đổi tên scripts/select.py thành scripts/choose_preset.py rồi chạy lại UPGRADE.bat. Khi dùng CLI chọn cấu hình sau benchmark, dùng tên choose_preset.py.
+
