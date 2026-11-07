@@ -1,0 +1,52 @@
+[
+  {
+    "step_upscale": false,
+    "result": [
+      true,
+      null,
+      [
+        "43",
+        "108"
+      ],
+      {}
+    ]
+  },
+  {
+    "step_upscale": true,
+    "result": [
+      true,
+      null,
+      [
+        "43",
+        "108"
+      ],
+      {}
+    ]
+  },
+  {
+    "storyboard_only": true,
+    "step_upscale": false,
+    "result": [
+      true,
+      null,
+      [
+        "43",
+        "108"
+      ],
+      {}
+    ]
+  },
+  {
+    "storyboard_only": true,
+    "step_upscale": true,
+    "result": [
+      true,
+      null,
+      [
+        "43",
+        "108"
+      ],
+      {}
+    ]
+  }
+]

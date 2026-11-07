@@ -1,0 +1,13 @@
+{
+  "frontend": "1.57.4",
+  "two_refs": {
+    "image_count": 2,
+    "setup_issues": 0
+  },
+  "storyboard_only": {
+    "image_count": 1,
+    "setup_issues": 0,
+    "dangling_picture_2": false
+  },
+  "rendered": false
+}

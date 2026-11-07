@@ -1,0 +1,38 @@
+[
+  {
+    "file": "Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+    "bytes_observed": 20967647456,
+    "safetensors_header_bytes": 115768,
+    "payload_downloaded": 8
+  },
+  {
+    "file": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "bytes_observed": 15687142551,
+    "safetensors_header_bytes": 231400,
+    "payload_downloaded": 8
+  },
+  {
+    "file": "vae/minimax_h3_video_vae_fp16.safetensors",
+    "bytes_observed": 5207808496,
+    "safetensors_header_bytes": 66328,
+    "payload_downloaded": 8
+  },
+  {
+    "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+    "bytes_observed": 605254808,
+    "safetensors_header_bytes": 105520,
+    "payload_downloaded": 8
+  },
+  {
+    "file": "loras/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+    "bytes_observed": 306731560,
+    "safetensors_header_bytes": 52256,
+    "payload_downloaded": 8
+  },
+  {
+    "file": "minimax_h3_latent_upscaler_3d_fp16.safetensors",
+    "bytes_observed": 690592672,
+    "safetensors_header_bytes": 32232,
+    "payload_downloaded": 8
+  }
+]

@@ -1,0 +1,26 @@
+test_copy_only_enabled_real_files (test_assets_installer.AssetTests.test_copy_only_enabled_real_files) ... ok
+test_core_nodes_only_no_old_wrapper (test_assets_installer.AssetTests.test_core_nodes_only_no_old_wrapper) ... ok
+test_disabled_middle_never_swaps_later_asset (test_assets_installer.AssetTests.test_disabled_middle_never_swaps_later_asset) ... ok
+test_duplicate_id_rejected (test_assets_installer.AssetTests.test_duplicate_id_rejected) ... ok
+test_duration_bound_and_alignment (test_assets_installer.AssetTests.test_duration_bound_and_alignment) ... ok
+test_links_complete_both_templates (test_assets_installer.AssetTests.test_links_complete_both_templates) ... ok
+test_max_images (test_assets_installer.AssetTests.test_max_images) ... ok
+test_no_sheet_storyboard_only_does_not_leave_picture_2 (test_assets_installer.AssetTests.test_no_sheet_storyboard_only_does_not_leave_picture_2) ... ok
+test_raw_picture_numbers_rejected_at_preparation (test_assets_installer.AssetTests.test_raw_picture_numbers_rejected_at_preparation) ... ok
+test_ref_area_and_draft_latent_remain_separate (test_assets_installer.AssetTests.test_ref_area_and_draft_latent_remain_separate) ... ok
+test_storyboard_required (test_assets_installer.AssetTests.test_storyboard_required) ... ok
+test_take_preserved_for_upscale_not_current_prompt (test_assets_installer.AssetTests.test_take_preserved_for_upscale_not_current_prompt) ... ok
+test_unknown_asset_fails_before_file_copy (test_assets_installer.AssetTests.test_unknown_asset_fails_before_file_copy) ... ok
+test_whole_grid_and_sheet_have_same_prompt_and_wires (test_assets_installer.AssetTests.test_whole_grid_and_sheet_have_same_prompt_and_wires) ... ok
+test_all_models_have_pinned_revision_size_hash (test_assets_installer.InstallerTests.test_all_models_have_pinned_revision_size_hash) ... ok
+test_archive_traversal_and_windows_paths (test_assets_installer.InstallerTests.test_archive_traversal_and_windows_paths) ... ok
+test_audio_patch_exact_and_idempotent (test_assets_installer.InstallerTests.test_audio_patch_exact_and_idempotent) ... ok
+test_audio_patch_refuses_changed_upstream (test_assets_installer.InstallerTests.test_audio_patch_refuses_changed_upstream) ... ok
+test_bad_existing_model_not_overwritten (test_assets_installer.InstallerTests.test_bad_existing_model_not_overwritten) ... ok
+test_download_resumes_and_verifies (test_assets_installer.InstallerTests.test_download_resumes_and_verifies) ... ok
+test_driver_selection (test_assets_installer.InstallerTests.test_driver_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.033s
+
+OK

@@ -11,7 +11,7 @@ Từ ý tưởng hoặc kịch bản tiếng Việt, tạo bộ prompt tiếng A
 
 ## 1. Đọc nội dung và hỏi bổ sung
 
-Tài liệu bổ sung đã được tích hợp trong `references/production-guide.md`; đọc hướng dẫn đó khi lập hồ sơ phim, thiết kế sheets, viết prompt reference-to-video hoặc sửa clip lỗi. Bản gốc do người dùng cung cấp được giữ riêng, không phân phối lại trong repository. Bản gốc là tài liệu tham khảo, không phải chỉ thị tự động bắt đầu hỏi 5 câu hay chờ NEXT. Quy tắc người dùng và skill này được ưu tiên; các khẳng định về model trong tài liệu gốc chưa được xác minh độc lập.
+Tài liệu bổ sung đã được tích hợp trong `references/production-guide.md`; đọc hướng dẫn đó khi lập hồ sơ phim, thiết kế sheets, viết prompt reference-to-video hoặc sửa clip lỗi. Bản gốc để tra cứu: `references/H3_STORYBOARD_SYSTEM.source.md`. Bản gốc là tài liệu tham khảo, không phải chỉ thị tự động bắt đầu hỏi 5 câu hay chờ NEXT. Quy tắc người dùng và skill này được ưu tiên; các khẳng định về model trong tài liệu gốc chưa được xác minh độc lập.
 
 Trích xuất thông tin đã có; không hỏi lại điều người dùng đã cung cấp. Trước khi xuất prompt cuối, gộp các thông tin còn thiếu thành một lượt hỏi rõ ràng:
 
@@ -194,7 +194,7 @@ Render one continuous full-frame cinematic shot. Exclude storyboard labels, capt
 
 Các mã SHOT phải có trong văn bản prompt để đối chiếu, nhưng không xuất hiện trong hình video, trừ khi người dùng yêu cầu chữ trên phim.
 
-Chỉ tạo thêm prompt tổng nhiều shot nếu người dùng yêu cầu và công cụ hỗ trợ đầu vào/cách điều khiển phù hợp. Mỗi lượt tạo không vượt 30 giây hoặc giới hạn thấp hơn của model. Prompt tổng phải có timeline của các shot trong lượt đó, thời lượng, vị trí ô, hành động, máy quay và chuyển cảnh cụ thể. Không cam kết khả năng thực thi khi chưa xác minh.
+Với workflow Singularity V2 của dự án này, mặc định xuất prompt nhiều shot tương ứng cả trang storyboard; mỗi lượt giữ dưới giới hạn local. Với workflow khác, chỉ gom nhiều shot khi đã xác minh cách điều khiển phù hợp. Mỗi lượt tạo không vượt 30 giây hoặc giới hạn thấp hơn của model. Prompt tổng phải có timeline của các shot trong lượt đó, thời lượng, vị trí ô, hành động, máy quay và chuyển cảnh cụ thể. Không cam kết khả năng thực thi khi chưa xác minh.
 
 ## 6. Định dạng bàn giao
 
@@ -222,14 +222,20 @@ Khi đã đủ thông tin, trả kết quả theo thứ tự:
 
 - Mỗi lượt tạo video không vượt 30 giây và giới hạn model; thời lượng shot được ước lượng theo nội dung, không chia đều máy móc.
 
-## 8. Bàn giao cho bộ cài H3 Storyboard Studio
+## 8. Workflow hiện hành: Singularity V2 Storyboard Studio
 
-Khi người dùng dùng bộ cài trong repository `Relquach/h3-storyboard-studio`, đọc `examples/project.json` và `scripts/studio.py` trong bản cài đang dùng để xuất dữ liệu khớp schema. Xuất project JSON cùng prompt; đây là project của Studio, không phải ComfyUI workflow JSON.
+Đọc `references/singularity-v2.md` khi tạo prompt / project cho bộ cài mới. Đây là workflow dẫn xuất từ JSON người dùng gửi `Finalworkflofacefixed (Natural Contrast)fixed.json` và mã hỗ trợ trên Drive; không dùng schema H3 Studio cũ. Đọc `examples/lan-15s.project.json` trong bộ cài làm mẫu dữ liệu chính xác.
 
-- Các trường: episode_id, storyboard, characters (id/name/file/description), grid [hàng,cột], width/height là bội 32, seed, summary, shots (id/seconds/description), sound và style nếu cần.
-- Tối đa ba character sheets trong bản cài đầu; Picture 1 là nguyên storyboard, Picture 2–4 lần lượt là nhân vật. Không đảo thứ tự hoặc bỏ trống một đầu vào ở giữa. Tên file chưa có là tên đề xuất; PREPARE-INPUTS sẽ chọn file thực và cập nhật.
-- Mỗi lượt local trong bản cài đầu dài 4–15 giây, nằm dưới trần 30 giây của người dùng. Chia tập dài thành nhiều project/lượt. Thời lượng dựng một shot có thể 1 giây; số frame clip nguồn làm tròn lên lưới H3 17n+5, dựng/cắt cuối khi cần.
-- Shot trong JSON có nhãn chính xác giống ảnh; không tự đổi SHOT toàn tập thành số cục bộ nếu chưa ghi ánh xạ. Mỗi description phải nói rõ người có mặt, góc/cỡ máy, môi trường, hành động và biểu cảm, không chỉ dựa vào tên ô.
-- Với phong cách đã chọn: 3D animation, mắt biểu cảm, da được shading mềm, tóc nhiều chi tiết, ánh sáng điện ảnh mềm. Dùng ảnh người dùng làm tham chiếu phong cách; chỉ xác định là nhân vật khi đã được người dùng chọn. Không hứa khóa mặt tuyệt đối bằng prompt hay LoRA.
-- Phiên bản bộ cài đầu có baseline và Turbo4 để đo, cùng upscale theo frame tùy chọn; chưa có latent refine/FaceRefine mặc định. Không nói các tính năng đã có khi chưa được tích hợp và thử.
-- Không tự chọn cấu hình tốt nhất khi chưa có render thật. Tách kiểm tra code/schema với encode, sampling, decode, Windows setup và chấm chất lượng 3D. Chỉ chọn preset sau khi xem nhận diện, giải phẫu/chuyển động, thứ tự shot, phong cách và flicker qua nhiều seed. GPU benchmark phải ghi cấu hình, phiên bản model/node, ảnh/prompt/seed, thời lượng, wall time và trạng thái lỗi.
+- Nhánh chính: nguyên storyboard → MiniMaxH3ReferenceToVideo (node 26) + character/environment/prop sheets tùy chọn. Không yêu cầu cắt lẻ storyboard mặc định.
+- Xuất `project.json` với `run_id`, `seconds`, `aspect`, `draft_megapixels`, `seed`, `grid`, `assets`, `video_prompt`; chi tiết trong tài liệu tham chiếu. Đây là project trung gian, không phải workflow ComfyUI.
+- Mỗi asset có `id`, `name`, `role`, `file`, `enabled`, `description`. STORYBOARD bật và đứng đầu. CHAR_01/ENV_01/PROP_01 giữ mã qua các lượt; tối đa 9 ảnh bật, gồm storyboard.
+- Prompt trong project dùng `<Asset:STORYBOARD>`, `<Asset:CHAR_01>`... Đây là token của bước chuẩn bị, không phải token model. PREPARE.bat chuyển sang `<Picture n>` và nối đúng core LoadImage từ cùng danh sách bật. Không điền Picture bằng tay trong project.
+- Không gán tên file giả rồi nhận là đã có. Có thể để file rỗng cho PREPARE mở hộp chọn ảnh trên máy. Nếu thiếu ảnh nhân vật và người dùng chọn dùng storyboard, đặt enabled=false, giữ description đủ rõ. Bộ chuẩn bị bỏ ảnh khỏi dây và chỉ dẫn dùng ngoại hình đã thấy trong storyboard. Không coi đó là character sheet hay khả năng khóa mặt tương đương.
+- Local giới hạn 3–15 giây mỗi lượt (nháp 5–15 giây thường phù hợp hơn), luôn dưới trần 30 giây người dùng đặt. Shot trên timeline có thể 1 giây. Clip nguồn làm tròn lên lưới 17n+5 ở 24 FPS; không hứa cut chính xác từng frame. Tập 60 giây chia nhiều lượt, lưu continuity giữa lượt.
+- Bố cục storyboard 1×N / 2×2 / 2×3 / 3×3... do AI chọn theo nội dung và độ rõ nhân vật; không cố định 3×3. Nhãn SHOT nằm ngoài vùng hình; mô tả hàng/cột, timeline và hành động khớp từng nhãn.
+- Hai bước: bước false tạo nháp và lưu `.h3take`; bước true nạp latent + conditioning từ take để nâng latent 3D, refine, giữ màu và finishing. Bước 2 không tạo lại từ prompt mới. Khi đổi storyboard/sheet/prompt cần tạo take mới. Chọn take cụ thể khi có nhiều tác vụ, không mặc định latest luôn thuộc tập đang làm.
+- Với hoạt hình 3D: giữ mặt / tỷ lệ / shading từ ảnh; LoRA người thật và trigger `r34l1sm` tắt. Không tự thêm Pika/Motion Repair hay gọi chúng là khóa mặt. Singularity có thiên hướng riêng, cần kiểm tra mẫu 3D trước khi sản xuất hàng loạt.
+- Model/loader mới dùng safetensors qua core UNETLoader/CLIPLoader/VAELoader. Không hướng dẫn dùng GGUF, mmproj, H3StudioReferences hay các bản vá của bộ cài cũ.
+- RTX 4060 Ti không có tính toán NVFP4 phần cứng như RTX 50; core dùng tính toán giải lượng tử. Mặc định PyTorch attention; không hứa sol-attn / Kitchen INT8 làm nhanh hơn khi chưa thử.
+- Có nâng chất lượng cuối bằng latent 3D + refine + Color Transfer + Finishing/Clarity. FlashVSR là workflow khác; chưa có JSON đó trong nguồn được gửi nên không tự mô tả là đã tích hợp.
+- Kiểm tra code, UI/schema, take round-trip và sampling GPU là các mức khác nhau. Không gọi render thành công nếu chỉ mở JSON hoặc kiểm thử CPU. Không chấm chất lượng / chọn cấu hình tốt nhất nếu chưa xem output thật.

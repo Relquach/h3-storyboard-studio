@@ -1,0 +1,38 @@
+{
+  "run_id": "KIEM_TRA_5S",
+  "seconds": 5,
+  "aspect": "9:16 (Portrait Widescreen)",
+  "draft_megapixels": 0.2,
+  "seed": 12004,
+  "grid": [
+    2,
+    2
+  ],
+  "assets": [
+    {
+      "id": "STORYBOARD",
+      "name": "Storyboard 2x2",
+      "role": "storyboard",
+      "file": "",
+      "enabled": true,
+      "description": "A 2-row by 2-column storyboard, panels SHOT 1 to SHOT 4 read left to right, top to bottom; golden rice field at sunset."
+    },
+    {
+      "id": "CHAR_01",
+      "name": "Lan",
+      "role": "character",
+      "file": "",
+      "enabled": true,
+      "description": "Lan, a petite adult Vietnamese woman, 155 cm tall, slender build, fair rosy skin, long dark brown half-up hair with a pale pink bow, pearl earrings, opaque white ao dai and white trousers."
+    },
+    {
+      "id": "ENV_01",
+      "name": "Đồng lúa",
+      "role": "environment",
+      "file": "",
+      "enabled": false,
+      "description": "The ripe golden rice field, grassy bund, peach-lavender sunset sky and warm low sunlight depicted in the storyboard."
+    }
+  ],
+  "video_prompt": "Use only SHOT 1 from the top-left panel of <Asset:STORYBOARD>. One continuous full-frame 3D animated shot of Lan from <Asset:CHAR_01> seated by golden rice at sunset. Slow push-in, gentle breeze, small natural smile. No cuts. No speech. No grid, labels, subtitles or sheet layout in the video."
+}

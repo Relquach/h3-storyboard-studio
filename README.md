@@ -1,3 +1,5 @@
+> **Bộ cài mới theo workflow/video Singularity V2:** [Tải ZIP riêng](dist/Singularity-Storyboard-Studio-v1.0.0.zip) · [Hướng dẫn](singularity-v2/README.md) · [Skill đã cập nhật](singularity-v2/skills/minimax-h3-film/SKILL.md). Giải nén ZIP riêng rồi chạy INSTALL.bat bên trong; không dùng bộ cài GGUF cũ ở phần dưới. Đã kiểm tra UI/schema/take trên CPU, chưa render GPU/Windows.
+
 # H3 Storyboard Studio — Windows Portable
 
 **Experimental release. Installer and graph logic tested on CPU; no GPU render or Windows execution has been completed by the author of this package. No preset is yet a measured quality/speed winner.**

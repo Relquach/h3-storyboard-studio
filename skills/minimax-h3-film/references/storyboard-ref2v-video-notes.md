@@ -1,6 +1,6 @@
 # Bổ sung từ video hướng dẫn 6-grid của người dùng
 
-Nguồn: video hướng dẫn 6-grid do người dùng cung cấp. Ghi nhận qua các khung hình được trích, chưa phiên âm lời nói, chưa lấy workflow JSON và chưa chạy thử. Không coi preview trong video là chứng minh chính xác mọi tham số hoặc chất lượng giữ danh tính.
+Nguồn: video MP4 trên Drive, file ID `1AyybNb_dYVN1zdHLsrlH-uoElcTLPmZw`, tên “Master Storyboard-to-Video in MiniMax H3_ 6-Grid Reference Guide - (1080p).mp4”, thời lượng khoảng 11 phút 45 giây. Ghi nhận qua các khung hình được trích, chưa phiên âm lời nói, chưa lấy workflow JSON và chưa chạy thử. Không coi preview trong video là chứng minh chính xác mọi tham số hoặc chất lượng giữ danh tính.
 
 ## Các quan sát có thể đối chiếu
 

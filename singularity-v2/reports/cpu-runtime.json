@@ -1,0 +1,9 @@
+{
+  "schema_pass1": true,
+  "schema_pass2": true,
+  "take_round_trip": true,
+  "finishing_cpu": true,
+  "audio_patch": "already-patched",
+  "real_weight_forward": false,
+  "gpu_render": false
+}

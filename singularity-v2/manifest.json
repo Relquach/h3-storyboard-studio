@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "status": "experimental; CPU runtime schema/take/finishing validated; no Windows/GPU render",
+  "core": {
+    "repo": "Comfy-Org/ComfyUI",
+    "revision": "086099f5d8886163ef77dc354f8382cb7431582a",
+    "version": "0.43.1"
+  },
+  "plague": {
+    "repo": "PlagueKind/ComfyUI-PlagueKind-Nodes",
+    "revision": "d58d006a4ea32c25c06499f2ff104f0852a045a6"
+  },
+  "torch_version": "2.10.0",
+  "torchvision_version": "0.25.0",
+  "torchaudio_version": "2.10.0",
+  "models": [
+    {
+      "repo": "WarmBloodAban/Minimax-h3_Singularity",
+      "revision": "1259cf16cd0b655ba691a32fb46a409142762972",
+      "file": "Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+      "destination": "diffusion_models/Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+      "bytes": 20967647456,
+      "sha256": "d7637c2c35cd30facd9e93778c491f6d82f91c4a441aecbdb4c384a62a5f3d9f",
+      "required": true
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "destination": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "bytes": 15687142551,
+      "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+      "required": true
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_video_vae_fp16.safetensors",
+      "destination": "vae/minimax_h3_video_vae_fp16.safetensors",
+      "bytes": 5207808496,
+      "sha256": "7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522",
+      "required": true
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+      "destination": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+      "bytes": 2811065184,
+      "sha256": "52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e",
+      "required": false
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "destination": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+      "required": true
+    },
+    {
+      "repo": "Kijai/MiniMax-H3_comfy",
+      "revision": "587e806edadec7b92393556b3ac3115cadfb32be",
+      "file": "loras/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+      "destination": "loras/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+      "bytes": 306731560,
+      "sha256": "9ea3bd3a6aac22994153e294cf1ecab0a8766fc0f8d056ace645a01d1a6a4daf",
+      "required": true
+    },
+    {
+      "repo": "PixelAlchemist123/Minimax_h3_latent_Upscaler",
+      "revision": "a49c4327daffdf499222aa6abb11306330f6820c",
+      "file": "minimax_h3_latent_upscaler_3d_fp16.safetensors",
+      "destination": "latent_upscale_models/minimax_h3_latent_upscaler_3d_fp16.safetensors",
+      "bytes": 690592672,
+      "sha256": "043e5a48e161610ef6c3ea974645220354d06fa618abca15f76d084812eb55c2",
+      "required": true
+    },
+    {
+      "repo": "fal/MiniMax-H3-Realism-People-LoRA",
+      "revision": "039cc8579d7aa357a882d7f4111b25da4f72dccc",
+      "file": "h3-realism-people-t2v-i2v-r2v.safetensors",
+      "destination": "loras/h3-realism-people-t2v-i2v-r2v.safetensors",
+      "bytes": 131229656,
+      "sha256": "acc529601d2da117fb81179e76c56e488a3beab1171659d305f04fa3655b787e",
+      "required": false
+    },
+    {
+      "repo": "LiconStudio/Minimax-H3-VBVR",
+      "revision": "775c83a4263c7e8ee3152d350959f9547a9b5dd5",
+      "file": "H3-Licon-VBVR-I2V.safetensors",
+      "destination": "loras/H3-Licon-VBVR-I2V.safetensors",
+      "bytes": 149238584,
+      "sha256": "19ba9d18c06eaecebd11c1ca1d27a0277f414d43370124e3cfcb33a113e9f886",
+      "required": false
+    },
+    {
+      "repo": "JOKER141/MiniMax-H3-General-Motion-Continuity-Repair",
+      "revision": "1676b352bb9f62407f76aee2ad55db2f36d04471",
+      "file": "Motion_Repair_V2.safetensors",
+      "destination": "loras/Motion_Repair_V2.safetensors",
+      "bytes": 155110272,
+      "sha256": "edfa0e2858caeba7be9108883f61da8525d3c58af998c94ac7a449d9603d7574",
+      "required": false
+    }
+  ]
+}
