@@ -1,3 +1,12 @@
+test_audio_freeze_and_idempotence (test_components.ComponentTests.test_audio_freeze_and_idempotence) ... ok
+test_audio_freeze_refuses_unknown_source (test_components.ComponentTests.test_audio_freeze_refuses_unknown_source) ... ok
+test_bundled_sources_present (test_components.ComponentTests.test_bundled_sources_present) ... ok
+test_duplicate_pack_detected (test_components.ComponentTests.test_duplicate_pack_detected) ... ok
+test_failed_copy_restores_old (test_components.ComponentTests.test_failed_copy_restores_old) ... ok
+test_idempotence_and_backup_outside_custom (test_components.ComponentTests.test_idempotence_and_backup_outside_custom) ... Đã bổ sung: /tmp/tmpdnt17amp/ComfyUI/custom_nodes/comfyui-h3-take
+Đã có component đúng bản: /tmp/tmpdnt17amp/ComfyUI/custom_nodes/comfyui-h3-take
+ok
+test_nested_plague_reused_instead_of_duplicate_pack (test_components.ComponentTests.test_nested_plague_reused_instead_of_duplicate_pack) ... ok
 test_archive_traversal_refused (test_missing_fix.MissingFixTests.test_archive_traversal_refused) ... ok
 test_bad_folder_rejected (test_missing_fix.MissingFixTests.test_bad_folder_rejected) ... ok
 test_corrupt_payload_not_promoted (test_missing_fix.MissingFixTests.test_corrupt_payload_not_promoted) ... ok
@@ -8,27 +17,27 @@ test_download_resumes_and_validates (test_missing_fix.MissingFixTests.test_downl
 test_existing_dependency_no_pip_call (test_missing_fix.MissingFixTests.test_existing_dependency_no_pip_call) ... Đã có dependency: imageio_ffmpeg
 ok
 test_failed_pack_move_restores_old (test_missing_fix.MissingFixTests.test_failed_pack_move_restores_old) ... ok
-test_full_fixture_install_keeps_workflow_and_core (test_missing_fix.MissingFixTests.test_full_fixture_install_keeps_workflow_and_core) ... COMFYUI ĐƯỢC BỔ SUNG: /tmp/tmp4zfr_m0n/ComfyUI_windows_portable/ComfyUI
+test_full_fixture_install_keeps_workflow_and_core (test_missing_fix.MissingFixTests.test_full_fixture_install_keeps_workflow_and_core) ... COMFYUI ĐƯỢC BỔ SUNG: /tmp/tmps58qbbf4/ComfyUI_windows_portable/ComfyUI
 PYTHON ĐANG DÙNG: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python
-Đã cài Pixaroma: /tmp/tmp4zfr_m0n/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
+Đã cài Pixaroma: /tmp/tmps58qbbf4/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
 Tải model: a.safetensors
 
 HOÀN TẤT. Đóng backend ComfyUI và mở lại bằng cách bạn vẫn dùng; Ctrl+F5 trang web.
 Workflow gốc và các model khác được giữ nguyên. Không cần chuyển sang một runtime/cổng khác.
 ok
 test_isolated_python_can_import_sibling_without_stdlib_shadow (test_missing_fix.MissingFixTests.test_isolated_python_can_import_sibling_without_stdlib_shadow) ... ok
-test_model_reused_by_hash_no_download (test_missing_fix.MissingFixTests.test_model_reused_by_hash_no_download) ... Kiểm tra SHA-256: /tmp/tmpqfeqxvjm/models/vae/a.safetensors
+test_model_reused_by_hash_no_download (test_missing_fix.MissingFixTests.test_model_reused_by_hash_no_download) ... Kiểm tra SHA-256: /tmp/tmp1__46fl9/models/vae/a.safetensors
 ok
-test_pack_backup_outside_custom_nodes_and_idempotent (test_missing_fix.MissingFixTests.test_pack_backup_outside_custom_nodes_and_idempotent) ... Đã cài Pixaroma: /tmp/tmpirwb5083/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
-Bản cũ đã sao lưu ngoài custom_nodes: /tmp/tmpirwb5083/ComfyUI_windows_portable/ComfyUI/user/h3_missing_fix/backups/ComfyUI-Pixaroma-1794072404529800924
-Pixaroma đã ở đúng bản đã kiểm tra: /tmp/tmpirwb5083/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
+test_pack_backup_outside_custom_nodes_and_idempotent (test_missing_fix.MissingFixTests.test_pack_backup_outside_custom_nodes_and_idempotent) ... Đã cài Pixaroma: /tmp/tmp1ebtneep/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
+Bản cũ đã sao lưu ngoài custom_nodes: /tmp/tmp1ebtneep/ComfyUI_windows_portable/ComfyUI/user/h3_missing_fix/backups/ComfyUI-Pixaroma-1794073219694726457
+Pixaroma đã ở đúng bản đã kiểm tra: /tmp/tmp1ebtneep/ComfyUI_windows_portable/ComfyUI/custom_nodes/ComfyUI-Pixaroma
 ok
 test_portable_root_accepts_nested_and_comfy_selection (test_missing_fix.MissingFixTests.test_portable_root_accepts_nested_and_comfy_selection) ... ok
-test_shared_model_reused (test_missing_fix.MissingFixTests.test_shared_model_reused) ... Kiểm tra SHA-256: /tmp/tmpp740akzi/shared/a.safetensors
+test_shared_model_reused (test_missing_fix.MissingFixTests.test_shared_model_reused) ... Kiểm tra SHA-256: /tmp/tmpip8d1vxn/shared/a.safetensors
 ok
 test_wrong_existing_model_preserved (test_missing_fix.MissingFixTests.test_wrong_existing_model_preserved) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.097s
+Ran 21 tests in 0.080s
 
 OK

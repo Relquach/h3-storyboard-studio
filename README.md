@@ -1,3 +1,5 @@
+> **Sửa lỗi 10 node thiếu — bản1.1:** [Tải ZIP mới](dist/H3-Original-Missing-Parts-v1.1.0.zip). Giải nén và chạy **SUA_10_NODE.bat** để cài take/finishing từ Drive, PlagueKind upscale/size và Pixaroma vào đúng ComfyUI đang dùng. Chế độ này không tải model. [Hướng dẫn](original-workflow-missing-fix/README.md). Đã thử luồng cài node và import đủ11 loại bằng ComfyUI thật trên CPU; chưa chạy Windows/GPU.
+
 > **Bản vá các phần thiếu trong workflow gốc:** [Tải ZIP](dist/H3-Original-Missing-Parts-v1.0.0.zip) · [Hướng dẫn](original-workflow-missing-fix/README.md). Chạy CAI_PHAN_CON_THIEU.bat để thêm Pixaroma, Realism People LoRA và video VAE INT8 vào đúng Portable hiện có (~2.94 GB model). Giữ nguyên workflow, Torch và ComfyUI core.
 
 > **Skill mới cho workflow gốc (v2.0.0):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.

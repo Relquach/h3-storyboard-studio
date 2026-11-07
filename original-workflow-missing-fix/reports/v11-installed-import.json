@@ -1,0 +1,23 @@
+{
+  "installed_by_nodes_action": true,
+  "second_run_idempotent": true,
+  "node_types_registered": [
+    "H3TakeLoad",
+    "H3TakeSave",
+    "H3UpscaleSizeLD",
+    "MMH3LatentUpscaleParams",
+    "MMH3LatentUpscaleWithModelParams",
+    "MMH3SpatialSplitParams",
+    "MMH3TemporalSplitParams",
+    "MMH3UltimateUpscale",
+    "VideoFinishDetailTone",
+    "PixaromaMonitor",
+    "PixaromaRunTimer"
+  ],
+  "model_downloads": false,
+  "core_unchanged": true,
+  "core_tested": "0.43.1",
+  "torch_tested": "2.10.0+cpu",
+  "windows_execution_tested": false,
+  "gpu_render_tested": false
+}

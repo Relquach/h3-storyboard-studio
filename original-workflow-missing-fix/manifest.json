@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "purpose": "Install missing Pixaroma pack, Realism People LoRA and INT8 video VAE for original workflow",
+  "version": "1.1.0",
+  "purpose": "Repair every custom-node type and required model in the original supplied H3 workflow; node-only action included",
   "node_pack": {
     "repo": "pixaroma/ComfyUI-Pixaroma",
     "revision": "413e0b2775cfe15be0ab41cc0eff4ce56120d5ea",
@@ -20,12 +20,57 @@
   },
   "models": [
     {
+      "repo": "WarmBloodAban/Minimax-h3_Singularity",
+      "revision": "1259cf16cd0b655ba691a32fb46a409142762972",
+      "file": "Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+      "destination": "diffusion_models/Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+      "bytes": 20967647456,
+      "sha256": "d7637c2c35cd30facd9e93778c491f6d82f91c4a441aecbdb4c384a62a5f3d9f",
+      "required": true
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "destination": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "bytes": 15687142551,
+      "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+      "required": true
+    },
+    {
       "repo": "Comfy-Org/MiniMax-H3",
       "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
       "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
       "destination": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
       "bytes": 2811065184,
       "sha256": "52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e",
+      "required": true
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "destination": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+      "required": true
+    },
+    {
+      "repo": "Kijai/MiniMax-H3_comfy",
+      "revision": "587e806edadec7b92393556b3ac3115cadfb32be",
+      "file": "loras/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+      "destination": "loras/minimax_h3_ref2v_lightx2v_turbo_4step_v0.1_resized_avg_rank_20_bf16.safetensors",
+      "bytes": 306731560,
+      "sha256": "9ea3bd3a6aac22994153e294cf1ecab0a8766fc0f8d056ace645a01d1a6a4daf",
+      "required": true
+    },
+    {
+      "repo": "PixelAlchemist123/Minimax_h3_latent_Upscaler",
+      "revision": "a49c4327daffdf499222aa6abb11306330f6820c",
+      "file": "minimax_h3_latent_upscaler_3d_fp16.safetensors",
+      "destination": "latent_upscale_models/minimax_h3_latent_upscaler_3d_fp16.safetensors",
+      "bytes": 690592672,
+      "sha256": "043e5a48e161610ef6c3ea974645220354d06fa618abca15f76d084812eb55c2",
       "required": true
     },
     {
@@ -37,5 +82,32 @@
       "sha256": "acc529601d2da117fb81179e76c56e488a3beab1171659d305f04fa3655b787e",
       "required": true
     }
+  ],
+  "plague": {
+    "repo": "PlagueKind/ComfyUI-PlagueKind-Nodes",
+    "revision": "d58d006a4ea32c25c06499f2ff104f0852a045a6",
+    "components": [
+      "ComfyUI-H3-UltimateUpscale-LD",
+      "ComfyUI-H3-UpscaleSize"
+    ],
+    "archive_bytes": 189401,
+    "archive_sha256": "5ebc7378cc3688bd436d572535fd3eeefe488452d6580f980785c3470d601932"
+  },
+  "required_custom_nodes": [
+    "H3TakeLoad",
+    "H3TakeSave",
+    "H3UpscaleSizeLD",
+    "MMH3LatentUpscaleParams",
+    "MMH3LatentUpscaleWithModelParams",
+    "MMH3SpatialSplitParams",
+    "MMH3TemporalSplitParams",
+    "MMH3UltimateUpscale",
+    "VideoFinishDetailTone",
+    "PixaromaMonitor",
+    "PixaromaRunTimer"
+  ],
+  "bundled_nodes": [
+    "comfyui-h3-take",
+    "comfyui-video-finishing"
   ]
 }

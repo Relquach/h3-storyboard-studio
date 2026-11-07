@@ -1,4 +1,4 @@
-﻿param([ValidateSet('install','check')][string]$Action='install')
+﻿param([ValidateSet('install','nodes','check','check-nodes')][string]$Action='install')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 Add-Type -AssemblyName System.Windows.Forms

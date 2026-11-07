@@ -1,56 +1,72 @@
-# Bổ sung phần còn thiếu — workflow H3 gốc
+# Sửa phần thiếu của workflow H3 gốc — v1.1.0
 
-Bản1.0.0, dành cho **ComfyUI Windows Portable hiện có**, theo ảnh lỗi mới nhất của người dùng.
+Bản vá này bổ sung cả nhóm node đang báo **Pack inconnu** trong ảnh mới: take, latent upscale, tính kích thước và finishing; kèm Pixaroma từ bản1.0.
 
-## Dùng ngay
+## Với lỗi 10 node trong ảnh: chạy file này
 
-1. Giải nén ZIP vào thư mục có quyền ghi, ví dụ Downloads.
-2. Nhấp **CAI_PHAN_CON_THIEU.bat**. Không chọn workflow JSON.
-3. Chờ chương trình báo **HOÀN TẤT**. Đóng backend/cửa sổ CMD ComfyUI rồi mở lại bằng cách bạn vẫn dùng; nhấn **Ctrl+F5** trong trình duyệt.
-4. Mở workflow gốc. Có thể chạy **KIEM_TRA.bat** để xác minh file/checksum và xem hai node Pixaroma đã được server nạp chưa.
+1. Giải nén ZIP mới vào một thư mục riêng.
+2. Chạy **SUA_10_NODE.bat**, chờ **HOÀN TẤT PHẦN NODE**.
+3. Đóng hẳn **backend/cửa sổ CMD ComfyUI**, mở lại bằng cách bạn vẫn dùng rồi nhấn **Ctrl+F5** trong trình duyệt.
+4. Chạy **KIEM_TRA_NODE.bat** nếu muốn kiểm tra. Nó đối chiếu toàn bộ11 loại custom node cần thiết trong workflow gốc, không chỉ Pixaroma.
 
-## Tự cài đúng những mục trong ảnh
+**SUA_10_NODE không tải/kiểm tra lại model, không đổi workflow, không nâng Torch hoặc ComfyUI core.** Mã node take/finishing được đóng sẵn từ ZIP Drive. PlagueKind tải khoảng189KB, Pixaroma khoảng11MB nếu chưa có cache đúng hash.
 
-| Mục | Đích |
+## Các gói được bổ sung
+
+| Nguồn / thư mục | Node trong workflow |
 |---|---|
-| Pixaroma pack: PixaromaMonitor + PixaromaRunTimer | `ComfyUI/custom_nodes/ComfyUI-Pixaroma` hoặc thư mục Pixaroma hiện có được phát hiện |
-| `h3-realism-people-t2v-i2v-r2v.safetensors` | `ComfyUI/models/loras` |
-| `minimax_h3_video_vae_int8_convrot.safetensors` | `ComfyUI/models/vae` |
-| Dependency thiếu của Pixaroma | `imageio-ffmpeg==0.6.0`, cài vào đúng Python Portable, chỉ khi module chưa có |
+| Drive: `comfyui-h3-take` | H3TakeSave, H3TakeLoad |
+| Drive: `comfyui-video-finishing` | VideoFinishDetailTone (2 node trong graph) |
+| PlagueKind: `ComfyUI-H3-UltimateUpscale-LD` | MMH3UltimateUpscale, MMH3LatentUpscaleParams, MMH3LatentUpscaleWithModelParams, MMH3SpatialSplitParams, MMH3TemporalSplitParams |
+| PlagueKind: `ComfyUI-H3-UpscaleSize` | H3UpscaleSizeLD |
+| Pixaroma | PixaromaMonitor, PixaromaRunTimer |
 
-Hai model khoảng **2,942 GB**, archive Pixaroma khoảng **11,12 MB**. File cùng tên hợp lệ ở model paths đang cấu hình được kiểm tra SHA-256 và dùng lại. Không tự đổi tên VAE FP16 thành INT8. LoRA Realism vẫn được tải để workflow gốc đầy đủ; khi làm hoạt hình3D bạn có thể bypass node#134 và bỏ trigger như skill hướng dẫn.
+Nhóm báo thiếu10 node có9 loại khác nhau vì VideoFinishDetailTone xuất hiện hai lần. Cộng hai loại Pixaroma là11 loại custom node. Các node take/finishing là pack riêng trong Drive, nên chỉ cài Pixaroma/tra Manager sẽ không bổ sung được chúng.
 
-## Nhận diện thư mục
+Audio-freeze được áp dụng có kiểm tra vào mã PlagueKind đúng commit, có backup; không cần Node.js. Temporal Detail Stabilizer/FlashVSR ngoài phạm vi H3 hai bước nên chưa cài.
 
-Ưu tiên đường dẫn đã lưu bởi bản vá; nếu chưa có thì thử nhận diện một ComfyUI Portable đang chạy. Nếu nhiều phiên đang chạy, yêu cầu chọn đúng thư mục. Khi không có phiên đang chạy, dùng đường dẫn đã biết:
+## Nếu còn thiếu model
+
+**CAI_PHAN_CON_THIEU.bat** cài đủ node như trên và kiểm tra/tải các model **đang bật trong JSON gốc**:
+
+- Singularity Ref2VA V2 pruned INT8.
+- Encoder Qwen3-VL32B NVFP4 AWQ.
+- Video VAE INT8, audio VAE FP32.
+- Turbo Ref2V rank20, Realism People.
+- H3 latent upscaler3D FP16.
+
+Chỉ tải file chưa có; file đúng dung lượng/SHA-256 sẽ được dùng lại. Bản1.0 chỉ có hai model trong ảnh cũ; bản1.1 kiểm tra cả model của nhánh upscale để tránh báo thiếu tiếp sau khi node đã nạp. Nếu chưa có bất kỳ model nào thì tổng dung lượng khoảng41.2GB; **để chỉ sửa lỗi node hiện tại, dùng SUA_10_NODE.bat**. Không tải Licon/Motion Repair vốn bypass trong graph gốc.
+
+**KIEM_TRA.bat** kiểm tra file/checksum model và các node. Vì phải đọc trọng số lớn để hash, bước kiểm tra model có thể mất thời gian. Không đổi tên VAE FP16 thành INT8. Muốn giữ model khác đã chủ động chọn trong workflow của bạn, chỉ chạy SUA_10_NODE.
+
+## Chọn đúng ComfyUI
+
+Bản vá dùng Portable đã lưu trong lần chạy cùng gói. Nếu chưa có, thử nhận diện một ComfyUI Portable đang chạy; khi nhiều phiên thì hỏi thư mục đúng. Nếu không có phiên, thử đường dẫn đã biết:
 
 `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`
 
-Nếu không tìm được, hộp thoại chỉ hỏi **thư mục Portable chứa python_embeded và ComfyUI**, không hỏi chọn file. Đường dẫn đích luôn được in trong cửa sổ. Bản vá dùng Python của Portable đó; không tạo runtime mới, không đổi cổng, không nâng Torch/ComfyUI core, không sửa workflow hoặc sampler.
+Hộp thoại, nếu xuất hiện, hỏi **thư mục Portable chứa python_embeded và ComfyUI**, không hỏi file workflow JSON. Đích cài luôn được in trong console. Không tạo runtime/cổng mới. Bản vá chưa tự nâng core; nguồn workflow dùng ComfyUI0.43.1 hoặc mới hơn.
 
-## Khi tải gián đoạn hoặc gặp lỗi
+## Bảo toàn dữ liệu và xử lý lỗi
 
-- Chạy lại cùng file BAT; download `.part` được tiếp tục nếu máy chủ hỗ trợ Range. Checksum sai không được đổi thành model hoàn chỉnh.
-- File model cùng tên nhưng sai hash được giữ nguyên và báo đường dẫn; không tự ghi đè model của người dùng.
-- Pixaroma cũ được sao lưu vào `ComfyUI/user/h3_missing_fix/backups`, nằm ngoài custom_nodes để tránh đăng ký node trùng. Nếu cài đúng bản vá này rồi thì bỏ qua thay pack.
-- Nếu tìm thấy nhiều thư mục Pixaroma, chương trình dừng và liệt kê chúng; tránh tạo thêm một bản gây xung đột route/node.
-- Log nằm trong thư mục **logs** của gói này. Các báo cáo cài/kiểm tra được lưu trong **reports**. Gặp lỗi, xem phần cuối log; không cần tải lại cả bộ model H3.
-- Sau cài phải khởi động lại **backend**, không chỉ refresh trang web. Nếu server còn thiếu node, KIEM_TRA in riêng trạng thái8188/8189 để tránh nhầm phiên. Cổng khác cần xem trực tiếp log backend; kiểm tra file trên ổ đĩa không đồng nghĩa server đã import thành công.
+- Nếu đã có PlagueKind đầy đủ, bản vá tìm các subpack bên trong để cập nhật đúng chỗ thay vì cài thêm một bản trực tiếp gây trùng. Nếu có nhiều bản cùng component, dừng và liệt kê chúng.
+- Pack cũ được sao lưu trong `ComfyUI/user/h3_missing_fix/backups`, ngoài custom_nodes. Sao chép thất bại sẽ khôi phục pack cũ. Cài lại cùng nội dung được bỏ qua; dấu vân tay file không tính __pycache__.
+- File model cùng tên nhưng sai hash được giữ nguyên và báo đường dẫn, không tự ghi đè. `.part` hỗ trợ tiếp tục tải khi máy chủ cho phép.
+- Dependency chỉ cài module còn thiếu; dùng đúng Python Portable và `--no-deps`. Không nâng Torch.
+- Log ở **logs**, báo cáo ở **reports** của gói này. Nếu sau restart vẫn thiếu node, xem lỗi import trong CMD hoặc chạy KIEM_TRA_NODE. Không nhận “file đã copy” tương đương “backend đã import”.
 
-## Phạm vi kiểm tra
+## Kiểm tra đã thực hiện
 
-14 kiểm tra CPU đã qua: tìm Portable, ZIP traversal, sao lưu/khôi phục pack, dùng lại model theo hash, đường model dùng chung, pip chỉ cài dependency thiếu, download tiếp tục, checksum hỏng và bảo toàn workflow/core trong lần cài fixture. PowerShell parser thật kiểm tra cú pháp launcher.
-
-Đã tải archive Pixaroma thật, xác minh hash và import cả pack vào ComfyUI0.43.1 trên CPU; cả hai node cần dùng đã đăng ký. URL hai model được kiểm tra bằng range, dung lượng và header safetensors khớp; hash model lấy từ metadata LFS upstream và được kiểm tra đầy đủ khi tải trên máy đích.
-
-Chưa chạy Windows Forms/cài trên Windows thật hoặc renderGPU. Bản vá này xử lý đúng các mục thiếu trong ảnh cuối, không chứng nhận toàn bộ workflow/model H3 đã render thành công.
+- **21 kiểm tra CPU**: download/hash, model đã có, backup/khôi phục, tìm subpack lồng trong PlagueKind, tránh bản trùng, audio-freeze và bảo toàn workflow/core.
+- Chạy luồng SUA_10_NODE thực tế trong Portable giả lập với archive Pixaroma/PlagueKind thật và source Drive thật. Chạy lần hai xác nhận bỏ qua nội dung đã cài. Sau đó ComfyUI0.43.1 thật bằng torch2.10.0+cpu nạp **chính5 thư mục vừa cài**; đủ11 loại node đã đăng ký. Thư mục model không được tạo và core sentinel giữ nguyên. Xem `reports/v11-installed-import.json`.
+- Source take/finishing khớp từng byte với custom_nodes_local.zip vừa tải lại từ Drive. SHA ZIP ghi trong `reports/drive-source.json`.
+- Parser PowerShell thật kiểm tra launcher. **Chưa chạy trên Windows thật hoặc renderGPU**, chưa chứng nhận tốc độ, VRAM hay chất lượng video. Mã đầy đủ trên ổ đĩa không bảo đảm import trên một core quá cũ hoặc môi trường dependency lỗi.
 
 ## Nguồn
 
-Model, pack và archive đều khóa revision/SHA-256 trong `manifest.json`.
-
+- Drive: https://drive.google.com/drive/folders/1-PxsMgTI-RD26KrUbiMnAWkV5-RZvUHS
+- PlagueKind: https://github.com/PlagueKind/ComfyUI-PlagueKind-Nodes
 - Pixaroma: https://github.com/pixaroma/ComfyUI-Pixaroma
-- LoRA: https://huggingface.co/fal/MiniMax-H3-Realism-People-LoRA
-- VAE: https://huggingface.co/Comfy-Org/MiniMax-H3
+- Model: các repository/commit/hash trong `manifest.json`.
 
-Giữ giấy phép upstream. Gói phát hành không chứa trọng số model hoặc bản ComfyUI/Python khác.
+Giữ giấy phép upstream; source hai pack Drive là mã tác giả cung cấp, không tự gán giấy phép khác. Không phân phối trọng số hay ComfyUI/Python trong ZIP.

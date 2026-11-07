@@ -15,7 +15,7 @@ def portable_root(value):
     raise ValueError('Chọn thư mục Portable chứa python_embeded và ComfyUI: '+str(p))
 
 
-def extract_repo(archive,destination):
+def extract_repo(archive,destination,required_files=None):
     destination=pathlib.Path(destination).resolve()
     with zipfile.ZipFile(archive) as z:
         names=[]
@@ -31,7 +31,7 @@ def extract_repo(archive,destination):
     children=[p for p in destination.iterdir() if p.is_dir()]
     if len(children)!=1:raise ValueError('Cấu trúc archive repository không đúng.')
     src=children[0]
-    for relative in ['__init__.py','nodes/node_monitor.py','nodes/node_run_timer.py']:
+    for relative in (required_files or ['__init__.py','nodes/node_monitor.py','nodes/node_run_timer.py']):
         if not (src/relative).is_file():raise ValueError('Thiếu file trong Pixaroma: '+relative)
     return src
 
@@ -120,15 +120,54 @@ def run_install(portable):
     spec=MANIFEST['node_pack'];archive=cache/(spec['revision']+'.zip')
     download('https://github.com/'+spec['repo']+'/archive/'+spec['revision']+'.zip',archive,spec['archive_bytes'],spec['archive_sha256'])
     install_dependencies();installed=install_pack(comfy,archive)
+    from components import install_h3_components
+    installed_h3=install_h3_components(comfy,cache,MANIFEST,ROOT,download,extract_repo)
     for model,path,found in targets:
         if found:print('Đã có file đúng checksum; bỏ qua tải:',path,flush=True);continue
         url='https://huggingface.co/'+model['repo']+'/resolve/'+model['revision']+'/'+model['file']
         print('Tải model:',path.name,flush=True);download(url,path,model['bytes'],model['sha256'])
-    report={'portable':str(portable),'comfy':str(comfy),'python':str(sys.executable),'pack':str(installed),'models':[{'path':str(p),'sha256':m['sha256'],'reused':found} for m,p,found in targets],'restart_required':True,'gpu_render_tested':False}
+    report={'portable':str(portable),'comfy':str(comfy),'python':str(sys.executable),'pack':str(installed),'h3_components':[str(p) for p in installed_h3],'models':[{'path':str(p),'sha256':m['sha256'],'reused':found} for m,p,found in targets],'restart_required':True,'gpu_render_tested':False}
     (ROOT/'local.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     (ROOT/'reports/installed.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print('\nHOÀN TẤT. Đóng backend ComfyUI và mở lại bằng cách bạn vẫn dùng; Ctrl+F5 trang web.',flush=True)
     print('Workflow gốc và các model khác được giữ nguyên. Không cần chuyển sang một runtime/cổng khác.',flush=True)
+
+
+
+def run_nodes(portable):
+    portable=portable_root(portable);comfy=portable/'ComfyUI';cache=comfy/'user/h3_missing_fix/cache';cache.mkdir(parents=True,exist_ok=True)
+    print('CHỈ SỬA NODE — KHÔNG TẢI MODEL:',comfy,flush=True)
+    spec=MANIFEST['node_pack'];archive=cache/(spec['revision']+'.zip')
+    download('https://github.com/'+spec['repo']+'/archive/'+spec['revision']+'.zip',archive,spec['archive_bytes'],spec['archive_sha256'])
+    install_dependencies();pix=install_pack(comfy,archive)
+    from components import install_h3_components
+    paths=install_h3_components(comfy,cache,MANIFEST,ROOT,download,extract_repo)
+    report={'portable':str(portable),'comfy':str(comfy),'pack':str(pix),'h3_components':[str(p) for p in paths],'models_downloaded':False,'restart_required':True}
+    (ROOT/'local.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    (ROOT/'reports/nodes-installed.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    print('HOÀN TẤT PHẦN NODE. Đóng backend ComfyUI, mở lại như cũ, rồi Ctrl+F5.',flush=True)
+
+
+def check_nodes(portable):
+    portable=portable_root(portable);comfy=portable/'ComfyUI'
+    from components import find_target
+    pix=pack_target(comfy)
+    if not (pix/'__init__.py').is_file():raise RuntimeError('Chưa thấy Pixaroma: '+str(pix))
+    for name in MANIFEST.get('bundled_nodes',[])+MANIFEST.get('plague',{}).get('components',[]):
+        target=find_target(comfy,name)
+        if not (target/'__init__.py').is_file():raise RuntimeError('Chưa thấy component: '+str(target))
+        print('Component trên ổ đĩa:',target,flush=True)
+    observations=[]
+    for port in [8188,8189]:
+        url=f'http://127.0.0.1:{port}'
+        try:
+            with urllib.request.urlopen(url+'/object_info',timeout=3) as r:info=json.load(r)
+        except (OSError,ValueError):continue
+        missing=[name for name in MANIFEST['required_custom_nodes'] if name not in info]
+        observations.append({'url':url,'missing_nodes':missing});print(url,'OK' if not missing else 'Thiếu: '+', '.join(missing),flush=True)
+    (ROOT/'reports/check-nodes.json').write_text(json.dumps({'observations':observations,'render_tested':False},indent=2))
+    if not observations:print('Chưa đọc được server. Khởi động đúng ComfyUI, rồi kiểm tra lại.',flush=True)
+    elif all(o['missing_nodes'] for o in observations):raise RuntimeError('Server chưa nạp đủ node. Cần restart backend; nếu vẫn lỗi, xem log import.')
 
 
 def check_install(portable):
@@ -145,14 +184,14 @@ def check_install(portable):
         url=f'http://127.0.0.1:{port}'
         try:
             with urllib.request.urlopen(url+'/object_info',timeout=3) as r:info=json.load(r)
-            missing=[name for name in MANIFEST['node_pack']['nodes'] if name not in info]
+            missing=[name for name in MANIFEST.get('required_custom_nodes',MANIFEST['node_pack']['nodes']) if name not in info]
             observations.append({'url':url,'missing_nodes':missing})
-            print(url,': '+('đã nạp cả hai node Pixaroma' if not missing else 'chưa nạp '+', '.join(missing)),flush=True)
+            print(url,': '+('đã nạp đủ custom node của workflow gốc' if not missing else 'chưa nạp '+', '.join(missing)),flush=True)
         except (OSError,ValueError) as exc:
             print(url,': chưa đọc được server ('+str(exc)+')',flush=True)
     (ROOT/'reports/check.json').write_text(json.dumps({'files_checked':True,'runtime_observations':observations,'render_tested':False},indent=2),encoding='utf-8')
     if not observations:print('Các file đã đủ. Mở lại đúng ComfyUI đã cài để nạp node.',flush=True)
-    elif all(o['missing_nodes'] for o in observations):raise RuntimeError('Server chưa nạp Pixaroma: cần restart đúng backend; xem log import nếu còn lỗi.')
+    elif all(o['missing_nodes'] for o in observations):raise RuntimeError('Server còn thiếu custom node: restart đúng backend; nếu vẫn thiếu, xem log import.')
 
 
 class Tee:
@@ -165,7 +204,7 @@ class Tee:
 
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['install','check']);ap.add_argument('--portable',required=True);a=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('action',choices=['install','nodes','check','check-nodes']);ap.add_argument('--portable',required=True);a=ap.parse_args()
     logs=ROOT/'logs';logs.mkdir(exist_ok=True);(ROOT/'reports').mkdir(exist_ok=True)
     log=logs/(a.action+'-'+datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'.txt')
     original_out,original_err=sys.stdout,sys.stderr
@@ -174,7 +213,7 @@ def main():
         sys.stdout=Tee(original_out,f);sys.stderr=Tee(original_err,f)
         try:
             print('Log:',log,flush=True)
-            (run_install if a.action=='install' else check_install)(a.portable)
+            {'install':run_install,'nodes':run_nodes,'check':check_install,'check-nodes':check_nodes}[a.action](a.portable)
         except Exception:
             traceback.print_exc();print('\nChưa hoàn tất. Giữ log và chạy lại sau khi xử lý lỗi ghi bên trên.',flush=True);raise SystemExit(1)
         finally:sys.stdout,sys.stderr=original_out,original_err

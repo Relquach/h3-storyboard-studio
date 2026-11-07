@@ -1,0 +1,9 @@
+{
+  "folder": "https://drive.google.com/drive/folders/1-PxsMgTI-RD26KrUbiMnAWkV5-RZvUHS",
+  "zip": "custom_nodes_local.zip",
+  "sha256": "9367e71d3a83ccc8b6a51cd57504061d0a45c4278593c178b530cb15aa1e213b",
+  "bundled_verified": [
+    "comfyui-h3-take",
+    "comfyui-video-finishing"
+  ]
+}
