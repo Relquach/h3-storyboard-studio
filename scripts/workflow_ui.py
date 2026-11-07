@@ -10,7 +10,7 @@ NAMES={1:'Nâng cao · Model H3 Ref2V',2:'Nâng cao · Encoder native — không
 15:'05 · CHẤT LƯỢNG — số bước',16:'06 · TẠO VIDEO',17:'Giải mã hình ảnh',
 18:'Giải mã âm thanh',20:'07 · VIDEO GỐC — MP4',21:'Model tăng độ phân giải',
 22:'08 · TĂNG ĐỘ PHÂN GIẢI 2×',24:'09 · VIDEO ĐÃ NÂNG — MP4'}
-LABELS={'clip':'Bộ mã hóa','vae':'VAE hình ảnh','audio_vae':'VAE âm thanh','storyboard':'Storyboard · Picture 1',
+LABELS={'enabled':'Bật tham chiếu (tắt = bỏ qua)','name':'Tên tài sản','role':'Loại tham chiếu','previous':'Tham chiếu trước','image':'Chọn ảnh','extra_refs':'Ảnh tham chiếu bổ sung','clip':'Bộ mã hóa','vae':'VAE hình ảnh','audio_vae':'VAE âm thanh','storyboard':'Storyboard · Picture 1',
 'character_1':'Nhân vật 1 · Picture 2','character_2':'Nhân vật 2 · Picture 3','character_3':'Nhân vật 3 · Picture 4',
 'seconds':'Thời lượng clip (giây)','prompt':'Prompt tiếng Anh','roles_json':'Ánh xạ ảnh (JSON)','width':'Chiều rộng','height':'Chiều cao',
 'length':'Số khung hình','ref_image_size':'Mức chi tiết tham chiếu','images':'Khung hình',
@@ -31,6 +31,10 @@ def beautify(workflow):
         i=n['id'];n['title']=NAMES.get(i,n['type'])
         if i in POSITIONS:
             x,y,width,height=POSITIONS[i];n['pos']=[x,y];n['size']=[width,height]
+        if n['type']=='H3StudioExtraReference':
+            j=i-30;n['title']=f'02 · THAM CHIẾU {j+1} — BẬT / BỎ QUA'
+            n['pos']=[420 if j%2==0 else 40,260 if j==0 else 810+((j-1)//2)*550]
+            n['size']=[340,480]
         n['color']='#193845';n['bgcolor']='#142833'
         if i in [5,6,7,8]:n['color']='#245444';n['bgcolor']='#182f28'
         if i==10:n['color']='#334569';n['bgcolor']='#202c43'
@@ -41,8 +45,8 @@ def beautify(workflow):
     notes=[
       (0,-90,1540,220,'BẮT ĐẦU TẠI ĐÂY',
        '1. Chọn nguyên storyboard và đúng sheet nhân vật.  2. Kiểm tra Picture 1/2/3/4.\n'
-       '3. Dán prompt tiếng Anh, chọn kích thước và số frame.  4. Bấm Thực thi / Queue.\n'
-       'Lưới 2×2, 2×3, 3×3 đều dùng được. Chỉ ảnh đã nối mới được truyền cho model.\n'
+       '3. Dán prompt tiếng Anh, chọn kích thước và thời lượng.  4. Bấm Thực thi / Queue.\n'
+       'Lưới 2×2, 2×3, 3×3 đều dùng được. Chỉ ảnh tham chiếu đã bật mới được truyền cho model.\n'
        'Bản gốc và bản upscale lưu trong output/h3studio. Model/encoder nằm ở nhóm Nâng cao phía dưới.'),
       (1650,-90,1790,220,'MẸO CHẤT LƯỢNG',
        'match = nhẹ hơn; max = giữ tham chiếu lớn hơn, tốn VRAM hơn.\n'
@@ -61,5 +65,5 @@ def beautify(workflow):
     w['groups']=[{'id':i+1,'title':t,'bounding':[x,y,ww,hh],'color':color,'font_size':24,'flags':{}} for i,(t,x,y,ww,hh,color) in enumerate(specs)]
     w['last_node_id']=maxid
     w.setdefault('extra',{})['ds']={'scale':0.45,'offset':[100,180]}
-    w['extra']['h3studio_ui_version']='0.2.0-vi'
+    w['extra']['h3studio_ui_version']='0.3.0-vi'
     return w
