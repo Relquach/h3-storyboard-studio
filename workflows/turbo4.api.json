@@ -1,9 +1,8 @@
 {
   "1": {
-    "class_type": "H3ModelLoaderAny",
+    "class_type": "H3StudioNativeModelLoader",
     "inputs": {
-      "model_name": "minimax_h3_ref2va_pruned-Q3_K.gguf",
-      "activation_reserve_gb": 0.0
+      "model_name": "minimax_h3_ref2va_pruned-Q3_K.gguf"
     }
   },
   "2": {
@@ -36,10 +35,39 @@
       "seconds": 5.0
     }
   },
-  "6": {
-    "class_type": "LoadImage",
+  "30": {
+    "class_type": "H3StudioExtraReference",
     "inputs": {
+      "enabled": true,
+      "name": "An",
+      "role": "Nhân vật",
       "image": "h3studio/character_01.png"
+    }
+  },
+  "31": {
+    "class_type": "H3StudioExtraReference",
+    "inputs": {
+      "enabled": false,
+      "name": "Môi trường bổ sung",
+      "role": "Môi trường",
+      "image": "h3studio/disabled-reference.png",
+      "previous": [
+        "30",
+        0
+      ]
+    }
+  },
+  "32": {
+    "class_type": "H3StudioExtraReference",
+    "inputs": {
+      "enabled": false,
+      "name": "Đạo cụ / vũ khí bổ sung",
+      "role": "Đạo cụ / vũ khí",
+      "image": "h3studio/disabled-reference.png",
+      "previous": [
+        "31",
+        0
+      ]
     }
   },
   "10": {
@@ -62,7 +90,7 @@
         0
       ],
       "prompt": "subject_definitions:\n<Subject 1> is An (CHAR_01), matching <Picture 2>: The stylized 3D young adult woman in the reference sheet, silver hair tied in a high ponytail, blue eyes, white shirt and turquoise earrings. Preserve her face, proportions, jewelry and outfit..\n<Picture 1> is the complete 1 by 3 storyboard, not a start-frame collage. Read left to right, then row by row. Repeated appearances across panels are the same characters, not extra people.\n\nsummary:\n[reference generation] A young woman notices someone she loves arriving, sits down, then smiles warmly toward them.\n\nretention_analysis:\nPreserve each character identity and design from its assigned sheet. Use storyboard panels for composition and action order, not a multi-panel output.\n\ndetailed_description:\nStylized 3D animated film, large expressive eyes, softly shaded skin, finely detailed hair, delicate jewelry, soft cinematic lighting. Preserve the reference character design and facial proportions; do not turn characters into live-action humans.\n[Shot 1] storyboard panel row 1, column 1, labeled SHOT 1. Medium close-up in the cafe, CHAR_01 on the left looking right. She notices an arrival and slowly turns her head toward the cafe doorway. One clear movement, restrained anticipation. Static camera. Planned duration 2.0 seconds.\n[Shot 2] At 00:02.000, cut to storyboard panel row 1, column 2, labeled SHOT 2. Medium shot in the same cafe. CHAR_01 sits down onto the chair in one quick natural motion. Her body remains proportionate; her hair follows with a small natural sway. Static camera. Planned duration 1.0 seconds.\n[Shot 3] At 00:03.000, cut to storyboard panel row 1, column 3, labeled SHOT 3. Close-up of CHAR_01, looking toward the doorway on screen right, smiling softly with recognition. Her face is unobstructed. Gentle camera push-in. Planned duration 2.0 seconds.\nRender sequential full-screen shots, never a grid or split-screen. Do not reproduce panel labels, borders, sheet layouts or white studio backgrounds. Preserve character count, facial identity, clothes and props. Clear natural-speed action; no unintended slow motion. No subtitles or watermarks.\n\noverall_soundscape:\nQuiet cafe ambience, chair movement. No dialogue and no music.\n\nnon_diegetic_music:\nN/A",
-      "roles_json": "[\"Storyboard, 1 rows by 3 columns: chronological shot order, staging, actions and setting.\", \"CHAR_01, An: The stylized 3D young adult woman in the reference sheet, silver hair tied in a high ponytail, blue eyes, white shirt and turquoise earrings. Preserve her face, proportions, jewelry and outfit.. Identity reference only; not another story panel.\"]",
+      "roles_json": "auto",
       "width": 640,
       "height": 384,
       "length": [
@@ -70,8 +98,8 @@
         0
       ],
       "ref_image_size": "match",
-      "character_1": [
-        "6",
+      "extra_refs": [
+        "32",
         0
       ]
     }
