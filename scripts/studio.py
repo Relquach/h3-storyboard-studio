@@ -91,16 +91,24 @@ def build(p, preset='baseline', enhance=False):
     g={}
     def add(i,typ,**inputs): g[str(i)]={'class_type':typ,'inputs':inputs}
     def link(i,o=0): return [str(i),o]
-    add(1,'H3ModelLoaderAny',model_name=MODELS['dit'],activation_reserve_gb=0.0)
+    add(1,'H3StudioNativeModelLoader',model_name=MODELS['dit'])
     add(2,'H3StudioNativeClipLoader',clip_name=MODELS['clip'])
     add(3,'VAELoader',vae_name=MODELS['vae']); add(4,'VAELoader',vae_name=MODELS['audio'])
     add(5,'LoadImage',image=p['storyboard'])
     add(9,'H3StudioDuration',seconds=float(seconds))
     ref={'clip':link(2),'vae':link(3),'audio_vae':link(4),'storyboard':link(5),
-         'prompt':text,'roles_json':json.dumps(roles,ensure_ascii=False),'width':p['width'],'height':p['height'],
+         'prompt':text,'roles_json':'auto','width':p['width'],'height':p['height'],
          'length':link(9),'ref_image_size':p.get('reference_size','match')}
-    for i,c in enumerate(p['characters']):
-        add(6+i,'LoadImage',image=c['file']);ref[f'character_{i+1}']=link(6+i)
+    previous=None
+    items=[{'enabled':True,'name':c['name'],'role':'Nhân vật','image':c['file']} for c in p['characters']]
+    items += [{'enabled':False,'name':'Môi trường bổ sung','role':'Môi trường','image':'h3studio/disabled-reference.png'},
+              {'enabled':False,'name':'Đạo cụ / vũ khí bổ sung','role':'Đạo cụ / vũ khí','image':'h3studio/disabled-reference.png'}]
+    for index,item in enumerate(items):
+        values=dict(item)
+        if previous is not None:values['previous']=previous
+        add(30+index,'H3StudioExtraReference',**values)
+        previous=link(30+index)
+    if previous is not None:ref['extra_refs']=previous
     add(10,'H3StudioReferences',**ref)
     model=link(1)
     if preset=='turbo4':
