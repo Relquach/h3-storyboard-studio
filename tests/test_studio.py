@@ -23,7 +23,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('matching <Picture 2>',text);self.assertEqual(len(roles),2)
         g=studio.build(self.p)
         self.assertEqual(g['10']['inputs']['length'],['9',0]);self.assertEqual(g['9']['inputs']['seconds'],5.0)
-        self.assertEqual(g['10']['inputs']['character_1'],['6',0])
+        self.assertEqual(g['10']['inputs']['extra_refs'],['32',0]);self.assertEqual(g['30']['inputs']['name'],'An')
     def test_long_clip_rejected(self):
         self.p['shots'][0]['seconds']=30
         with self.assertRaises(ValueError):studio.build(self.p)
@@ -32,8 +32,10 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('Planned duration 1.0 seconds',studio.make_prompt(self.p)[0])
     def test_missing_reference_rejected(self):
         with self.assertRaises(ValueError):adapter.compose('Use <Picture 3>','["storyboard", "An"]',2)
-    def test_roles_count_rejected(self):
-        with self.assertRaises(ValueError):adapter.compose('','["storyboard"]',2)
+    def test_roles_count_follows_wiring(self):
+        result=adapter.compose('Use <Picture 2> for Lan','["storyboard"]',2)
+        self.assertIn('<Picture 2>: Character reference 1',result)
+        self.assertIn('for Lan',result)
     def test_enhance_preserves_audio(self):
         g=studio.build(self.p,enhance=True)
         self.assertEqual(g['20']['inputs']['audio'],g['24']['inputs']['audio'])
