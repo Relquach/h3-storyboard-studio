@@ -2,7 +2,18 @@
 
 **Experimental release. Installer and graph logic tested on CPU; no GPU render or Windows execution has been completed by the author of this package. No preset is yet a measured quality/speed winner.**
 
-Dành cho RTX 4060 Ti 16 GB, RAM 32 GB, ComfyUI Windows Portable. Nguyên storyboard + tối đa 3 character sheets → H3 Ref2V → video/audio → tùy chọn upscale 2×. Phong cách thử: 3D animation, mắt biểu cảm, tóc nhiều chi tiết, ánh sáng mềm.
+Dành cho RTX 4060 Ti 16 GB, RAM 32 GB, ComfyUI Windows Portable. Nguyên storyboard + tối đa 8 ảnh tham chiếu tùy chọn → H3 Ref2V → video/audio → tùy chọn upscale 2×. Phong cách thử: 3D animation, mắt biểu cảm, tóc nhiều chi tiết, ánh sáng mềm.
+
+## Cập nhật v0.3.0 — dành cho máy đã cài model
+
+1. [Tải source ZIP mới](https://github.com/Relquach/h3-storyboard-studio/archive/refs/heads/main.zip), giải nén. Đóng hẳn cửa sổ ComfyUI/backend đang chạy.
+2. Chạy **UPGRADE.bat trong thư mục vừa giải nén**. Nó dùng đường dẫn Portable đã biết, cập nhật node và tự chép workflow vào `ComfyUI/user/default/workflows/H3_Storyboard_VI_v0.3.json`. Không hỏi chọn workflow JSON, không tải lại model. Node cũ được sao lưu ngoài custom_nodes; workflow cũ được giữ lại.
+3. Mở lại ComfyUI, nhấn **Ctrl+F5**, mở **H3_Storyboard_VI_v0.3** trong danh sách workflow. Nếu chưa hiện, kéo file `workflows/lan-15s-vi.json` từ bộ cài vào ComfyUI.
+4. Chọn ảnh storyboard và ảnh Lan trong **Tham chiếu 1**. Prompt Lan 15 giây đã điền sẵn; ảnh riêng không nằm trong ZIP nên phải chọn ảnh trên máy.
+
+**Lỗi model:** DiT Q3 có 532 tensor native và không có metadata `general.architecture`; loader GGUF thông thường không nhận diện được. Loader mới đọc tên/shape native rồi chuyển cho bộ nhận diện model của ComfyUI core. Đã đối chiếu đủ 532 tên và shape với bản BF16 chính thức; chưa xác minh một lần render GPU hoàn chỉnh.
+
+**Ảnh tham chiếu tùy chọn:** mỗi node có Bật tham chiếu, Tên tài sản, Loại tham chiếu và Chọn ảnh. Môi trường/đạo cụ mặc định tắt; ảnh Lan mặc định bật. Tắt node bằng công tắc này sẽ không đọc ảnh của node. Có thể nhân đôi node để thêm nhân vật/môi trường/vũ khí/phong cách rồi nối `Danh sách tham chiếu` → `Tham chiếu trước`, node cuối → `Ảnh tham chiếu bổ sung`. Tối đa 8 ô cộng storyboard. Khi tắt một ô ở giữa, hệ thống tự đánh lại Picture cho ảnh đang dùng và cập nhật tag trong prompt, giữ thứ tự ban đầu. Tag của ảnh đã tắt chuyển về storyboard và có ghi chú rõ ràng. Không cần nhập danh sách roles_json thủ công. Dùng công tắc để bỏ qua; chế độ Bypass chung của ComfyUI không thay thế công tắc này.
 
 ## Cài và dùng
 
@@ -17,7 +28,7 @@ Bộ cài chưa tự cập nhật ComfyUI core hoặc đè node cũ. Nếu core 
 
 ## Model và node
 
-`manifest.json` là nguồn chính: URL/repository, commit, dung lượng, SHA-256. Chọn H3 Ref2VA pruned Q3 và encoder native Q2 có sẵn vision. Dùng loader riêng H3StudioNativeClipLoader; vẫn cần lần encode/render đầu xác minh thực thi và chất lượng. Không gọi nó là một bộ đã benchmark.
+`manifest.json` là nguồn chính: URL/repository, commit, dung lượng, SHA-256. Chọn H3 Ref2VA pruned Q3 và encoder native Q2 có sẵn vision. Dùng hai loader riêng H3StudioNativeModelLoader và H3StudioNativeClipLoader; vẫn cần lần encode/render đầu xác minh thực thi và chất lượng. Không gọi nó là một bộ đã benchmark.
 
 - `unsloth/MiniMax-H3-GGUF`: Ref2VA pruned Q3, H3 Qwen3-VL Q2 encoder, video VAE FP16, audio VAE FP32.
 - Không tải thêm mmproj trong v0.2: encoder Q2 đã tích hợp vision; giữ lại file mmproj cũ trên máy nếu đã tải, workflow mới không dùng nó.
@@ -30,7 +41,7 @@ Tham khảo: [ComfyUI H3](https://github.com/Comfy-Org/docs/blob/main/tutorials/
 
 ## Giữ nhân vật và phong cách
 
-Picture 1 luôn là nguyên storyboard. Picture 2/3/4 là sheet nhân vật 1/2/3. `project.json` ghi ID, tên, file và mô tả từng người; code sinh prompt và dây nối từ cùng dữ liệu, không đánh số riêng bằng tay. Sheet nên có khuôn mặt rõ và trang phục giống các ô storyboard. Lặp lại người trong các ô là cùng một nhân vật; prompt loại lưới, nhãn và nền sheet khỏi video.
+Picture 1 luôn là nguyên storyboard. Trong chuỗi tham chiếu mới, Picture 2 trở đi theo thứ tự các ô đang bật; mỗi ô giữ tên và loại tài sản riêng. `project.json` ghi ID, tên, file và mô tả từng người; code sinh prompt và dây nối từ cùng dữ liệu, không đánh số riêng bằng tay. Sheet nên có khuôn mặt rõ và trang phục giống các ô storyboard. Lặp lại người trong các ô là cùng một nhân vật; prompt loại lưới, nhãn và nền sheet khỏi video.
 
 Ảnh bạn cung cấp trong chat **không được đăng lên repo**. Ví dụ chỉ mô tả phong cách bằng chữ; để thử đúng, bạn cần chọn storyboard và character sheet do bạn tạo/duyệt từ ảnh đó. Bộ cài không tự có ảnh riêng trong cuộc trò chuyện và không tự huấn luyện LoRA nhân vật.
 
@@ -62,7 +73,7 @@ Code do dự án viết: MIT (`LICENSE`). Các model/node bên thứ ba giữ gi
 
 Nếu bạn gặp `This gguf file is incompatible with llama.cpp` tại H3 CLIP Loader với encoder Q2 của bộ cài, **không tải lại model**. File đó là native-key GGUF của H3, không phải llama.cpp GGUF. Nó chứa cả encoder văn bản và 351 tensor thị giác; không cần mmproj riêng. Loader mới `H3StudioNativeClipLoader` đọc trực tiếp định dạng này. Có một tensor Conv3D thị giác được sd.cpp dàn thành 4 chiều; loader khôi phục đúng shape 5 chiều của encoder chính thức. Không sửa metadata, không đổi tên file để giả định dạng, không patch global loader.
 
-**Người đã cài:** tải ZIP v0.2.0, giải nén vào thư mục bộ cài, đóng ComfyUI rồi chạy **UPGRADE.bat**. Chọn workflow JSON đã Export nếu muốn giữ ảnh/prompt đang dùng. Nó tạo file mới `*-VI-v0.2.json`, không sửa bản gốc. Sau đó mở lại ComfyUI, Ctrl+F5 và nạp file mới. Nếu không chọn workflow, dùng PREFLIGHT với project.json hiện có để sinh lại UI.
+**Người đã cài:** xem hướng dẫn v0.3.0 ở đầu tài liệu; UPGRADE.bat tự cài workflow mới, không hiện hộp chọn JSON.
 
 **Thời lượng:** ô `THỜI LƯỢNG CLIP (GIÂY)` nằm ngay trên prompt. Nhập 4–15 giây; đầu ra tự nối tới `length`. Ví dụ 15 giây → 362 frame (~15,08 giây); 5 giây → 124 frame (~5,17 giây). Đây là thời lượng clip nguồn, tách biệt nhịp từng shot trong prompt.
 
