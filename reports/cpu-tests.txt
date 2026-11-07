@@ -1,3 +1,15 @@
+test_all_bypassed_uses_storyboard_only (test_native_model_refs.ExtraReferenceTests.test_all_bypassed_uses_storyboard_only) ... ok
+test_annotations_do_not_need_manual_count (test_native_model_refs.ExtraReferenceTests.test_annotations_do_not_need_manual_count) ... ok
+test_bypass_never_reads_image (test_native_model_refs.ExtraReferenceTests.test_bypass_never_reads_image) ... ok
+test_enabled_ref_requires_an_image (test_native_model_refs.ExtraReferenceTests.test_enabled_ref_requires_an_image) ... ok
+test_middle_bypass_remaps_in_single_pass (test_native_model_refs.ExtraReferenceTests.test_middle_bypass_remaps_in_single_pass) ... ok
+test_native_model_node_registered (test_native_model_refs.ExtraReferenceTests.test_native_model_node_registered) ... ok
+test_native_dit_accepted_without_architecture_spoof (test_native_model_refs.NativeModelDirectoryTests.test_native_dit_accepted_without_architecture_spoof) ... ok
+test_placeholder_png_crc (test_native_model_refs.NativeModelDirectoryTests.test_placeholder_png_crc) ... ok
+test_wrong_dit_rejected_before_tensor_load (test_native_model_refs.NativeModelDirectoryTests.test_wrong_dit_rejected_before_tensor_load) ... ok
+test_bundled_ui_references_chain_and_native_model (test_native_model_refs.ReferenceIntegrationTests.test_bundled_ui_references_chain_and_native_model) ... ok
+test_encode_keeps_active_image_roles_after_middle_bypass (test_native_model_refs.ReferenceIntegrationTests.test_encode_keeps_active_image_roles_after_middle_bypass) ... ok
+test_update_installs_workflow_without_json_picker (test_native_model_refs.ReferenceIntegrationTests.test_update_installs_workflow_without_json_picker) ... ok
 test_builder_runs_in_isolation (test_portable_isolation.PortableIsolationTests.test_builder_runs_in_isolation) ... ok
 test_choose_preset_import_has_no_cli_side_effects (test_portable_isolation.PortableIsolationTests.test_choose_preset_import_has_no_cli_side_effects) ... ok
 test_entrypoints_import_with_isolated_python (test_portable_isolation.PortableIsolationTests.test_entrypoints_import_with_isolated_python) ... ok
@@ -19,7 +31,7 @@ test_portable_root_validation (test_studio.WorkflowTests.test_portable_root_vali
 test_reference_gap_rejected (test_studio.WorkflowTests.test_reference_gap_rejected) ... ok
 test_reference_wrapper_forwards_original_grid (test_studio.WorkflowTests.test_reference_wrapper_forwards_original_grid) ... ok
 test_resume_and_checksum (test_studio.WorkflowTests.test_resume_and_checksum) ... ok
-test_roles_count_rejected (test_studio.WorkflowTests.test_roles_count_rejected) ... ok
+test_roles_count_follows_wiring (test_studio.WorkflowTests.test_roles_count_follows_wiring) ... ok
 test_schema_mismatch_detected (test_studio.WorkflowTests.test_schema_mismatch_detected) ... ok
 test_ui_conversion_links_roundtrip (test_studio.WorkflowTests.test_ui_conversion_links_roundtrip) ... ok
 test_llama_format_not_silently_reinterpreted (test_upgrade.UpgradeTests.test_llama_format_not_silently_reinterpreted) ... ok
@@ -34,6 +46,6 @@ test_visible_duration_control (test_upgrade.UpgradeTests.test_visible_duration_c
 test_wrong_model_dimensions_rejected (test_upgrade.UpgradeTests.test_wrong_model_dimensions_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 34 tests in 0.502s
+Ran 46 tests in 0.455s
 
 OK
