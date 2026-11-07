@@ -17,6 +17,10 @@ ENCODER='qwen3vl_32b_minimax_h3-Q2_K_M.gguf'
 def migrate_ui(workflow):
     w=copy.deepcopy(workflow)
     for n in w['nodes']:
+        if n['type']=='H3ModelLoaderAny' and n.get('widgets_values',[None])[0]=='minimax_h3_ref2va_pruned-Q3_K.gguf':
+            n['type']='H3StudioNativeModelLoader'
+            n['widgets_values']=[n['widgets_values'][0]]
+            n['properties']={'Node name for S&R':'H3StudioNativeModelLoader'}
         if n['type']=='H3ClipLoaderAny' and n.get('widgets_values',[None])[0]==ENCODER:
             n['type']='H3StudioNativeClipLoader'
             n['widgets_values']=[ENCODER]
