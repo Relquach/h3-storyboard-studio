@@ -1,0 +1,10 @@
+{
+  "revision": "413e0b2775cfe15be0ab41cc0eff4ce56120d5ea",
+  "core": "0.43.1",
+  "torch": "2.10.0+cpu",
+  "registered": [
+    "PixaromaMonitor",
+    "PixaromaRunTimer"
+  ],
+  "gpu_render_tested": false
+}

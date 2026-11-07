@@ -1,0 +1,22 @@
+{
+  "archive": {
+    "bytes": 11119184,
+    "sha256_verified": true
+  },
+  "models": [
+    {
+      "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+      "range_size_verified": 2811065184,
+      "header_checked": true,
+      "full_payload_downloaded_here": false,
+      "sha256_source": "Hugging Face LFS metadata"
+    },
+    {
+      "file": "h3-realism-people-t2v-i2v-r2v.safetensors",
+      "range_size_verified": 131229656,
+      "header_checked": true,
+      "full_payload_downloaded_here": false,
+      "sha256_source": "Hugging Face LFS metadata"
+    }
+  ]
+}
