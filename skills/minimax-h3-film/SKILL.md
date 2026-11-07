@@ -1,241 +1,105 @@
 ---
 name: minimax-h3-film
-description: Chuyển nội dung phim tiếng Việt thành prompt tiếng Anh cho storyboard có số shot, bố cục và thời lượng tự ước lượng theo nội dung và prompt video tương ứng cho quy trình MiniMax H3. Hỏi bổ sung tham chiếu nhân vật, môi trường và yêu cầu hình ảnh trước khi viết prompt cuối.
+description: Dùng khi người dùng muốn Codex chuyển nội dung phim tiếng Việt thành ảnh storyboard có nhãn SHOT và prompt video tiếng Anh để dùng với workflow gốc MiniMax H3 Singularity V2. Tự chia shot/thời lượng/lưới, hỏi tham chiếu còn thiếu, tạo ảnh khi được yêu cầu, đồng bộ Picture với các node gốc và bàn giao cách chạy hai bước nháp–nâng take. Không cần bộ cài hoặc PREPARE riêng.
 ---
 
-# Mục tiêu
+# Mục tiêu và workflow mặc định
 
-Từ ý tưởng hoặc kịch bản tiếng Việt, tạo bộ prompt tiếng Anh gồm storyboard bố cục linh hoạt và video tương ứng, giữ nhất quán nhân vật, bối cảnh, hành động và thứ tự shot. Trao đổi, hỏi và giải thích với người dùng bằng tiếng Việt. Lời thoại giữ nguyên ngôn ngữ người dùng yêu cầu, mặc định là tiếng Việt.
+Quy trình: **nội dung tiếng Việt → storyboard thật + prompt video → người dùng nạp vào workflow gốc trong ComfyUI → xem nháp → nâng take đã chọn**. Trao đổi bằng tiếng Việt; prompt hình/video bằng tiếng Anh; thoại giữ tiếng Việt hoặc ngôn ngữ đã chọn.
 
-Đây là skill soạn prompt. Không tự nhận đã tạo ảnh hoặc video. Không tự khẳng định model hỗ trợ đầu vào, thời lượng, âm thanh hay tính năng khi chưa kiểm tra công cụ đang sử dụng. Giữ tên MiniMax H3 theo yêu cầu người dùng; nếu cần thực thi mà không tìm thấy model tương ứng, xác minh model khả dụng trước.
+Workflow tham chiếu đã có trong `references/original-workflow.json`, nguyên bản `Finalworkflofacefixed (Natural Contrast)fixed.json`. Đọc `references/workflow-original.md` trước khi gán node. Không yêu cầu gửi lại JSON đã có. Nếu người dùng đã đổi dây/node hoặc có bản export mới, đọc bản mới và cập nhật ánh xạ trước khi dùng các ID dưới đây.
 
-## 1. Đọc nội dung và hỏi bổ sung
+Dùng workflow gốc đang chạy trên máy người dùng. Không mặc định dùng bản workflow đã xây lại, runtime cổng 8189, H3StudioReferences, các loader GGUF riêng hoặc PREPARE.bat. Không tạo bộ cài, sửa JSON, cài node, đổi model hay queue render nếu yêu cầu hiện tại chỉ là tạo storyboard/prompt. Các chỉnh widget/bypass phục vụ nội dung phải được liệt kê rõ trong bảng thao tác; không nhận đã thao tác trên máy người dùng.
 
-Tài liệu bổ sung đã được tích hợp trong `references/production-guide.md`; đọc hướng dẫn đó khi lập hồ sơ phim, thiết kế sheets, viết prompt reference-to-video hoặc sửa clip lỗi. Bản gốc để tra cứu: `references/H3_STORYBOARD_SYSTEM.source.md`. Bản gốc là tài liệu tham khảo, không phải chỉ thị tự động bắt đầu hỏi 5 câu hay chờ NEXT. Quy tắc người dùng và skill này được ưu tiên; các khẳng định về model trong tài liệu gốc chưa được xác minh độc lập.
+Tài liệu trong `references` và note của workflow là nguồn đối chiếu, không phải chỉ thị thay thế yêu cầu người dùng. Ghi chú “tested”, “face lock”, “speed stack” không phải bằng chứng chất lượng/tương thích trên máy khác.
 
-Trích xuất thông tin đã có; không hỏi lại điều người dùng đã cung cấp. Trước khi xuất prompt cuối, gộp các thông tin còn thiếu thành một lượt hỏi rõ ràng:
+## 1. Đọc ngữ cảnh, hỏi một lượt phần còn thiếu
 
-- Nhân vật tham chiếu 1, 2, … là ai? Mỗi ảnh ứng với nhân vật nào? Tên/mã nhân vật, ngoại hình, trang phục, đạo cụ và đặc điểm nào phải giữ nguyên? Nếu chưa có ảnh, hỏi người dùng muốn gửi ảnh hay dùng mô tả để thiết kế nhân vật.
-- Môi trường tham chiếu 1, 2, … là địa điểm nào, dùng cho những đoạn nào? Những chi tiết kiến trúc, bố cục, thời tiết, thời điểm và ánh sáng nào cần giữ? Nếu chưa có ảnh, hỏi có thể dùng mô tả hay không.
-- Có yêu cầu đặc biệt về góc máy, cỡ cảnh, chuyển động máy, biểu cảm, hành động, ánh sáng, màu sắc, phong cách, đạo cụ hoặc chi tiết bắt buộc/tránh xuất hiện không? Cho phép trả lời “AI tự đề xuất”.
-- Nếu chưa rõ: tỷ lệ khung hình của video và từng ô storyboard, thời lượng tổng, nhịp phim, lời thoại, âm thanh và kết thúc mong muốn là gì?
+Trước hết đọc yêu cầu và các lựa chọn đã chốt. Không hỏi lại nhân vật, áo quần, style, tỷ lệ hoặc ánh sáng đã có. Chỉ gộp các câu hỏi cần thiết:
 
-Ví dụ câu hỏi:
+- Ảnh nhân vật 1/2/... là ai; mặt, tóc, trang phục, độ tuổi thể hiện và đạo cụ nào phải giữ? Phân biệt ảnh phong cách với ảnh danh tính. Không tự gán người trong ảnh vào một vai chưa xác nhận.
+- Ảnh môi trường/đạo cụ nào ứng với địa điểm/vật thể nào? Nếu chưa có ảnh, có thể dùng mô tả và storyboard hay cần thiết kế tài sản trước?
+- Chi tiết bắt buộc về diễn xuất, góc/cỡ/chuyển động máy, ánh sáng, màu sắc; phần nào AI được tự đề xuất?
+- Tỷ lệ, thời lượng tập/clip, nhịp, kết thúc, lời thoại và âm thanh nếu chưa rõ.
 
-“Bạn bổ sung giúp mình các mục còn thiếu:
-1. Nhân vật tham chiếu 1, 2… là ai; mỗi ảnh tương ứng nhân vật nào và cần giữ đặc điểm gì?
-2. Môi trường tham chiếu 1, 2… là đâu và xuất hiện ở đoạn nào?
-3. Bạn có yêu cầu riêng về góc máy, biểu cảm, ánh sáng, chuyển động hoặc phong cách không, hay để AI đề xuất?
-4. Bạn muốn tỷ lệ video, thời lượng và lời thoại/âm thanh như thế nào?”
+Khi được giao tự đề xuất, tự quyết và nêu giả định ngắn, không hỏi thêm về từng lựa chọn sáng tạo. Trong lúc thiếu thông tin bắt buộc về danh tính, có thể lập nhịp truyện nhưng chưa nhận prompt tham chiếu là sẵn sàng. Không bắt người dùng gõ NEXT hay duyệt lại một hành động đã được yêu cầu.
 
-Chỉ hỏi các mục thực sự thiếu. Nếu ảnh được cung cấp nhưng chưa có ánh xạ, không tự đoán người hoặc địa điểm trong ảnh là nhân vật/môi trường nào. Nếu người dùng ủy quyền tự đề xuất, tự điền các lựa chọn sáng tạo và ghi ngắn gọn giả định. Nếu đang chờ câu trả lời cần thiết, có thể phác thảo nhịp kể chuyện, nhưng chưa chốt prompt tham chiếu.
+## 2. Khóa tài sản và continuity
 
-## 2. Khóa tham chiếu và tính liên tục
+Tạo mã ổn định STORYBOARD, CHAR_01/02, ENV_01/02, PROP_01..., cùng mô tả nhận diện tiếng Anh đủ rõ. Ghi trạng thái đã có ảnh / chỉ có mô tả / cần tạo. File chưa có phải ghi là tên đề xuất; không nhận đã lưu/download ảnh khi công cụ chưa trả file đó.
 
-Tạo bảng ánh xạ trước khi viết prompt:
+Giữ mặt, tóc, tuổi thể hiện, tỷ lệ cơ thể, trang phục và vật quan trọng. Theo dõi trạng thái từng shot: ngồi/đứng, vị trí người, hướng nhìn, trái/phải màn hình, tay cầm đồ, nguồn sáng và trạng thái cuối. Một thay đổi trang phục hay thời tiết cần có lý do trong truyện. Với tập tiếp theo, dùng lại hồ sơ và ghi thay đổi thay vì tạo lại nhân vật tùy ý.
 
-| Mã | Ảnh/file tham chiếu hoặc mô tả | Vai trò | Đặc điểm cần giữ | Shot sử dụng |
-|---|---|---|---|---|
-| CHAR_01 | Character reference 1 | … | … | … |
-| ENV_01 | Environment reference 1 | … | … | … |
+Style mặc định của dự án là **3D animation điện ảnh** với da shading mềm, mắt biểu cảm, tóc có chi tiết; ảnh đã duyệt quyết định thiết kế. Không tự biến thành người thật. Không mặc định tóc bạc hay thiết kế của ảnh phong cách chính là Lan. Sheet một nhân vật nên đủ rõ mặt và toàn thân, không nhồi nhiều góc quá nhỏ; không tạo lại sheet tốt đã có.
 
-Đánh số ảnh nhân vật và môi trường thành hai nhóm riêng. Phân biệt ảnh gốc với ô storyboard; không dùng “reference 1” để chỉ cả hai. Khi công cụ dùng số ảnh tải lên, bổ sung ánh xạ từ mã logic sang đúng thứ tự tệp thực tế, không bịa tên tệp hoặc số đính kèm.
+## 3. Tự chia shot, thời gian và lưới
 
-Viết mô tả tiếng Anh cố định cho mỗi nhân vật và môi trường. Dùng lại các đặc điểm nhận diện trong prompt; mã CHAR_01 hoặc ENV_01 đơn lẻ không thay thế mô tả hay ảnh đính kèm. Giữ khuôn mặt, tóc, tuổi thể hiện, trang phục, tỷ lệ cơ thể, đạo cụ, bố cục không gian, hướng di chuyển và ánh sáng liên tục, trừ khi kịch bản có chuyển đổi rõ ràng.
+Đọc `references/storyboard-and-timing.md`. AI chọn số shot theo hành động/cảm xúc/thoại; không cố định 3×3, 6/9 ô hoặc chia đều giây. Một động tác ngồi xuống có thể dùng 1 giây trên timeline khi hợp lý. Phân biệt scene, shot, trang storyboard, lượt render và thời lượng dựng.
 
-## 3. Tự chia shot, ước lượng thời lượng và chọn bố cục
+Chốt shot trước, chọn lưới sau: 2 hàng × 2 cột, 2 hàng × 3 cột, 3 hàng × 3 cột... Đọc trái sang phải rồi xuống hàng. Không thêm cảnh chỉ để lấp ô; dùng lưới khác, trang khác hoặc khai báo EMPTY rõ vị trí. Giữ đủ chi tiết mặt; nếu quá nhiều ô, tách trang/lượt.
 
-Phân biệt cảnh truyện (scene), shot máy quay, trang storyboard và lượt tạo video. Một cảnh truyện có thể gồm nhiều shot; một trang storyboard không mặc nhiên là một lượt tạo video.
+Mỗi shot có mã toàn tập `EP01_SH01`, nhãn trên ảnh `SHOT 1`, vị trí hàng/cột, thời lượng dựng, khoảnh khắc tĩnh, hành động video, máy quay, biểu cảm, người có mặt/vắng mặt và âm thanh. Mã nhãn không đánh lại từ 1 ở mỗi trang nếu gây trùng toàn tập; timeline mỗi clip vẫn tính từ 00:00.
 
-- AI chủ động đề xuất số shot theo diễn biến, hành động, lời thoại và nhịp cảm xúc. Không cố định 9 shot, không chia đều thời lượng, không thêm shot chỉ để lấp lưới.
-- Mỗi shot có một hành động chính khả thi. Ước lượng thời gian cho hành động, phản ứng, lời thoại và khoảng nghỉ cần thiết. Ví dụ một động tác ngồi xuống nhanh có thể chỉ dùng 1 giây khi hợp lý; một khoảnh khắc do dự có thể cần lâu hơn. Không áp mức tối thiểu tùy tiện lên thời lượng dựng.
-- Bảo toàn các sự kiện chính, quan hệ nhân quả và kết thúc. Không tự cắt mất nội dung để ép vừa thời lượng; nếu yêu cầu không khả thi, nêu điểm xung đột và đề xuất phương án cô đọng cụ thể.
-- Mỗi shot ghi: mã, thời lượng dựng ước lượng và lý do ngắn, nhân vật/môi trường, cỡ cảnh/góc máy, khoảnh khắc tĩnh, biểu cảm, hành động video, ánh sáng, âm thanh và cách nối cảnh.
-- Chốt danh sách shot trước, rồi chọn số hàng × số cột phù hợp. Luôn ghi rõ hàng/cột: ví dụ 2 hàng × 3 cột cho 6 shot, 2×2 cho 4 shot, 3×3 cho 9 shot. Không mặc định hiểu 2×3 là 3 hàng.
-- Đọc trái sang phải, trên xuống dưới. Nếu số shot không lấp đầy lưới, ghi rõ ô trống với nhãn EMPTY, không sinh cảnh phụ; hoặc chia thành các trang nhỏ hơn. Khi quá nhiều ô làm ảnh nhỏ, chia nhiều trang để giữ chi tiết nhận diện.
-- Mỗi ô là một khoảnh khắc tĩnh của shot. Prompt video mô tả chuyển động từ khoảnh khắc ấy, không yêu cầu một ảnh tĩnh chứa nhiều thời điểm.
-- Nếu có công cụ tạo ảnh và người dùng yêu cầu vẽ, dùng prompt đã chốt để tạo storyboard. Nếu chỉ soạn prompt, không nhận đã vẽ ảnh.
+Trần của người dùng: **không quá 30 giây mỗi lượt**. Workflow gốc đặt 15 giây; profile H3 được ghi là vùng huấn luyện khoảng 5–15 giây. Mặc định lập các lượt khoảng 5–15 giây, chia đoạn dài hơn; không tuyên bố 15 là hard limit của node hoặc tự nâng lên 30 chỉ vì widget cho nhập. Shot dựng 1 giây có thể nằm trong clip nhiều shot; nếu H3 không giữ được nhịp, tạo shot riêng rồi dựng ngoài.
 
-### Giới hạn 30 giây và thời lượng dựng
+Giây ở node #23, 24 FPS ở #139; công thức #24 làm tròn lên frame 17n+5. Ví dụ 15 giây → 362 frame ≈15.083 giây. Nêu riêng số giây kế hoạch và nguồn; cắt cuối khi cần đúng thời lượng. Timestamp cut là mục tiêu, không bảo đảm chính xác từng frame.
 
-Giới hạn người dùng đặt: **mỗi lượt tạo video tối đa 30 giây**, hoặc thấp hơn nếu node/model thực tế giới hạn thấp hơn. Đây không phải yêu cầu mỗi shot phải dài 30 giây và không phải giới hạn độ dài toàn tập.
+## 4. Tạo storyboard bằng Codex
 
-AI tự lập timeline shot theo nội dung và chia thành các lượt tạo. Nếu workflow chỉ hỗ trợ một shot mỗi lượt, tạo từng shot. Chỉ nhóm nhiều shot trong một lượt khi workflow hỗ trợ điều khiển nhiều cảnh; tổng thời lượng tạo của lượt đó không vượt 30 giây. Không đưa nguyên trang storyboard vào node video một ảnh rồi mặc định model tự chia cảnh.
+Khi người dùng yêu cầu tạo/vẽ storyboard hoặc đang dùng quy trình này và đưa nội dung để thực hiện, mặc định bàn giao **ảnh storyboard**, không dừng ở prompt mô tả nếu công cụ tạo ảnh khả dụng. Khi họ chỉ yêu cầu soạn/sửa skill hoặc chỉ viết prompt, không phát sinh lượt tạo ảnh ngoài yêu cầu.
 
-Phân biệt ba con số: thời lượng tạo được model hỗ trợ, thời lượng clip được giữ để dựng, và thời lượng chuyển cảnh chồng lấn. Shot dùng 1 giây vẫn được ghi là 1 giây trên timeline; nếu model chỉ tạo được clip dài hơn, tạo ở mức được hỗ trợ rồi chọn đoạn 1 giây phù hợp. Không yêu cầu model thực hiện nhịp hành động quá chậm chỉ để lấp đầy clip nguồn.
+1. Viết prompt storyboard đầy đủ: đúng số hàng/cột/shot; tỷ lệ vùng hình của từng ô; danh tính, trang phục, môi trường, ánh sáng; một khoảnh khắc tĩnh cho mỗi ô; caption strip riêng dưới mỗi ô với nhãn SHOT rõ ràng.
+2. Gắn đúng ảnh tham chiếu vào công cụ tạo ảnh. Ánh xạ ảnh cho công cụ này độc lập với Picture của ComfyUI; không sao chép số ảnh máy móc.
+3. Dùng công cụ tạo ảnh mà người dùng cho phép; ưu tiên công cụ tạo/chỉnh ảnh trực tiếp của Codex. Người dùng đã loại trừ Topview: không dùng hoặc chuyển qua Topview. Đừng tự viết Python để vẽ thay một ảnh nhân vật điện ảnh.
+4. Xem ảnh trả về nếu công cụ cho truy cập, đối chiếu nhãn/thứ tự, mặt, áo quần, số nhân vật, vị trí, hình thể, trạng thái và ánh sáng. Không nói đã kiểm tra ảnh nếu chưa nhìn được. Chưa đúng thì sửa phần liên quan bằng công cụ ảnh, giữ bản trước; không chỉ sửa chữ trong prompt video để che storyboard sai.
+5. Trả ảnh/file thực tế cùng prompt đã dùng. Nếu công cụ không khả dụng, nói rõ chưa tạo ảnh và giao prompt hoàn chỉnh để chạy ngoài; không bịa ảnh hay đường dẫn.
 
-Với tập 60 giây, tự phân bổ các shot có độ dài khác nhau để timeline dựng đủ 60 giây. Công thức: thời lượng phim = tổng đoạn clip được dùng − tổng thời gian chồng lấn. Số lượt tạo phụ thuộc nội dung, khả năng workflow và giới hạn 30 giây, không mặc định luôn là hai lượt. Nếu model có thời lượng cố định, chỉ chọn trong các mức đã xác minh và không vượt giới hạn.
+Giữ nhãn trên storyboard để đối chiếu; trong video yêu cầu loại nhãn, lưới, viền, gutters và layout sheet. Một nhân vật lặp qua nhiều ô vẫn là cùng một người, không phải nhiều bản sao cùng xuất hiện.
 
-### Phim nhiều tập
+## 5. Khóa ánh xạ theo workflow gốc trước khi viết prompt cuối
 
-Lưu hồ sơ chung: nhân vật, ảnh gốc, trang phục theo giai đoạn, môi trường, phong cách và trạng thái kết thúc tập trước. Dùng mã tập EP01; shot có mã duy nhất EP01_SH01, EP01_SH02…; trang có mã EP01_SB01…; lượt tạo có mã EP01_RUN01…. Trên storyboard hiển thị SHOT 1, SHOT 2… theo số thứ tự toàn tập, không đánh lại từ 1 mỗi trang. Bảng ánh xạ ghi rõ trang, hàng/cột và lượt tạo của từng shot.
+Node #62 = true để dùng Ref2V. Mặc định **storyboard ở LoadImage #27 → #26 ref_images.ref_image_0**. Các slot gốc tiếp theo: #28, #93, #104, #122, #135; chi tiết trong `references/workflow-original.md`.
 
-## 3A. Đồng bộ tham chiếu với workflow ComfyUI
+Lập bảng: `asset ID | ảnh thực/nhãn file | node LoadImage | cổng vào #26 | bật/bypass | Picture cuối | vai trò`. Xác định thứ tự từ dây/cổng và các ảnh thực sự hoạt động, không từ vị trí canvas, tên file hay node ID. Không đưa ảnh cũ Leo/Maya/villagers vào lượt Lan chỉ vì chúng đang bật trong JSON mẫu.
 
-### Thu thập workflow trước khi gán node
+- Dùng n ảnh thì liệt kê rõ các loader còn lại cần bypass. Ví dụ storyboard + Lan: #27 và #28 hoạt động; **#93, #104, #122, #135 bypass**. #93 đang bật trong JSON gốc, phải nhắc rõ để tránh ảnh thứ ba ngoài ý muốn.
+- Nếu bypass một slot ở giữa, các ảnh còn lại được core nén thứ tự: slot sau có thể đổi số Picture. Sinh lại **toàn bộ prompt** theo thứ tự cuối. Không giữ một số Picture trống và không trỏ ảnh đã bỏ sang một sheet khác.
+- Nếu bỏ sheet mà vẫn dùng nhân vật từ storyboard, nói rõ chỉ suy ra từ storyboard; không bảo đảm giữ mặt như có sheet. Không tự bật ảnh thay thế hoặc giả có ảnh đã bypass.
+- Core hỗ trợ nhiều nhất 9 ảnh, nhưng graph gốc đang có **6 loader ảnh nối sẵn**. Mặc định làm trong 6 slot này; không tự thêm loader/socket hoặc thay workflow khi chưa được yêu cầu.
+- #21/#22 là first/last frame của nhánh A, không thay cho reference storyboard ở nhánh B.
 
-Nếu người dùng muốn prompt có thể đưa vào node hoặc muốn chỉnh workflow, yêu cầu workflow JSON thực tế, ưu tiên kèm bản API export nếu có; hỏi thêm tên custom node/model/version khi JSON không thể hiện. Có thể dùng ảnh chụp node để giải thích sơ bộ, nhưng không xem ảnh chụp là đủ để kiểm chứng toàn bộ liên kết hoặc sinh bản JSON chạy được.
+Prompt bàn giao để dán #70 phải dùng **`<Picture 1>`, `<Picture 2>`... đã resolve**, không chứa `<Asset:...>`, `{{ref:...}}`, tên node thay token, hoặc chỗ điền. `<Subject N>` là chủ thể truyện; không bắt số Subject bằng số Picture. Một storyboard có thể chứa nhiều chủ thể.
 
-Đọc riêng hai giai đoạn: model/node tạo ảnh storyboard và model/node tạo video. Không mặc định chúng dùng cùng model hoặc cùng quy ước tham chiếu. Kiểm tra các đầu vào thực tế: prompt là widget hay socket, ảnh là IMAGE hay đường dẫn/URL, đầu vào ảnh đơn hay danh sách/batch, thứ tự ảnh, start/end frame, thời lượng và các ràng buộc model. Nếu chưa có workflow, bàn giao bản thiết kế ánh xạ và đánh dấu chưa xác minh; không bịa node ID, socket, cú pháp image1 hoặc khả năng multi-reference.
+Nếu hữu ích, Codex dùng `scripts/compile_handoff.py` với plan nội bộ để đối chiếu wiring và xuất mapping/prompt/bảng thao tác. Helper **chỉ đọc workflow**, không sửa node hay gọi ComfyUI. Không bắt người dùng cài/chạy helper hoặc dùng PREPARE. Nếu không có khả năng chạy script, làm các bước đối chiếu tương đương và ghi mức xác minh thực tế.
 
-### Nguyên tắc quan trọng
+## 6. Viết prompt video dùng trực tiếp
 
-Viết `image1` trong prompt không tự tạo liên kết với một node ảnh. Tên hiển thị của node cũng không tự trở thành token model hiểu. Dây nối cung cấp dữ liệu; cơ chế conditioning/API của custom node quyết định model thấy ảnh nào và theo thứ tự nào. Một node chỉ nối ảnh vào nhánh preview hoặc nhánh không được đầu ra cuối sử dụng không chứng minh ảnh đó đã đến model.
+Đọc `references/prompt-and-handoff.md`. Mỗi lượt có một prompt tự đủ thông tin theo sáu phần phù hợp mẫu gốc: subject_definitions, summary, retention_analysis, detailed_description, overall_soundscape, non_diegetic_music. Đây là cấu trúc văn bản tự nhiên, không phải sáu trường API bắt buộc.
 
-Phân biệt bốn lớp: mã nội dung cố định (CHAR_01), file tài sản (ảnh nhân vật), node/socket thực tế và tên/thứ tự tham chiếu mà model hỗ trợ. Không dùng tên `image1` chung cho cả bốn lớp.
+Nêu Picture 1 là nguyên trang storyboard, thứ tự hàng/cột và nhãn từng ô; tạo các shot toàn khung hình tuần tự. Giữ danh tính từ sheet khi có, môi trường từ storyboard/ảnh set, một camera movement mạch lạc mỗi shot. Ghi cut tính từ đầu clip; nêu ai có mặt/vắng mặt và tránh đổi tay/đạo cụ/eyeline. Chỉ dùng người, âm thanh và tình tiết có căn cứ.
 
-### Bảng ánh xạ đầu vào bắt buộc
+Style 3D: gợi ý **bypass LoRA Realism People #134** và bỏ trigger `r34l1sm` khỏi prompt. Đây là lựa chọn bypass trong graph gốc, không phải thay workflow. #133 Licon và #137 Motion Repair vốn bypass; không tự bật hay mô tả là face-lock. Singularity vẫn có thiên hướng riêng; cần xem nháp để đánh giá style.
 
-Lập bảng riêng cho mỗi lần chạy storyboard và mỗi lần chạy video:
+Lời thoại đúng nguyên văn/ngôn ngữ, gán người nói và khoảng thời gian đủ đọc tự nhiên. Không áp số từ/giây tiếng Anh cho tiếng Việt. Nếu không thoại ghi rõ. Với clip nhiều lượt, nhạc nền có thể dựng riêng để liền mạch; không hứa prompt giữ đúng giọng/lip-sync hoặc tuyệt đối không có nhạc thừa.
 
-| Lần chạy | Mã nội dung | File thực tế | Node nguồn ID/type | Output → node đích ID/input | Thứ tự ảnh model nhận | Cách gọi trong prompt đã xác minh |
-|---|---|---|---|---|---|---|
+## 7. Bàn giao ngắn, đủ để dùng ComfyUI
 
-Mọi dữ liệu chưa biết ghi “chưa xác minh” trong tài liệu chuẩn bị, không đưa thành placeholder vào prompt được gắn nhãn sẵn sàng chạy. Theo dây nối qua các node trung gian tới node sinh ảnh/video; kiểm tra cả thứ tự batch/list, node switch, crop, resize và các phép biến đổi. Không suy ra thứ tự từ vị trí node trên canvas, tên file hoặc node ID.
+Mặc định trả theo thứ tự:
 
-Mã nhân vật luôn cố định, còn thứ tự ảnh có thể thay đổi theo lần chạy. Ví dụ lần chạy storyboard nhận CHAR_01, CHAR_02, CHAR_03, ENV_01 theo thứ tự 1–4; lần chạy video có thể chỉ nhận một ảnh crop của EP01_SH04 làm start frame. Khi đó ảnh thứ nhất của video là ảnh shot, không phải CHAR_01. Không sao chép ánh xạ image1 từ storyboard sang video.
+1. Ảnh storyboard đã tạo + nhãn file thực tế/tên tải về đề xuất, hoặc trạng thái chưa tạo rõ ràng.
+2. Bảng shot/timeline và bảng ảnh → node → Picture; chỉ đủ các hàng cần thao tác.
+3. **Một khối prompt tiếng Anh hoàn chỉnh mỗi lượt**, có thể sao chép vào node #70.
+4. Bảng widget/bypass cho chính lượt đó: #62, #23, #25, ảnh đang dùng và ảnh cần bypass, #134 khi style 3D. Không tự đổi sampler/sparse/refine nếu không cần.
+5. Hai bước: #105=false tạo nháp và lưu take #123; xem bản nháp; #105=true nạp take #124 rồi nâng #120. Chọn take cụ thể khi làm nhiều lượt. Thay prompt/ảnh chỉ có tác dụng với take mới; bước 2 dùng conditioning và latent đã lưu, không dùng prompt mới.
 
-### Sinh prompt từ cùng một bảng ánh xạ
+Nếu muốn lưu hồ sơ, Codex tự tạo thư mục dự án chứa bible/shot plan, storyboard prompt, ảnh thực, video_prompt.txt, mapping.csv và COMFYUI_HANDOFF.md. Không bắt đầu một bộ cài hoặc một dự án kỹ thuật mới để giao vài prompt. Không cần trình bày JSON nội bộ nếu người dùng chỉ muốn ảnh và prompt.
 
-1. Khóa bảng ánh xạ đã xác minh cho lần chạy.
-2. Sinh đoạn mô tả ảnh tham chiếu từ chính bảng đó, dùng cú pháp mà node/model hỗ trợ. Nếu không có token ảnh chuyên biệt, dùng mô tả theo thứ tự ảnh chỉ khi model hỗ trợ cách chỉ dẫn ấy; không tự tạo token như `<image1>`.
-3. Trong từng shot, gọi nhân vật bằng tên và đặc điểm nhận diện rõ ràng. Quy định nhân vật nào có mặt/vắng mặt và vị trí, hành động của từng người; tránh “anh ấy/cô ấy” mơ hồ khi có nhiều người.
-4. Khi đổi file, đổi thứ tự hoặc bỏ một ảnh, cập nhật bảng và sinh lại prompt bị ảnh hưởng trước khi chạy. Không chỉ đổi dây hoặc chỉ đổi chữ.
-5. Với workflow tự động, dùng một manifest dữ liệu làm nguồn chung để tạo cả prompt và cấu hình đầu vào. Kiểm tra hợp lệ trước khi queue; không giả định bản thân prompt có khả năng điều khiển dây nối.
+## 8. Kiểm tra và sửa lỗi đúng phạm vi
 
-Nếu node video chỉ hỗ trợ một start frame, giữ danh tính nhân vật qua ảnh shot đã đúng; không hướng dẫn nối thêm ba ảnh nhân vật vào các socket không tồn tại. Nếu node có đầu vào nhiều ảnh, kiểm tra chúng là tham chiếu danh tính, frame đầu/cuối, hay một batch các tác vụ độc lập. Các ý nghĩa này không thay thế cho nhau.
+Trước bàn giao: storyboard đủ nhãn/ô, nội dung và kết thúc không bị bỏ; timeline hợp lý; đúng vai trò ảnh và số Picture; không còn ảnh cũ ngoài ý muốn; prompt không còn template token; style/thoại/camera đúng yêu cầu. Bảng node là cấu hình cần áp dụng, không phải xác nhận máy người dùng đã được đổi.
 
-### Bàn giao cho ComfyUI
+Đọc `references/operations-and-troubleshooting.md` khi gặp thiếu node/model, mặt nhòe, sai cut hoặc upscale. Phân biệt lỗi setup ComfyUI với lỗi nội dung. Đưa thao tác nhỏ nhất theo lỗi đã thấy; không đoán chắc từ một ảnh nếu cần log.
 
-Ngoài prompt, cung cấp:
+Nháp sai danh tính/biến dạng/thứ tự shot thì sửa ảnh/prompt và tạo take mới trước upscale. Bước 2 có latent 3D + refine, giữ màu và finishing/clarity, không hứa sửa chắc chắn mặt hay giải phẫu. Audio-freeze giữ audio pass 1 khi đã cài đúng patch; không chứng nhận patch đang có chỉ vì note viết vậy. FlashVSR là workflow khác và đang ngoài phạm vi.
 
-- Bảng kết nối: node nguồn/output → node đích/input, file ảnh và thứ tự thực tế.
-- Bảng điền node: lần chạy/shot → node ID → widget hoặc input prompt → nội dung chính xác cần dán. Chỉ gán ID đã đọc từ workflow.
-- Bảng tác vụ: mã shot/lượt tạo, file storyboard nguyên trang hoặc ảnh crop theo nhánh, prompt tương ứng, thời lượng được hỗ trợ, thời lượng dựng, file clip đầu ra dự kiến. Tên file đầu ra là đề xuất cho tới khi được cấu hình.
-- Nếu được yêu cầu sửa JSON, giữ nguyên bản gốc, tạo bản mới, bảo toàn liên kết không liên quan, kiểm tra cấu trúc/liên kết theo định dạng export thực tế. Không nhận đã chạy thử khi chỉ kiểm tra JSON hoặc khi thiếu custom node/runtime.
-
-Nếu có thể điều khiển workflow bằng dữ liệu, lưu manifest gồm project_id, episode_id, workflow_version, assets và runs. Mỗi asset có asset_id, loại, file, mô tả cố định. Mỗi run có run_id, stage, shot_id (nếu có), ordered_inputs (vai trò, asset_id hoặc shot crop, source_node_id, target_node_id, target_input, model_reference_name), prompt_target, prompt_text, generation_duration và edit_duration. Schema này là dữ liệu trung gian của skill, không phải định dạng workflow ComfyUI và không thể import trực tiếp.
-
-### Kiểm tra trước khi queue
-
-- File tồn tại và đúng nhân vật/môi trường do người dùng xác nhận; kiểm tra ảnh thực tế khi có thể.
-- Mọi ảnh cần dùng đều đi tới đúng đầu vào của node sinh nội dung; kiểu dữ liệu và số lượng hợp lệ.
-- Thứ tự ảnh và cách gọi trong prompt khớp; không có tham chiếu tới ảnh chưa được truyền.
-- Với nhánh crop: cắt đúng ô, bỏ nhãn/viền, giữ đúng tỷ lệ và không cắt mất chi tiết nhận diện. Tính crop theo kích thước ảnh thực, gutters và caption strips, không chia đều một cách mù quáng.
-- Prompt và ảnh đầu vào cùng mã tập/trang/shot phù hợp; prompt không chứa hướng dẫn vận hành như “hãy cắt ô này” thay cho ảnh đầu vào thực tế. Với nguyên trang Ref2V, kiểm tra đúng thứ tự ô và timeline của tất cả shot.
-- Nếu chưa có môi trường chạy, ghi rõ “đã kiểm tra ánh xạ/tĩnh; chưa chạy ComfyUI”. Chỉ mô tả kiểm tra đã thực hiện.
-
-## 4. Viết prompt storyboard bằng tiếng Anh
-
-Xuất một prompt hoàn chỉnh có thể sao chép, chứa mô tả tham chiếu, phong cách chung, số hàng/cột đã chọn và mô tả riêng đủ các shot trên trang. Thay tất cả chỗ điền bằng nội dung cụ thể trước khi giao prompt cuối.
-
-Khung cấu trúc:
-
-```text
-Create a cinematic storyboard contact sheet with exactly [SHOT COUNT ON THIS PAGE] populated panels in a [ROWS]-row by [COLUMNS]-column grid. [Specify any EMPTY cells explicitly.] Read the panels left to right, top to bottom. Each panel has a [PANEL ASPECT RATIO] image area. Use uniform gutters and consistent panel dimensions.
-
-REFERENCE MAPPING AND CONTINUITY:
-[Resolved character and environment reference mapping, with stable English descriptions and the references actually attached.]
-
-VISUAL DIRECTION:
-[Resolved style, lighting, color palette, time of day, wardrobe, props and spatial continuity.]
-
-PANEL LABELS:
-Place one clearly legible label in a dedicated narrow caption strip beneath each panel, outside the scene image. Use exactly these labels: [EXPLICIT ORDERED SHOT LABELS FOR THIS PAGE]. Keep labels in row-major order. These labels identify the shots for the matching video prompts; they are not objects inside the story world.
-
-PANEL-BY-PANEL DIRECTIONS:
-[Repeat for every populated panel, using the actual global shot number:]
-SHOT [N] — Row [R], column [C]. [Reference IDs plus identifying descriptions; setting; shot size; camera angle; a single frozen action beat; expression; composition; lighting.]
-
-[If applicable, list the exact row and column of each EMPTY cell.]
-
-Keep all populated panels distinct and preserve character identity and environmental continuity. Avoid extra panels, duplicated panels, merged scenes, unintended lettering, watermarks and distorted anatomy. The required SHOT labels must remain visible and correctly spelled.
-```
-
-Không hứa công cụ sẽ render chữ chính xác. Nếu kết quả có nhãn sai hoặc thiếu, kiểm tra và sửa nhãn trước khi dùng ảnh làm tham chiếu cho video. Nếu dùng công cụ tự động, bảo đảm ảnh nguyên bản vẫn được giữ khi sửa.
-
-## 5. Viết prompt video khớp storyboard
-
-Ưu tiên theo mục tiêu người dùng: **nguyên trang storyboard → H3 Ref2V → clip nhiều shot** khi workflow hỗ trợ; xem `references/storyboard-ref2v-video-notes.md`. Xuất một prompt hoàn chỉnh mỗi lượt tạo, kèm ánh xạ từng ô sang shot và timeline. Cắt lẻ để image-to-video là phương án dự phòng khi cần kiểm soát, sửa shot hoặc model/workflow không hỗ trợ nhánh nguyên trang. Mỗi prompt phải tự đủ thông tin; không chỉ viết “same as above”.
-
-Chọn nhánh theo workflow: (A) image-to-video từ crop storyboard, dùng mẫu bên dưới; (B) reference-to-video từ sheets nhân vật/môi trường, dùng mẫu sáu phần trong `references/production-guide.md` khi phù hợp với node thực tế. Với nhánh B, storyboard là bản kế hoạch hình ảnh và timeline; không mặc định ảnh lưới được truyền làm start frame. Nhánh B có thể gom nhiều shot vào một clip nếu model hỗ trợ và mỗi lượt không vượt 30 giây. Không đổi nhánh mà không cập nhật bảng đầu vào.
-
-Nhánh (C), ưu tiên cho dự án này: truyền **nguyên storyboard dưới dạng ảnh tham chiếu** vào H3 Ref2V; quy định đọc ô theo hàng, mô tả chủ thể trong ảnh, nối diễn biến và cut theo timeline. Character sheet dùng trước hết để tạo storyboard đúng nhân vật; chỉ thêm sheet vào đầu vào video khi workflow thực tế có hỗ trợ và mapping đã xác minh. Không coi storyboard là start frame toàn màn hình, không bắt cắt ô trước khi dùng nhánh C.
-
-Với image-to-video, ưu tiên cắt đúng phần hình của từng ô tương ứng, bỏ caption strip và đường viền, rồi dùng làm ảnh đầu vào cho clip đó. Dùng bản storyboard có nhãn để đối chiếu. Không đưa nguyên lưới storyboard vào một yêu cầu image-to-video thông thường rồi mặc định model sẽ hiểu cách dựng nhiều cảnh.
-
-Khung cho từng prompt, thay toàn bộ chỗ điền trước khi giao:
-
-```text
-SHOT [N] — [Short title]
-Planned duration: [duration] seconds. Output aspect ratio: [ratio].
-
-INPUT REFERENCE:
-Use the image area of SHOT [N], located at row [R], column [C] of the storyboard, as the starting-frame reference. The actual input image is the cropped panel without its caption strip or grid borders. [State the attached character/environment references when supported.]
-
-CONTINUITY:
-[Self-contained character appearance, wardrobe, props, environment, time and lighting. Preserve the reference composition and identity.]
-
-ACTION AND EXPRESSION:
-[A concrete, physically plausible action evolving from the starting frame, with expression and a clear end state.]
-
-CAMERA:
-[Shot size, angle, one coherent camera movement, focus and pace.]
-
-SOUND:
-[Requested ambience, effects, music and exact dialogue with speaker attribution. Keep Vietnamese dialogue in Vietnamese. If audio generation is unsupported, use this as a separate sound/editing brief.]
-
-END FRAME AND EDIT:
-[End composition, movement direction and intended transition to the next shot. For the final shot, describe the ending.]
-
-CONSTRAINTS:
-Render one continuous full-frame cinematic shot. Exclude storyboard labels, caption strips, grid lines, split screens, unintended subtitles and watermarks. Preserve character identity, clothing, props and environment; avoid unintended morphing or flicker.
-```
-
-Các mã SHOT phải có trong văn bản prompt để đối chiếu, nhưng không xuất hiện trong hình video, trừ khi người dùng yêu cầu chữ trên phim.
-
-Với workflow Singularity V2 của dự án này, mặc định xuất prompt nhiều shot tương ứng cả trang storyboard; mỗi lượt giữ dưới giới hạn local. Với workflow khác, chỉ gom nhiều shot khi đã xác minh cách điều khiển phù hợp. Mỗi lượt tạo không vượt 30 giây hoặc giới hạn thấp hơn của model. Prompt tổng phải có timeline của các shot trong lượt đó, thời lượng, vị trí ô, hành động, máy quay và chuyển cảnh cụ thể. Không cam kết khả năng thực thi khi chưa xác minh.
-
-## 6. Định dạng bàn giao
-
-Khi đã đủ thông tin, trả kết quả theo thứ tự:
-
-1. Tóm tắt ngắn bằng tiếng Việt về hướng triển khai và các giả định được phép.
-2. Bảng tham chiếu nhân vật/môi trường đã chốt.
-3. Bảng shot: mã, trang/hàng/cột, thời lượng dựng và lý do ước lượng, nội dung, máy quay và tham chiếu; kèm timeline và phân nhóm lượt tạo tối đa 30 giây.
-4. Một prompt storyboard tiếng Anh cho mỗi trang, ghi rõ số hàng/cột, nhãn shot thực tế và ô trống nếu có.
-5. Các prompt video tiếng Anh theo shot/lượt tạo khả dụng, cùng mã và nội dung tương ứng storyboard; tách thời lượng tạo và thời lượng dựng.
-6. Hướng dẫn theo nhánh: mặc định character sheets → storyboard → kiểm tra nhãn/tham chiếu → truyền nguyên trang vào Ref2V với prompt nhiều shot → dựng nối. Nếu dùng nhánh image-to-video dự phòng, cắt phần hình từng shot trước khi tạo clip. Thêm âm thanh hậu kỳ khi cần.
-7. Khi dùng ComfyUI: kèm bảng ánh xạ theo lần chạy, bảng kết nối và vị trí dán prompt; nếu chưa nhận workflow JSON, ghi rõ phần nào chưa xác minh. Không gọi bộ prompt là sẵn sàng chạy khi ánh xạ còn thiếu.
-
-## 7. Kiểm tra trước khi bàn giao
-
-- Số ô, số hàng/cột và các nhãn khớp danh sách shot; ô EMPTY được khai báo; không thiếu/trùng/đảo thứ tự shot giữa các trang.
-- Mỗi prompt video trỏ đúng shot, hàng/cột và tham chiếu.
-- Prompt cuối không còn chỗ điền hoặc thông tin tham chiếu chưa được xác nhận.
-- Các đặc điểm nhân vật, môi trường, ánh sáng, đạo cụ và hướng hành động liên tục.
-- Các yêu cầu đặc biệt người dùng đã đưa đều được phản ánh.
-- Tổng thời lượng đúng kế hoạch và phân biệt rõ kế hoạch với giới hạn model đã xác minh.
-- Nhãn được yêu cầu trên storyboard và được loại khỏi hình video.
-- Không thêm tình tiết, danh tính nhân vật hoặc tính năng model chưa có căn cứ.
-- Với ComfyUI, kiểm tra riêng ánh xạ của storyboard và từng clip; việc gọi image1/image2/image3 phải có cơ sở từ node/model thực tế.
-
-- Mỗi lượt tạo video không vượt 30 giây và giới hạn model; thời lượng shot được ước lượng theo nội dung, không chia đều máy móc.
-
-## 8. Workflow hiện hành: Singularity V2 Storyboard Studio
-
-Đọc `references/singularity-v2.md` khi tạo prompt / project cho bộ cài mới. Đây là workflow dẫn xuất từ JSON người dùng gửi `Finalworkflofacefixed (Natural Contrast)fixed.json` và mã hỗ trợ trên Drive; không dùng schema H3 Studio cũ. Đọc `examples/lan-15s.project.json` trong bộ cài làm mẫu dữ liệu chính xác.
-
-- Nhánh chính: nguyên storyboard → MiniMaxH3ReferenceToVideo (node 26) + character/environment/prop sheets tùy chọn. Không yêu cầu cắt lẻ storyboard mặc định.
-- Xuất `project.json` với `run_id`, `seconds`, `aspect`, `draft_megapixels`, `seed`, `grid`, `assets`, `video_prompt`; chi tiết trong tài liệu tham chiếu. Đây là project trung gian, không phải workflow ComfyUI.
-- Mỗi asset có `id`, `name`, `role`, `file`, `enabled`, `description`. STORYBOARD bật và đứng đầu. CHAR_01/ENV_01/PROP_01 giữ mã qua các lượt; tối đa 9 ảnh bật, gồm storyboard.
-- Prompt trong project dùng `<Asset:STORYBOARD>`, `<Asset:CHAR_01>`... Đây là token của bước chuẩn bị, không phải token model. PREPARE.bat chuyển sang `<Picture n>` và nối đúng core LoadImage từ cùng danh sách bật. Không điền Picture bằng tay trong project.
-- Không gán tên file giả rồi nhận là đã có. Có thể để file rỗng cho PREPARE mở hộp chọn ảnh trên máy. Nếu thiếu ảnh nhân vật và người dùng chọn dùng storyboard, đặt enabled=false, giữ description đủ rõ. Bộ chuẩn bị bỏ ảnh khỏi dây và chỉ dẫn dùng ngoại hình đã thấy trong storyboard. Không coi đó là character sheet hay khả năng khóa mặt tương đương.
-- Local giới hạn 3–15 giây mỗi lượt (nháp 5–15 giây thường phù hợp hơn), luôn dưới trần 30 giây người dùng đặt. Shot trên timeline có thể 1 giây. Clip nguồn làm tròn lên lưới 17n+5 ở 24 FPS; không hứa cut chính xác từng frame. Tập 60 giây chia nhiều lượt, lưu continuity giữa lượt.
-- Bố cục storyboard 1×N / 2×2 / 2×3 / 3×3... do AI chọn theo nội dung và độ rõ nhân vật; không cố định 3×3. Nhãn SHOT nằm ngoài vùng hình; mô tả hàng/cột, timeline và hành động khớp từng nhãn.
-- Hai bước: bước false tạo nháp và lưu `.h3take`; bước true nạp latent + conditioning từ take để nâng latent 3D, refine, giữ màu và finishing. Bước 2 không tạo lại từ prompt mới. Khi đổi storyboard/sheet/prompt cần tạo take mới. Chọn take cụ thể khi có nhiều tác vụ, không mặc định latest luôn thuộc tập đang làm.
-- Với hoạt hình 3D: giữ mặt / tỷ lệ / shading từ ảnh; LoRA người thật và trigger `r34l1sm` tắt. Không tự thêm Pika/Motion Repair hay gọi chúng là khóa mặt. Singularity có thiên hướng riêng, cần kiểm tra mẫu 3D trước khi sản xuất hàng loạt.
-- Model/loader mới dùng safetensors qua core UNETLoader/CLIPLoader/VAELoader. Không hướng dẫn dùng GGUF, mmproj, H3StudioReferences hay các bản vá của bộ cài cũ.
-- RTX 4060 Ti không có tính toán NVFP4 phần cứng như RTX 50; core dùng tính toán giải lượng tử. Mặc định PyTorch attention; không hứa sol-attn / Kitchen INT8 làm nhanh hơn khi chưa thử.
-- Có nâng chất lượng cuối bằng latent 3D + refine + Color Transfer + Finishing/Clarity. FlashVSR là workflow khác; chưa có JSON đó trong nguồn được gửi nên không tự mô tả là đã tích hợp.
-- Kiểm tra code, UI/schema, take round-trip và sampling GPU là các mức khác nhau. Không gọi render thành công nếu chỉ mở JSON hoặc kiểm thử CPU. Không chấm chất lượng / chọn cấu hình tốt nhất nếu chưa xem output thật.
+Không nhận đã render/test tốc độ/chất lượng 3D nếu chỉ đọc JSON, tạo storyboard, kiểm tra mapping hoặc chạy CPU. RTX 4060 Ti không có tính NVFP4 phần cứng như RTX 50; backend/sparse còn tùy runtime. Chỉ đề xuất giảm cấu hình hoặc bypass attention sau khi đối chiếu lỗi, không tự đưa một cấu hình mới thay workflow gốc.

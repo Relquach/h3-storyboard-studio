@@ -1,0 +1,7 @@
+﻿asset_id,file_label,node_id,socket,enabled,picture,snapshot_mode
+STORYBOARD,Ảnh storyboard Lan 2×2 đã tạo (tên đề xuất: lan-storyboard.png),27,ref_images.ref_image_0,True,1,0
+CHAR_01,Sheet Lan áo dài trắng đã duyệt (tên đề xuất: lan-sheet.png),28,ref_images.ref_image_1,True,2,0
+ENV_01,Không nạp ảnh riêng; lấy môi trường trong storyboard,93,ref_images.ref_image_2,False,,0
+,,104,ref_images.ref_image_3,False,,4
+,,122,ref_images.ref_image_4,False,,4
+,,135,ref_images.ref_image_5,False,,4

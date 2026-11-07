@@ -1,0 +1,19 @@
+Create a cinematic storyboard contact sheet with exactly four populated panels in 2 rows and 2 columns, read left to right, then top to bottom. Each panel's scene image area is vertical 9:16; the page aspect ratio may include uniform gutters, outer margins and narrow caption strips. Do not distort the panel images to force the whole sheet into a conflicting ratio.
+
+REFERENCE AND STYLE:
+Use the attached approved Lan character sheet for one consistent adult Vietnamese woman: petite, 155 cm tall, slender build, fair rosy skin, long dark brown half-up hair with a pale pink bow, pearl earrings, an opaque white ao dai over white trousers. Match the approved face, hair and clothing across all relevant panels. Stylized 3D animated romantic film, expressive eyes, softly shaded skin, finely detailed hair, warm golden rim light and soft cinematic depth of field. Do not convert her into a live-action actor.
+The setting is a ripe golden rice field at sunset, a grassy earthen bund and a peach-lavender sky. Warm low sunlight comes from screen left. Preserve the geography and light direction.
+
+PANEL 1 — row 1, column 1; caption SHOT 1:
+A wide view of Lan already seated on the grassy bund among golden rice. Hands rest naturally in her lap. Her gaze points gently upward toward screen right. Relaxed posture, a peaceful expression. Her white ao dai is opaque and drapes naturally. Fine hair strands and rice tips suggest a light breeze. This is the static starting moment for a slow camera push-in, not a montage inside one panel.
+
+PANEL 2 — row 1, column 2; caption SHOT 2:
+A medium close-up of the same Lan in the same setting, chin raised slightly, eyes following clouds toward upper screen right with quiet curiosity. Keep her face, pearl earrings, bow and hair exactly consistent. Golden rim light and the distant rice field remain visible; no blank sheet background.
+
+PANEL 3 — row 2, column 1; caption SHOT 3:
+An upward sky view with a clearly recognizable fluffy white heart-shaped cloud among ordinary soft clouds. Peach-lit natural vapor edges, not a solid heart icon. A thin distant strip of golden field at the bottom. No people or faces in the sky.
+
+PANEL 4 — row 2, column 2; caption SHOT 4:
+A close-up of Lan with the same face and hairstyle, still looking upward screen right. Her expression begins a tender smile. The white ao dai collar is visible; warm sunset and softly blurred field establish continuity. No additional character.
+
+Place each exact caption SHOT 1, SHOT 2, SHOT 3, SHOT 4 in its own narrow strip beneath the scene image, outside the scene. Keep the grid order clear and panels distinct. No extra panels, extra people, merged scenes, double faces, malformed anatomy, watermarks or writing inside the scenes. Repeated panels depict one consistent Lan.

@@ -1,3 +1,5 @@
+> **Skill mới cho workflow gốc (v2.0.0):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.
+
 > **Bộ cài mới theo workflow/video Singularity V2:** [Tải ZIP riêng](dist/Singularity-Storyboard-Studio-v1.0.0.zip) · [Hướng dẫn](singularity-v2/README.md) · [Skill đã cập nhật](singularity-v2/skills/minimax-h3-film/SKILL.md). Giải nén ZIP riêng rồi chạy INSTALL.bat bên trong; không dùng bộ cài GGUF cũ ở phần dưới. Đã kiểm tra UI/schema/take trên CPU, chưa render GPU/Windows.
 
 # H3 Storyboard Studio — Windows Portable

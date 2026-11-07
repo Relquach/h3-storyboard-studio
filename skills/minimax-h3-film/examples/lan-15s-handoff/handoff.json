@@ -1,0 +1,116 @@
+{
+  "status": "configuration_to_apply_not_live_runtime_verified",
+  "run_id": "EP01_RUN01_LAN",
+  "seconds": 15,
+  "frames": 362,
+  "source_seconds": 15.083333333333334,
+  "grid": [
+    2,
+    2
+  ],
+  "mapping": [
+    {
+      "slot": 0,
+      "node_id": 27,
+      "socket": "ref_images.ref_image_0",
+      "snapshot_mode": 0,
+      "asset_id": "STORYBOARD",
+      "enabled": true,
+      "picture": 1,
+      "file_label": "Ảnh storyboard Lan 2×2 đã tạo (tên đề xuất: lan-storyboard.png)"
+    },
+    {
+      "slot": 1,
+      "node_id": 28,
+      "socket": "ref_images.ref_image_1",
+      "snapshot_mode": 0,
+      "asset_id": "CHAR_01",
+      "enabled": true,
+      "picture": 2,
+      "file_label": "Sheet Lan áo dài trắng đã duyệt (tên đề xuất: lan-sheet.png)"
+    },
+    {
+      "slot": 2,
+      "node_id": 93,
+      "socket": "ref_images.ref_image_2",
+      "snapshot_mode": 0,
+      "asset_id": "ENV_01",
+      "enabled": false,
+      "picture": "",
+      "file_label": "Không nạp ảnh riêng; lấy môi trường trong storyboard"
+    },
+    {
+      "slot": 3,
+      "node_id": 104,
+      "socket": "ref_images.ref_image_3",
+      "snapshot_mode": 4,
+      "asset_id": "",
+      "enabled": false,
+      "picture": "",
+      "file_label": ""
+    },
+    {
+      "slot": 4,
+      "node_id": 122,
+      "socket": "ref_images.ref_image_4",
+      "snapshot_mode": 4,
+      "asset_id": "",
+      "enabled": false,
+      "picture": "",
+      "file_label": ""
+    },
+    {
+      "slot": 5,
+      "node_id": 135,
+      "socket": "ref_images.ref_image_5",
+      "snapshot_mode": 4,
+      "asset_id": "",
+      "enabled": false,
+      "picture": "",
+      "file_label": ""
+    }
+  ],
+  "node_actions": [
+    {
+      "node_id": 27,
+      "action": "Nạp Ảnh storyboard Lan 2×2 đã tạo (tên đề xuất: lan-storyboard.png); bật",
+      "picture": 1
+    },
+    {
+      "node_id": 28,
+      "action": "Nạp Sheet Lan áo dài trắng đã duyệt (tên đề xuất: lan-sheet.png); bật",
+      "picture": 2
+    },
+    {
+      "node_id": 93,
+      "action": "Bypass (Ctrl+B)",
+      "picture": ""
+    },
+    {
+      "node_id": 104,
+      "action": "Bypass (Ctrl+B)",
+      "picture": ""
+    },
+    {
+      "node_id": 122,
+      "action": "Bypass (Ctrl+B)",
+      "picture": ""
+    },
+    {
+      "node_id": 135,
+      "action": "Bypass (Ctrl+B)",
+      "picture": ""
+    }
+  ],
+  "controls": {
+    "62": "true (nhánh Ref2V)",
+    "70": "Dán video_prompt.txt",
+    "23": 15,
+    "25": "9:16 (Portrait Widescreen); multiple32; megapixels theo cấu hình hiện dùng",
+    "105": "false tạo nháp; true nâng take",
+    "124": "Chọn take đã duyệt; không mặc định latest đúng dự án",
+    "134": "Bypass Realism People; giữ Turbo #10"
+  },
+  "prompt": "REFERENCE INPUT ORDER:\n<Picture 1>: STORYBOARD — A 2-row by 2-column storyboard, panels SHOT 1 to SHOT 4 read left to right, top to bottom; golden rice field at sunset.\n<Picture 2>: CHAR_01 — Lan, a petite adult Vietnamese woman, 155 cm tall, slender build, fair rosy skin, long dark brown half-up hair with a pale pink bow, pearl earrings, opaque white ao dai and white trousers.\nNO SEPARATE SHEET: ENV_01. Obtain these assets from the storyboard, not an unprovided image.\n\nsubject_definitions:\n<Subject 1> is Lan from <Picture 2>. Preserve her face, hairstyle, body proportions, opaque white ao dai and white trousers.\n<Subject 2> is the rice field and sunset sky from <Picture 1>.\nsummary:\n[reference generation] Animate the four panels of <Picture 1> as a 15-second full-frame cinematic sequence. The grid is a shot plan, not a split-screen or a literal first frame.\nretention_analysis:\nLan keeps one identity throughout SHOT 1, SHOT 2 and SHOT 4. SHOT 3 shows only the sky and a thin distant field edge. Preserve sunset lighting and screen direction across all shots.\ndetailed_description:\nStylized 3D animated romantic film with expressive eyes, softly shaded rosy skin, finely detailed hair, warm rim light and soft cinematic depth of field. Preserve the reference's animated face; no live-action skin or photorealistic actor conversion.\n[SHOT 1] 00:00.000–00:04.000, top-left panel. Wide view of Lan seated on a grassy bund among ripe golden rice, hands resting on her lap, gaze gently upward toward screen right. Gentle breeze in rice, hair and ao dai panels. Slow push-in. No standing-up action.\n[SHOT 2] At 00:04.000, cut to the top-right panel, until 00:07.000. Medium close-up of Lan lifting her chin slightly and following the clouds with quiet curiosity. Same field and sunset, stable face and restrained movement.\n[SHOT 3] At 00:07.000, cut to the bottom-left panel, until 00:12.000. Upward sky view. A fluffy white heart-shaped cloud drifts among ordinary clouds, peach-lit vapor edges, a thin distant field edge below. No person or solid heart icon.\n[SHOT 4] At 00:12.000, cut to the bottom-right panel, until 00:15.000. Close-up of Lan looking upward screen right. A tender smile gradually forms, one natural blink. Steady camera, white ao dai collar visible. Hold the ending quietly.\nNo storyboard borders, shot labels, contact sheet, extra faces, subtitles, watermarks or scene text. Shot labels only identify the source panels.\noverall_soundscape:\nSoft breeze through rice, light fabric rustle and faint distant birds. No dialogue or narration.\nnon_diegetic_music:\nN/A",
+  "workflow_sha256": "983157859d1a043eb7800f0177e6a05234be36a155323a6e3f791c1e1ec6a2ef"
+}
