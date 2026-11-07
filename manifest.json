@@ -63,6 +63,6 @@
     }
   ],
   "core_inspected_commit": "63e5bf594339f676b4b15e072529873e3448409e",
-  "package_version": "0.2.2",
-  "notes": "Native-key Q2 encoder includes 351 vision tensors; use H3StudioNativeClipLoader, never llama.cpp CLIP loader."
+  "package_version": "0.3.0",
+  "notes": "Native-key GGUF loaders for H3 DiT and encoder; optional asset references with automatic slot mapping; UPGRADE installs Vietnamese UI workflow without a JSON picker. GPU render not validated."
 }
