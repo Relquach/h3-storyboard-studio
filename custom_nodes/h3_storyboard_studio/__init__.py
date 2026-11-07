@@ -4,12 +4,25 @@ import re
 
 
 def compose(prompt, roles, count):
-    names = json.loads(roles)
-    if not isinstance(names, list) or len(names) != count or not all(isinstance(s, str) and s.strip() for s in names):
-        raise ValueError('Reference roles must contain one nonempty name per connected image, storyboard first.')
+    # Wiring is authoritative. Role names are optional annotations, not a
+    # second independently maintained source of image count.
+    if isinstance(roles, str) and roles.strip().lower() in ('', 'auto'):
+        names = []
+    else:
+        try:
+            names = json.loads(roles)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise ValueError('Ánh xạ ảnh: nhập auto hoặc một danh sách JSON hợp lệ.') from exc
+        if not isinstance(names, list) or not all(isinstance(s, str) and s.strip() for s in names):
+            raise ValueError('Ánh xạ ảnh: nhập auto hoặc danh sách tên ảnh không rỗng.')
+    names = names[:count]
+    while len(names) < count:
+        index = len(names)
+        names.append('Storyboard: chronological panels' if index == 0 else
+                     f'Character reference {index}: identity as assigned in the prompt, not another storyboard panel')
     for n in re.findall(r'<Picture (\d+)>', prompt):
         if not 1 <= int(n) <= count:
-            raise ValueError(f'Prompt references missing Picture {n}')
+            raise ValueError(f'Prompt dùng <Picture {n}> nhưng chỉ có {count} ảnh được nối. Picture 1 = storyboard; Picture 2 = nhân vật 1. Kiểm tra dây ảnh đầu vào.')
     mapping = '\n'.join(f'<Picture {i+1}>: {name}' for i, name in enumerate(names))
     return ('REFERENCE INPUT ORDER (do not exchange identities):\n' + mapping + '\n\n' + prompt)
 
@@ -21,19 +34,19 @@ class H3StudioReferences:
             'clip': ('CLIP',), 'vae': ('VAE',), 'audio_vae': ('VAE',),
             'storyboard': ('IMAGE',),
             'prompt': ('STRING', {'multiline': True}),
-            'roles_json': ('STRING', {'default': '["Storyboard: chronological panels"]'}),
+            'roles_json': ('STRING', {'default': 'auto'}),
             'width': ('INT', {'default': 640, 'min': 32, 'max': 2048, 'step': 32}),
             'height': ('INT', {'default': 384, 'min': 32, 'max': 2048, 'step': 32}),
             'length': ('INT', {'default': 124, 'min': 5, 'max': 362, 'step': 17}),
             'ref_image_size': (['match', 'max'],),
-        }, 'optional': {'character_1': ('IMAGE',), 'character_2': ('IMAGE',), 'character_3': ('IMAGE',)}}
+        }, 'optional': {'character_1': ('IMAGE',), 'character_2': ('IMAGE',), 'character_3': ('IMAGE',), 'extra_refs': ('H3_EXTRA_REFS',)}}
     RETURN_TYPES = ('CONDITIONING', 'LATENT', 'STRING')
     RETURN_NAMES = ('positive', 'av_latent', 'resolved_prompt')
     FUNCTION = 'encode'
     CATEGORY = 'H3 Storyboard Studio'
 
     def encode(self, clip, vae, audio_vae, storyboard, prompt, roles_json, width, height, length,
-               ref_image_size='match', character_1=None, character_2=None, character_3=None):
+               ref_image_size='match', character_1=None, character_2=None, character_3=None, extra_refs=None):
         from comfy_extras.nodes_minimax_h3 import MiniMaxH3ReferenceToVideo
         if length % 17 != 5 or not 5 <= length <= 362:
             raise ValueError('Use H3 frame grid 17n+5, at most 362 frames for this package.')
@@ -42,6 +55,20 @@ class H3StudioReferences:
         if connected != sorted(connected, reverse=True):
             raise ValueError('Connect characters in order without gaps.')
         images = [storyboard] + [v for v in chars if v is not None]
+        from .extra_references import resolve_extras
+        prompt, extras = resolve_extras(prompt, extra_refs, first_slot=len(images)+1)
+        images += [item['image'] for item in extras]
+        if len(images)>9:raise ValueError('H3 hỗ trợ tối đa 9 ảnh tham chiếu trong lượt này.')
+        # For chain references the role metadata comes from each item, not a manual count.
+        if extra_refs:
+            legacy_count=len(images)-len(extras)
+            try:names=json.loads(roles_json) if roles_json.strip().lower() not in ('','auto') else []
+            except (TypeError,json.JSONDecodeError):names=[]
+            names=names[:legacy_count] if isinstance(names,list) else []
+            while len(names)<legacy_count:
+                i=len(names);names.append('Storyboard: chronological panels' if i==0 else f'Character reference {i}')
+            names += [item['name']+': '+item['role'] for item in extras]
+            roles_json=json.dumps(names,ensure_ascii=False)
         resolved = compose(prompt, roles_json, len(images))
         refs = {f'ref_image_{i}': im for i, im in enumerate(images)}
         result = MiniMaxH3ReferenceToVideo.execute(clip=clip, vae=vae, audio_vae=audio_vae,
@@ -143,3 +170,10 @@ class H3StudioDuration:
 
 NODE_CLASS_MAPPINGS['H3StudioDuration']=H3StudioDuration
 NODE_DISPLAY_NAME_MAPPINGS['H3StudioDuration']='THỜI LƯỢNG CLIP (GIÂY)'
+from .native_model import H3StudioNativeModelLoader
+NODE_CLASS_MAPPINGS['H3StudioNativeModelLoader']=H3StudioNativeModelLoader
+NODE_DISPLAY_NAME_MAPPINGS['H3StudioNativeModelLoader']='01 · Model H3 — GGUF native'
+
+from .extra_references import H3StudioExtraReference
+NODE_CLASS_MAPPINGS['H3StudioExtraReference']=H3StudioExtraReference
+NODE_DISPLAY_NAME_MAPPINGS['H3StudioExtraReference']='Tham chiếu thêm — BẬT / BỎ QUA'
