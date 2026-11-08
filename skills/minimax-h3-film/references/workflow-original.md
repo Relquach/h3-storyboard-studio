@@ -1,3 +1,5 @@
+> PHẠM VI: profile `singularity_original_ref2v` trong bản skill v3. Không áp các ID, Picture, Turbo LoRA hoặc quy trình take này cho FastH3 I2V. Đọc SKILL.md và workflow-mode-routing.md trước.
+
 # Workflow gốc: hợp đồng node và dây nối
 
 Nguồn: `Finalworkflofacefixed (Natural Contrast)fixed.json`, lưu nguyên vẹn tại `original-workflow.json`. SHA-256: `983157859d1a043eb7800f0177e6a05234be36a155323a6e3f791c1e1ec6a2ef`. Có 75 node, 99 link; workflow ID `47d01687-55c3-494f-b9b2-7057b4c774a1`. Nếu export mới đổi wiring/ID, đọc lại và lấy bản mới làm nguồn. Không suy ra trạng thái ComfyUI đang mở chỉ từ snapshot này.

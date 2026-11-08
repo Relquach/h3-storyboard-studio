@@ -1,3 +1,5 @@
+> TÀI LIỆU THAM KHẢO CŨ. Quy tắc nhận diện workflow/model trong SKILL.md v3 có ưu tiên khi soạn bàn giao; không dùng tài liệu này để suy ra FastH3 có Ref2V.
+
 # Hướng dẫn sản xuất bổ sung từ H3_STORYBOARD_SYSTEM.md
 
 ## 1. Phạm vi và các điểm đã điều chỉnh

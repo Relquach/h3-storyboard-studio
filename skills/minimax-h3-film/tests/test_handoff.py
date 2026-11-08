@@ -4,6 +4,7 @@ spec=importlib.util.spec_from_file_location('handoff',ROOT/'scripts/compile_hand
 class HandoffTests(unittest.TestCase):
  def setUp(self):
   self.workflow=json.loads((ROOT/'references/original-workflow.json').read_text());self.plan=json.loads((ROOT/'examples/lan-15s.plan.json').read_text())
+  self.plan['storyboard_review']={'status':'approved','approved_by':'user','approved_revision':self.plan['storyboard_revision'],'evidence':'SYNTHETIC TEST FIXTURE — not a real user approval.'}
  def test_uploaded_workflow_is_exact_original(self):
   self.assertEqual(hashlib.sha256((ROOT/'references/original-workflow.json').read_bytes()).hexdigest(),'983157859d1a043eb7800f0177e6a05234be36a155323a6e3f791c1e1ec6a2ef')
  def test_extracts_wires_in_socket_order(self):

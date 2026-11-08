@@ -1,3 +1,5 @@
+> PHẠM VI: profile `singularity_original_ref2v` trong bản skill v3. Không áp các ID, Picture, Turbo LoRA hoặc quy trình take này cho FastH3 I2V. Đọc SKILL.md và workflow-mode-routing.md trước.
+
 # Vận hành workflow gốc và các lỗi thường gặp
 
 ## Hai bước

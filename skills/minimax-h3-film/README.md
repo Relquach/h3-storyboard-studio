@@ -1,38 +1,37 @@
-# Skill MiniMax H3 — dùng workflow gốc
+# MiniMax H3 Film Skill v3.0.0
 
-Phiên bản2.0.0. Bám đúng file người dùng gửi ngày08/11/2026: `Finalworkflofacefixed (Natural Contrast)fixed.json` (SHA-256 đã ghi trong references). Đây là **bộ skill**, không phải bộ cài ComfyUI hay workflow đã xây lại.
+Bản công khai của skill v3, có kiểm tra task/model và bước duyệt storyboard bắt buộc. Không phân phối JSON riêng, video, frame, thoại hoặc báo cáo dự án của người dùng. Gói skill, không phải bộ cài hoặc workflow mới.
 
-## Cách dùng với Codex
+**Điểm quan trọng:** graph mới là I2V, nguyên storyboard đang làm first_frame; prompt gọi Picture2 chưa nối; duration thực 5 giây nhưng prompt dài 15 giây. Ngoài ra model card FastH3 V2 chỉ công bố T2AV, FL2VA/Ref2VA chưa distill. Skill v3 chặn các lỗi này trước khi nhận prompt sẵn sàng.
 
-Đưa cả thư mục `minimax-h3-film` vào nơi Codex của bạn đọc skill, hoặc gửi `SKILL.md` và các file tham chiếu vào cùng dự án. Khi gọi skill, có thể viết:
+## Quy trình sáng tác bắt buộc
 
-> Dùng skill minimax-h3-film với workflow gốc. Nội dung15giây: Lan ngồi trên bờ ruộng lúa chín lúc hoàng hôn, nhìn mây bồng bềnh, thấy một đám mây hình trái tim và mỉm cười. Video9:16,3D animation. Dùng sheet Lan đã duyệt; AI tự chọn góc máy và nhịp. Hãy tạo ảnh storyboard và prompt video cuối để dán vào ComfyUI.
+**Tạo storyboard → người dùng duyệt → từ bản đã duyệt và nội dung phim mới tạo prompt video.** Có sửa ảnh thì gửi bản mới để duyệt; chưa được duyệt thì không xuất prompt video. Skill giữ trạng thái nội bộ, người dùng chỉ cần xem ảnh và phản hồi. Đọc `references/storyboard-approval.md`.
 
-Codex sẽ hỏi một lượt những tham chiếu/chi tiết thực sự còn thiếu, tự chia shot/giây/lưới, tạo storyboard nếu có công cụ được cho phép, kiểm tra ảnh, rồi giao prompt tiếng Anh và bảng nạp ảnh/bypass node. Không yêu cầu PREPARE hay bộ cài riêng. Không tự tạo ảnh trong lúc chỉ được yêu cầu sửa skill.
+## Sử dụng
 
-## Phần đã bổ sung
+Đưa cả thư mục `minimax-h3-film` vào nơi Codex đọc skill hoặc gửi cả gói vào dự án. Đừng chỉ chép SKILL.md mà bỏ các reference. Có thể yêu cầu:
 
-- Sơ đồ gốc: storyboard #27, ảnh phụ #28/#93/#104/#122/#135 → Ref2V#26; prompt#70; giây#23; tỷ lệ video#25.
-- Ảnh thừa #93 đang bật trong file gốc phải được xử lý rõ. Bỏ ảnh ở giữa làm dồn Picture; prompt và bảng node phải đổi cùng lúc.
-- Lưới linh hoạt, nhãn SHOT/hàng/cột, từng ô đúng tỷ lệ, động tác và trạng thái đầu–cuối, phân bổ giây không chia đều.
-- Tạo **ảnh** storyboard bằng công cụ được cho phép, không chỉ trả prompt khi người dùng đã yêu cầu vẽ; không dùng Topview theo lựa chọn đã có.
-- Hướng dẫn style3D: đề xuất bypass Realism#134 và bỏ trigger; giữ Turbo#10, không tự bật Licon/MotionRepair.
-- Hai bước gốc: nháp/lưu take → duyệt → nạp take/nâng latent/refine/giữ màu/finishing. Đổi prompt mới không tự đổi take cũ.
-- Ghi chú setup cho hai node Pixaroma và hai model đang báo thiếu trong ảnh; không biến tác vụ sáng tác thành cài lại hệ thống.
-- Helper đọc wiring và sinh prompt/mapping/bảng thao tác từ một plan; **Codex dùng hộ**, người dùng không cần chạy. Helper không sửa JSON, cài dependency hoặc gọi server.
+> Dùng skill minimax-h3-film v3. Đọc workflow tôi gửi trước, xác nhận task và checkpoint. Dùng style 3D bán hiện thực Á Đông, pha nét búp bê. Tạo storyboard theo nội dung, tự chọn số ô và nhịp; gửi tôi duyệt trước. Sau khi tôi duyệt mới tạo prompt video từ bản đó và nội dung phim. Nếu workflow nhận first_frame, chuẩn bị ảnh shot sạch, báo rõ model có hỗ trợ I2V không. Nếu tôi yêu cầu nguyên grid + sheet, chỉ dùng profile Ref2V đã xác minh. Không gọi ảnh chưa nối hoặc để timeline vượt duration.
 
-## Ví dụ đi kèm
+- `SKILL.md`: quy tắc chính, nhận diện task/model trước nội dung.
+- `references/fastvideo-fasth3-i2v.md`: bảng node và setting thật của JSON mới.
+- `references/workflow-mode-routing.md`: chọn Ref2V/I2V, giới hạn FastH3.
+- `references/i2v-authoring.md`: ảnh đầu/trạng thái/cuối, prompt và dựng.
+- `references/original-workflow.json` và ví dụ Lan cũ: giữ cho profile Singularity Ref2V, không áp node đó vào FastH3.
 
-`examples/lan-storyboard-prompt.txt`: prompt vẽ2×2,4shot.
+## Hai đường phù hợp
 
-`examples/lan-15s-handoff/video_prompt.txt`: prompt video cuối, dùng Picture1=storyboard, Picture2=sheetLan; thời gian4+3+5+3giây.
+**Muốn nguyên storyboard + sheet → video:** dùng workflow Ref2V có model hỗ trợ, như Singularity cũ. Không sửa prompt để giả FastH3 là Ref2V. Cần xem nháp để kiểm tra mức bám shot.
 
-`examples/lan-15s-handoff/COMFYUI_HANDOFF.md`: bảng thao tác trên workflow gốc; bypass #93/#104/#122/#135,3D bypass#134. Tất cả tên ảnh trong ví dụ là tên đề xuất, không phải tuyên bố đã tạo ảnh trong lần sửa skill này. Cần có ảnh thật tương ứng và đặt đúng bảng trước khi chạy.
+**Giữ nguyên FastH3 đang dùng:** thử ảnh sạch từng shot và prompt đúng thời lượng. Chỉ là I2V ngoài phạm vi distillation công bố; chưa thể gọi pipeline sản xuất đã kiểm chứng. Nếu cần I2V ổn định, phải chọn model có hỗ trợ I2V cùng lịch phù hợp trước.
 
-`examples/lan-15s.plan.json`: dữ liệu nội bộ minh họa cho Codex. Token ref/start/end trong plan được helper chuyển thành bản cuối; **không dán plan hoặc template token vào ComfyUI**.
+Skill không tự sửa JSON, đổi model, cài node, render hoặc đăng tài sản lên mạng. Không có benchmark RTX 4060 Ti hoặc cam kết giữ mặt tuyệt đối.
 
-## Kiểm tra
+## Công cụ của Codex, không bắt người dùng chạy
 
-Đã đối chiếu75node/99link và hash file gốc; có kiểm tra hồi quy cho mapping, bỏ ảnh giữa, storyboard-only, timestamp và bảo toàn JSON. Chạy kiểm tra tác giả bằng `python -m unittest discover -s tests -v`; dùng helper tùy chọn: `python scripts/compile_handoff.py examples/lan-15s.plan.json --out output`.
+`python scripts/audit_workflow.py --workflow /duong/dan/workflow-cua-ban.json --image-role storyboard_grid --out report.json`
 
-Bản skill này không có benchmark/renderGPU mới. Kiểm tra prompt/mapping không chứng nhận cài ComfyUI, giữ khuôn mặt hoặc tốc độ trên RTX4060Ti. Công cụ tạo ảnh/video còn tùy phiên Codex đang dùng. Bản JSON gốc được giữ nguyên; ghi chú trong nó là tài liệu tham khảo.
+Với video thực thêm `--video VIDEO.mp4`; cần ffprobe. Exit 2 nghĩa báo cáo tìm thấy vấn đề/chưa sẵn sàng, không phải tool bị hỏng. Exit 0 chỉ là kiểm tra tĩnh vượt qua; không chứng nhận ảnh/video đẹp.
+
+Helper `compile_handoff.py` chỉ dùng với workflow Singularity gốc và chặn xuất prompt khi hồ sơ storyboard chưa có duyệt đúng revision. Ví dụ Lan trong gói cố ý ở trạng thái chờ duyệt, không có ảnh kèm theo. Kiểm tra tác giả: `python -m unittest discover -s tests -v`.

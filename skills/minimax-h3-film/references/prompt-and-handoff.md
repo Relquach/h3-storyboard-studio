@@ -1,3 +1,5 @@
+> PHẠM VI: profile `singularity_original_ref2v` trong bản skill v3. Không áp các ID, Picture, Turbo LoRA hoặc quy trình take này cho FastH3 I2V. Đọc SKILL.md và workflow-mode-routing.md trước.
+
 # Prompt và bàn giao trực tiếp cho workflow gốc
 
 Một lượt render có một prompt đầy đủ để dán vào #70. Không yêu cầu người dùng chạy code để biến đổi token. `<Picture N>` trỏ đúng ảnh đang truyền qua Ref2V; `<Subject N>` là chủ thể do văn bản định nghĩa. Ví dụ Picture1=storyboard nhiều ô, Picture2=sheetLan, Subject1=Lan, Subject2=đồnglúa: số Subject2 không có nghĩa là Picture2.

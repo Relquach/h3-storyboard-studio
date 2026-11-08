@@ -40,7 +40,18 @@ def frames_for_seconds(seconds):
     n=max(5,round(seconds*24));return n+(5-n%17)%17
 
 
+def validate_storyboard_approval(plan):
+    review=plan.get('storyboard_review',{})
+    if review.get('status')!='approved' or review.get('approved_by')!='user':
+        raise ValueError('Storyboard chưa được người dùng duyệt; dừng trước bước tạo prompt video.')
+    if not str(review.get('evidence','')).strip():
+        raise ValueError('Thiếu lời xác nhận duyệt thực của người dùng.')
+    if not plan.get('storyboard_revision') or review.get('approved_revision')!=plan['storyboard_revision']:
+        raise ValueError('Revision storyboard đã đổi hoặc chưa xác định; cần duyệt đúng bản mới trước prompt video.')
+
+
 def compile_plan(plan,workflow):
+    validate_storyboard_approval(plan)
     slots=reference_slots(workflow);lookup={s['node_id']:s for s in slots}
     seconds=plan['seconds'];frames=frames_for_seconds(seconds)
     if frames>362:raise ValueError('Lượt > vùng profile khoảng15giây chưa kiểm chứng; chia run thay vì tự nâng giới hạn.')
@@ -90,7 +101,7 @@ def compile_plan(plan,workflow):
     if '{{' in prompt or '<Asset:' in prompt:raise ValueError('Prompt còn template token chưa resolve.')
     for label in labels:
         if '['+label+']' not in prompt:raise ValueError('Prompt thiếu nhãn shot '+label)
-    if plan.get('style')=='3d_animation' and 'r34l1sm' in prompt:raise ValueError('Bỏ trigger Realism khỏi prompt3D.')
+    if plan.get('style') in {'3d_animation','semi_realistic_3d_east_asian'} and 'r34l1sm' in prompt:raise ValueError('Bỏ trigger Realism khỏi prompt3D.')
     header='REFERENCE INPUT ORDER:\n'+'\n'.join(f'<Picture {numbers[a["id"]]}>: {a["id"]} — {a["description_en"]}' for a in active)
     if fallback:header+='\nNO SEPARATE SHEET: '+', '.join(dict.fromkeys(fallback))+'. Obtain these assets from the storyboard, not an unprovided image.'
     prompt=header+'\n\n'+prompt
@@ -101,7 +112,7 @@ def compile_plan(plan,workflow):
         row={**s,'asset_id':a['id'] if a else '', 'enabled':on,'picture':numbers[a['id']] if on else '', 'file_label':a.get('file_label','Chọn ảnh đúng tài sản') if a else ''}
         mapping.append(row);actions.append({'node_id':s['node_id'],'action':'Nạp '+row['file_label']+'; bật' if on else 'Bypass (Ctrl+B)','picture':row['picture']})
     instructions={'62':'true (nhánh Ref2V)','70':'Dán video_prompt.txt','23':seconds,'25':plan.get('aspect','Giữ tỷ lệ đã chọn; multiple32'),'105':'false tạo nháp; true nâng take','124':'Chọn take đã duyệt; không mặc định latest đúng dự án'}
-    if plan.get('style')=='3d_animation':instructions['134']='Bypass Realism People; giữ Turbo #10'
+    if plan.get('style') in {'3d_animation','semi_realistic_3d_east_asian'}:instructions['134']='Bypass Realism People; giữ Turbo #10'
     return {'status':'configuration_to_apply_not_live_runtime_verified','run_id':plan['run_id'],'seconds':seconds,'frames':frames,'source_seconds':frames/24,'grid':grid,'mapping':mapping,'node_actions':actions,'controls':instructions,'prompt':prompt}
 
 

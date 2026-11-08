@@ -1,10 +1,12 @@
+> **Skill v3 — storyboard phải được duyệt trước prompt video:** [Tải ZIP đầy đủ](dist/MiniMax-H3-Storyboard-Skill-v3.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Quy trình mới](skills/minimax-h3-film/QUY_TRINH_MOI.md) · [Cách nhận diện workflow](skills/minimax-h3-film/references/workflow-mode-routing.md). Phân biệt FastH3 I2V với Singularity Ref2V, kiểm tra ảnh/Picture và duration, giữ style 3D bán hiện thực Á Đông. Bản công khai không kèm JSON/video/frame/thoại riêng của người dùng. Đã qua 34 kiểm tra CPU; chưa render GPU mới.
+
 > **Hướng dẫn workflow gốc — 36 trang có ảnh:** [Đọc/tải PDF](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.pdf) · [Word có thể chỉnh sửa](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.docx) · [Tải gói đầy đủ](docs/workflow-guide/Huong-dan-MiniMax-H3-tron-bo.zip) · [Cách đọc tài liệu](docs/workflow-guide/README.md). Giải thích setting, ảnh-node-Picture, quy trình tạo nháp → chọn take → upscale và ví dụ Lan 15 giây. Gói đầy đủ có thêm HTML ngoại tuyến tìm kiếm được và prompt mẫu.
 
 > **Sửa lỗi 10 node thiếu — bản1.1:** [Tải ZIP mới](dist/H3-Original-Missing-Parts-v1.1.0.zip). Giải nén và chạy **SUA_10_NODE.bat** để cài take/finishing từ Drive, PlagueKind upscale/size và Pixaroma vào đúng ComfyUI đang dùng. Chế độ này không tải model. [Hướng dẫn](original-workflow-missing-fix/README.md). Đã thử luồng cài node và import đủ11 loại bằng ComfyUI thật trên CPU; chưa chạy Windows/GPU.
 
 > **Bản vá các phần thiếu trong workflow gốc:** [Tải ZIP](dist/H3-Original-Missing-Parts-v1.0.0.zip) · [Hướng dẫn](original-workflow-missing-fix/README.md). Chạy CAI_PHAN_CON_THIEU.bat để thêm Pixaroma, Realism People LoRA và video VAE INT8 vào đúng Portable hiện có (~2.94 GB model). Giữ nguyên workflow, Torch và ComfyUI core.
 
-> **Skill mới cho workflow gốc (v2.0.0):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.
+> **Skill v2 lưu trữ cho workflow Singularity gốc (đã được thay bằng v3 ở trên):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.
 
 > **Bộ cài mới theo workflow/video Singularity V2:** [Tải ZIP riêng](dist/Singularity-Storyboard-Studio-v1.0.0.zip) · [Hướng dẫn](singularity-v2/README.md) · [Skill đã cập nhật](singularity-v2/skills/minimax-h3-film/SKILL.md). Giải nén ZIP riêng rồi chạy INSTALL.bat bên trong; không dùng bộ cài GGUF cũ ở phần dưới. Đã kiểm tra UI/schema/take trên CPU, chưa render GPU/Windows.
 
@@ -104,4 +106,5 @@ Lỗi `ModuleNotFoundError: No module named install` đã được tái hiện v
 Tiện ích chấm/chọn cấu hình đã đổi tên từ scripts/select.py sang scripts/choose_preset.py. Bootstrap hiện đặt thư mục scripts sau thư viện chuẩn và các module nhúng. repair.py cũng dùng portable_paths.py nhẹ, không import installer hoặc urllib để cập nhật node. Bản mới vẫn chạy được nếu bạn giải nén đè và còn file select.py cũ. Không cần tải lại model.
 
 Cách sửa nhanh bản cũ: đổi tên scripts/select.py thành scripts/choose_preset.py rồi chạy lại UPGRADE.bat. Khi dùng CLI chọn cấu hình sau benchmark, dùng tên choose_preset.py.
+
 
