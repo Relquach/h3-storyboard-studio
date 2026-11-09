@@ -207,7 +207,10 @@ def install_runtime(comfy,manifest,files_only=False):
  p=next(p for p in manifest['nodes'] if p['folder']=='ComfyUI-DLSS5-Enhancer');script=node_target(comfy,p)/'install_runtime.py'
  print('Trình cài upstream DLSS5 sẽ hiển thị thông báo giấy phép và hỏi Continue? [y/N]. Chỉ nhập y nếu bạn đồng ý. Bộ cài không tự chấp nhận.',flush=True)
  # Inherit the console so the input prompt stays visible; never pass --yes.
- r=subprocess.run([sys.executable,'-I','-X','utf8',str(script)])
+ # Upstream 9ca896a hard-codes /3.0/; GitHub release tag is /v3.0/.
+ # Override using its supported --url flag; preserve its source and license prompt.
+ url=manifest['dlss_runtime']['release_url']
+ r=subprocess.run([sys.executable,'-I','-X','utf8',str(script),'--url',url])
  if r.returncode:raise RuntimeError('Runtime DLSS5 chưa được cài (có thể bạn đã từ chối). File model/node vẫn được giữ; chạy CAI_RUNTIME_DLSS.bat khi muốn tiếp tục.')
  if not dlss_runtime_status(comfy,manifest)['files_present']:raise RuntimeError('Script runtime đã chạy nhưng còn thiếu binary. Không báo hoàn tất giả.')
  return True

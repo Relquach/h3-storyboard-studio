@@ -54,7 +54,7 @@ def suite(root):
     pack=manifest['nodes'][0];target=m.install_node(self.comfy,pack);(target/'config.json').write_text('{"runtime_dir":"custom"}');(target/'runtime').mkdir();(target/'runtime/keep').write_text('runtime');(target/'__init__.py').write_text('old');m.install_node(self.comfy,pack);self.assertEqual((target/'runtime/keep').read_text(),'runtime');self.assertIn('custom',(target/'config.json').read_text());self.assertTrue(list((self.comfy/'user/RelayVSR_RTX_Original/backups').iterdir()))
    def test_runtime_license_not_autoaccepted(self):
     with patch.object(m,'dlss_runtime_status',side_effect=[{'files_present':False},{'files_present':True}]),patch.object(m.subprocess,'run') as run:
-     run.return_value.returncode=0;m.install_runtime(self.comfy,manifest);args=run.call_args.args[0];self.assertNotIn('--yes',args);self.assertNotIn('input',run.call_args.kwargs);self.assertNotIn('stdout',run.call_args.kwargs)
+     run.return_value.returncode=0;m.install_runtime(self.comfy,manifest);args=run.call_args.args[0];self.assertIn('--url',args);self.assertEqual(args[args.index('--url')+1],manifest['dlss_runtime']['release_url']);self.assertIn('/v3.0/',args[args.index('--url')+1]);self.assertNotIn('--yes',args);self.assertNotIn('input',run.call_args.kwargs);self.assertNotIn('stdout',run.call_args.kwargs)
    def test_existing_runtime_reused(self):
     with patch.object(m,'dlss_runtime_status',return_value={'files_present':True}),patch.object(m.subprocess,'run') as run:self.assertTrue(m.install_runtime(self.comfy,manifest));run.assert_not_called()
    def test_runtime_decline_does_not_claim_success(self):

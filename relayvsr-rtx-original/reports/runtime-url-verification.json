@@ -1,0 +1,11 @@
+[
+  {
+    "url": "https://github.com/Merserk/dlss5-visual-enhancer/releases/download/3.0/DLSS.5.Visual.Enhancer.v3.0.zip",
+    "http_status": 404
+  },
+  {
+    "url": "https://github.com/Merserk/dlss5-visual-enhancer/releases/download/v3.0/DLSS.5.Visual.Enhancer.v3.0.zip",
+    "http_status": 206,
+    "prefix_zip": true
+  }
+]

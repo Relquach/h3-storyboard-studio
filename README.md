@@ -5,7 +5,9 @@ Hai bộ riêng cho **ComfyUI Windows Portable**, giữ nguyên từng byte JSON
 | Bộ | Tải ZIP cài tự động | Hướng dẫn có ảnh |
 | --- | --- | --- |
 | **FastH3 OmniRef** — tạo video từ storyboard + character sheet + prompt | [TẢI BỘ CÀI OMNIREF](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/FastH3-OmniRef-Original-v1.0.0.zip) | [PDF 7 trang](fasth3-omniref-original/docs/HUONG_DAN.pdf) · [Word](fasth3-omniref-original/docs/HUONG_DAN.docx) · [Markdown](fasth3-omniref-original/docs/HUONG_DAN.md) |
-| **RelayVSR + RTX VFX** — hậu kỳ video đã có: tăng FPS → DLSS5 → upscale 2× → TrueHDR | [TẢI BỘ CÀI RELAYVSR](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/RelayVSR-RTX-VFX-Original-v1.0.0.zip) | [PDF 8 trang](relayvsr-rtx-original/docs/HUONG_DAN.pdf) · [Word](relayvsr-rtx-original/docs/HUONG_DAN.docx) · [Markdown](relayvsr-rtx-original/docs/HUONG_DAN.md) |
+| **RelayVSR + RTX VFX** — hậu kỳ video đã có: tăng FPS → DLSS5 → upscale 2× → TrueHDR | [TẢI BỘ CÀI RELAYVSR](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/RelayVSR-RTX-VFX-Original-v1.0.1.zip) | [PDF 8 trang](relayvsr-rtx-original/docs/HUONG_DAN.pdf) · [Word](relayvsr-rtx-original/docs/HUONG_DAN.docx) · [Markdown](relayvsr-rtx-original/docs/HUONG_DAN.md) |
+
+> **Sửa lỗi DLSS HTTP404 — RelayVSR 1.0.1:** bản 1.0.0 dùng tag `/3.0/` không tồn tại; bản mới truyền URL chính thức `/v3.0/` qua tùy chọn `--url` của upstream. Nếu model/node đã cài, tải ZIP RelayVSR mới ở bảng, giải nén và **chỉ chạy CAI_RUNTIME_DLSS.bat** trong thư mục mới. Không tải lại model, không thay workflow/skill. Vẫn giữ lời nhắc xác nhận điều khoản runtime. [Checksum bản 1.0.1](dist/RelayVSR-RTX-VFX-Original-v1.0.1.sha256) · [Chi tiết sửa](relayvsr-rtx-original/CHANGELOG.md).
 
 **Cài:** tải đúng ZIP riêng ở bảng → giải nén → đóng ComfyUI → chạy **CAI_DAT.bat**. Mặc định dùng `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`. Nếu hỏi đường dẫn, chọn **thư mục chứa ComfyUI và python_embeded**, không chọn JSON. Mở lại ComfyUI rồi chạy **KIEM_TRA.bat**.
 
@@ -16,7 +18,7 @@ Quy trình: tạo storyboard → **người dùng duyệt** → prompt đúng st
 
 Đã qua **29 ca kiểm tra installer**, chạy cài hai lần bằng Python isolated mode trên Portable giả lập; OmniRef kiểm UI/schema trên hai core, Relay kiểm các thành phần khả dụng trên CPU. **Chưa kiểm thử launcher Windows, render GPU hoặc benchmark RTX 4060 Ti 16 GB / RAM 32 GB.** Đủ dependency không bảo đảm mọi cấu hình chạy vừa bộ nhớ. [Chi tiết OmniRef](fasth3-omniref-original/VALIDATION.md) · [Chi tiết RelayVSR](relayvsr-rtx-original/VALIDATION.md).
 
-[Checksum hai ZIP](dist/Original-OmniRef-RelayVSR-v1.0.0.sha256)
+[Checksum hai ZIP bản 1.0.0 lưu trữ](dist/Original-OmniRef-RelayVSR-v1.0.0.sha256)
 
 ---
 

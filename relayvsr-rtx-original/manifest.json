@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "workflow": "RealVSR-RTX_VFX - upscale.json",
   "workflow_bytes": 32359,
   "workflow_sha256": "b7ab1d4a880bbec75c0b99957ee6db2b72636967cbc06ec58da2eef05366fa9e",
@@ -124,7 +124,10 @@
     ],
     "installer": "install_runtime.py",
     "requires_interactive_confirmation": true,
-    "auto_accept": false
+    "auto_accept": false,
+    "release_url": "https://github.com/Merserk/dlss5-visual-enhancer/releases/download/v3.0/DLSS.5.Visual.Enhancer.v3.0.zip",
+    "release_bytes": 466919995,
+    "source_asset_sha256": "6f0590d81677484f4ecdfaa5c44fc2a0e1a3835d33eefc59d656e6c3bcf35f6a"
   },
   "known_limitations": [
     "Original TrueHDR output is sent to an 8-bit H264/yuv420p exporter; HDR signaling is not configured in this JSON.",

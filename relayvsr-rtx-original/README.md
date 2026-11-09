@@ -1,7 +1,11 @@
 # RelayVSR + RTX VFX · Bộ cài bản gốc
 
-Windows ComfyUI Portable · v1.0.0. Chỉ một workflow: `RealVSR-RTX_VFX - upscale.json`.
+Windows ComfyUI Portable · v1.0.1. Chỉ một workflow: `RealVSR-RTX_VFX - upscale.json`.
 **JSON gốc giữ nguyên từng byte. Skill không thay đổi.**
+
+## Sửa lỗi HTTP404 từ bản 1.0.0
+
+Nếu đã cài model/node rồi: tải ZIP **1.0.1**, giải nén và chỉ chạy **CAI_RUNTIME_DLSS.bat** trong thư mục mới. Không chạy lại CAI_DAT để sửa runtime. Link upstream thiếu chữ `v` ở tag; bản sửa truyền URL `/v3.0/` bằng tùy chọn chính thức `--url`, không patch node hoặc workflow. Bạn vẫn cần xác nhận điều khoản khi trình cài hỏi.
 
 ## Cài nhanh
 

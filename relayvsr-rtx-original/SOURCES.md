@@ -31,6 +31,8 @@ Workflow do người dùng tải lên: `RealVSR-RTX_VFX - upscale.json`. Giữ n
 
 - NVIDIA VFX SDK0.2.0.0: https://pypi.nvidia.com/nvidia-vfx/ — wheel Windows có URL/hash trong manifest; không dùng wheel-stub PyPI làm binary.
 - DLSS5 upstream: https://github.com/Blueforcer/ComfyUI-DLSS5-Enhancer/blob/9ca896aa6f85ecfedd0456da00ca165bd0c39cd0/install_runtime.py
-- Runtime nguồn: https://github.com/Merserk/dlss5-visual-enhancer/releases/tag/3.0
+- Runtime nguồn: https://github.com/Merserk/dlss5-visual-enhancer/releases/tag/v3.0
 - Runtime gồm các thành phần có điều khoản NVIDIA/ReShade/RenoDX riêng. Script upstream tự hiển thị NOTICE và xin xác nhận; không truyền --yes. Không có binary SDK/DLSS trong gói này.
 - README upstream NVIDIA VFX yêu cầu cu130+ và RTX40+ cho frame generation. DLSS5 worker trong tích hợp cộng đồng cần Windows/D3D12; khả năng chạy trên máy đích chưa được kiểm chứng.
+
+Bản 1.0.1: URL asset chính thức được truyền qua --url: https://github.com/Merserk/dlss5-visual-enhancer/releases/download/v3.0/DLSS.5.Visual.Enhancer.v3.0.zip . Metadata và kết quả probe ở reports/runtime-release-v3.json và reports/runtime-url-verification.json.

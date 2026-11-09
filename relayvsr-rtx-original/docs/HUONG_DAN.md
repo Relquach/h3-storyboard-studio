@@ -1,6 +1,6 @@
 # RelayVSR + RTX VFX · Upscale bản gốc
 
-Bộ cài và hướng dẫn tiếng Việt · v1.0.0 · 10/11/2026. Dành cho VIDEO ĐÃ CÓ. Tên tệp là RealVSR-RTX_VFX - upscale.json, nhưng model và node thực tế là RelayVSR. Không phải workflow tạo video từ storyboard.
+Bộ cài và hướng dẫn tiếng Việt · v1.0.1 · 10/11/2026. Dành cho VIDEO ĐÃ CÓ. Tên tệp là RealVSR-RTX_VFX - upscale.json, nhưng model và node thực tế là RelayVSR. Không phải workflow tạo video từ storyboard.
 
 Giữ nguyên file bạn gửi: 32.359 byte, 21 node và 30 dây nối. Không chỉnh setting, model, seed, dây, tên hoặc bố cục. Bộ cài chỉ cung cấp dependency, model và bản sao JSON đúng từng byte; skill không thay đổi.
 
@@ -23,6 +23,8 @@ Phần NVIDIA VFX Nodes 0.2.1 yêu cầu PyTorch CUDA 13.0+ theo README upstream
 RTX 4060 Ti thuộc dòng RTX 40, đáp ứng điều kiện dòng card của frame generation; điều đó không chứng minh toàn bộ pipeline vừa RAM/VRAM hoặc DLSS worker chạy được trên máy bạn. Cần driver NVIDIA tương thích bản CUDA/PyTorch đang dùng; thông số tối thiểu SDK riêng không thay thế điều kiện driver của CUDA.
 
 Trình cài DLSS upstream hiện thông báo giấy phép và hỏi Continue? [y/N]. Đọc rồi nhập y nếu bạn đồng ý. Bộ cài không tự chấp nhận và không vô hiệu hóa phần mềm bảo vệ. Nếu từ chối, model/node đã cài vẫn còn; chạy CAI_RUNTIME_DLSS.bat khi muốn tiếp tục.
+
+Bản 1.0.1 sửa link runtime thiếu chữ v trong tag. Nếu model/node đã cài, chỉ chạy CAI_RUNTIME_DLSS.bat của gói 1.0.1; không tải lại model. Link đúng dùng /releases/download/v3.0/.
 
 | File | Công dụng |
 | --- | --- |

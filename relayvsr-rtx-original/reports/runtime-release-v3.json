@@ -1,0 +1,9 @@
+{
+  "tag": "v3.0",
+  "asset": {
+    "name": "DLSS.5.Visual.Enhancer.v3.0.zip",
+    "url": "https://github.com/Merserk/dlss5-visual-enhancer/releases/download/v3.0/DLSS.5.Visual.Enhancer.v3.0.zip",
+    "bytes": 466919995,
+    "digest": "sha256:6f0590d81677484f4ecdfaa5c44fc2a0e1a3835d33eefc59d656e6c3bcf35f6a"
+  }
+}
