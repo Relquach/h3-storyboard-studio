@@ -1,0 +1,15 @@
+WARNING:root:KJNodes: PatchTritonVAE node could not be imported. PatchTritonVAE will be unavailable.
+Traceback (most recent call last):
+  File "/workspace/openh3-regenerate/research/core/ComfyUI-fca60fe70e5b84c5c6b058263653d15cb3401e44/custom_nodes/ComfyUI-KJNodes/nodes/triton_vae.py", line 10, in <module>
+    import triton
+ModuleNotFoundError: No module named 'triton'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/openh3-regenerate/research/core/ComfyUI-fca60fe70e5b84c5c6b058263653d15cb3401e44/custom_nodes/ComfyUI-KJNodes/__init__.py", line 386, in <module>
+    from .nodes.triton_vae import PatchTritonVAE
+  File "/workspace/openh3-regenerate/research/core/ComfyUI-fca60fe70e5b84c5c6b058263653d15cb3401e44/custom_nodes/ComfyUI-KJNodes/nodes/triton_vae.py", line 13, in <module>
+    raise ImportError("PatchTritonVAE requires triton (pip install triton, or triton-windows)") from e
+ImportError: PatchTritonVAE requires triton (pip install triton, or triton-windows)
+Native schema OK; source preparation24→124→trim24, audio/CFR, half scale, cap rejection and audio lock/sigmas OK.

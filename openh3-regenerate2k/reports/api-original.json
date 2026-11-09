@@ -1,0 +1,340 @@
+{
+  "1": {
+    "inputs": {
+      "file": "P2_CL050_Norfolk_Release_Run.mp4"
+    },
+    "class_type": "LoadVideo",
+    "_meta": {
+      "title": "Load Video",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "4": {
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Video VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "5": {
+    "inputs": {
+      "pixels": [
+        "1060",
+        0
+      ],
+      "vae": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "Encode Video",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "6": {
+    "inputs": {
+      "width": 2560,
+      "height": 1440,
+      "model": [
+        "30",
+        0
+      ],
+      "samples": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3LatentUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Latent Up To 2560 x 1440",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "7": {
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Audio VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "8": {
+    "inputs": {
+      "audio": [
+        "1060",
+        1
+      ],
+      "vae": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeAudio",
+    "_meta": {
+      "title": "Encode Conditioning Audio",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "9": {
+    "inputs": {
+      "video_latent": [
+        "6",
+        0
+      ],
+      "audio_latent": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "Combine Video and Audio Latents",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "10": {
+    "inputs": {
+      "av_latent": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "OpenH3LockAudioForRefine",
+    "_meta": {
+      "title": "Lock Audio",
+      "aux_id": "Songssx/ComfyUI-OpenH3-Regenerate2K",
+      "ver": "adf6af360d8f3cfaa473ef2ed254d7a787bfb169"
+    }
+  },
+  "12": {
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "text": "integrated_multimodal_description:\nPreserve the supplied video's original content and visual style. Keep the same subjects, identities, proportions, objects, composition, colors, lighting, actions, camera movement, shot sequence, and timing. Refine only details supported by the source, maintaining consistent edges and textures across frames. Retain the original degree of stylization and existing text and graphics.\n\noverall_soundscape:\nPreserve the source soundtrack and its timing.\n\nnon_diegetic_music:\nPreserve any music already present in the source."
+    },
+    "class_type": "TAOpenH3PromptEncodeRelease",
+    "_meta": {
+      "title": "Prompt"
+    }
+  },
+  "13": {
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+      "main_lora": "open_h3_regenerate_2k_lora.safetensors",
+      "curve_branches": "sharp_curve_branches.safetensors",
+      "strength": 1,
+      "head_chunks": 4,
+      "ff_chunks": 4,
+      "seq_threshold": 4096,
+      "enable_tiling": true,
+      "method": "gaussian",
+      "tile_width": 1024,
+      "tile_height": 832,
+      "tile_overlap": 224,
+      "av_latent": [
+        "10",
+        0
+      ],
+      "conditioning": [
+        "12",
+        0
+      ],
+      "noise": [
+        "20",
+        0
+      ],
+      "sampler": [
+        "21",
+        0
+      ],
+      "sigmas": [
+        "22",
+        0
+      ]
+    },
+    "class_type": "TAOpenH3RefineRelease",
+    "_meta": {
+      "title": "Refine Latent"
+    }
+  },
+  "20": {
+    "inputs": {
+      "noise_seed": 2026110101
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "Seed",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "21": {
+    "inputs": {
+      "sampler_name": "res_multistep"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "Sampler",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "22": {
+    "inputs": {
+      "steps": "2"
+    },
+    "class_type": "OpenH3RegenerateSigmas",
+    "_meta": {
+      "title": "Refinement Schedule",
+      "aux_id": "Songssx/ComfyUI-OpenH3-Regenerate2K",
+      "ver": "adf6af360d8f3cfaa473ef2ed254d7a787bfb169"
+    }
+  },
+  "24": {
+    "inputs": {
+      "av_latent": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "Separate Video and Audio Latents",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "25": {
+    "inputs": {
+      "vae": [
+        "4",
+        0
+      ],
+      "samples": [
+        "24",
+        0
+      ]
+    },
+    "class_type": "TAOpenH3VAEDecodeLowMemory",
+    "_meta": {
+      "title": "Decode Video"
+    }
+  },
+  "26": {
+    "inputs": {
+      "frame_rate": [
+        "1060",
+        4
+      ],
+      "loop_count": 0,
+      "filename_prefix": "OpenH3_2K/Video",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "1061",
+        0
+      ],
+      "audio": [
+        "1060",
+        2
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Save Video",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "4d907bee61e92c2e65af3bd6383a4e4d356126d1"
+    }
+  },
+  "27": {
+    "inputs": {
+      "source": [
+        "13",
+        1
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Adapter Report",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "30": {
+    "inputs": {
+      "model_name": "minimax_h3_latent_upscaler_3d_bf16.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "Latent Upscale Model",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  },
+  "1060": {
+    "inputs": {
+      "max_frames": 0,
+      "working_resolution": "source",
+      "source_scale": 1,
+      "video": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "TAOpenH3AutoInput",
+    "_meta": {
+      "title": "Prepare Video"
+    }
+  },
+  "1061": {
+    "inputs": {
+      "start_index": 0,
+      "num_frames": [
+        "1060",
+        3
+      ],
+      "images": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "GetImageRangeFromBatch",
+    "_meta": {
+      "title": "Remove Frame Padding",
+      "cnr_id": "comfyui-kjnodes",
+      "ver": "e8e88f7c88e3f6205b122f5de87e69a09fbce5ac"
+    }
+  },
+  "1062": {
+    "inputs": {
+      "source": [
+        "1060",
+        6
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Input Report",
+      "cnr_id": "comfy-core",
+      "ver": "0.43.0"
+    }
+  }
+}

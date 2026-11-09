@@ -1,0 +1,103 @@
+{
+  "prepared_shape": [
+    124,
+    96,
+    160,
+    3
+  ],
+  "actual_frames": 24,
+  "fps": 24.0,
+  "duration": 1.0,
+  "conditioning_audio_shape": [
+    1,
+    2,
+    165333
+  ],
+  "source_audio_shape": [
+    1,
+    2,
+    32000
+  ],
+  "report": {
+    "schema_version": "1.0",
+    "implementation_version": "0.1.11",
+    "source_name": "P2_CL050_Norfolk_Release_Run.mp4",
+    "input_probe": {
+      "demuxer": "mov",
+      "video_stream_index": 0,
+      "coded_width": 160,
+      "coded_height": 96,
+      "sample_aspect_ratio": "1/1",
+      "rotation_degrees": 0.0,
+      "video_first_pts_seconds": 0.0,
+      "video_duration_estimate_seconds": 1.0,
+      "duration_estimate_basis": "stream.duration",
+      "probe_cfr_frame_estimate": 24,
+      "nominal_rate": "24/1",
+      "transfer_characteristic": 2,
+      "audio_stream_index": 1,
+      "audio_channels": 1,
+      "audio_layout": "mono",
+      "audio_input_sample_rate": 32000,
+      "audio_first_pts_seconds": 0.0,
+      "audio_start_offset_seconds": 0.0
+    },
+    "cfr": {
+      "fps": 24,
+      "actual_frame_count": 24,
+      "duration_seconds": 1.0,
+      "timestamp_rule": "Normalize first video PTS to zero; FFmpeg fps24 round-near/eof-pass preserves the last frame's display interval; duplicate/drop by timestamps, never retime via nominal FPS."
+    },
+    "geometry": {
+      "width": 160,
+      "height": 96,
+      "working_resolution": "source",
+      "displayed_source_dimensions": [
+        160,
+        96
+      ],
+      "source_scale": 1.0,
+      "scaled_content_dimensions": [
+        160,
+        96
+      ],
+      "mode": "SAR-normalized display size at source_scale + minimal 16-pixel alignment PAD; no additional fit-to-canvas upscale",
+      "cropped": false
+    },
+    "native_padding": {
+      "prepared_frame_count": 124,
+      "last_frame_repeats": 100,
+      "rule": "max(124,17*ceil((N-5)/17)+5)",
+      "conditioning_audio_samples": 165333,
+      "source_audio_samples": 32000
+    },
+    "audio": {
+      "present": true,
+      "sample_rate": 32000,
+      "channels": 2,
+      "offset_alignment": "Original audio PTS minus first video PTS; early trim/late silence; nearest-sample duration and zero tail padding."
+    },
+    "max_frames": 0,
+    "warnings": [
+      "Mono source duplicated to stereo by FFmpeg.",
+      "Source transfer tags unspecified; treated as SDR. This is not HDR detection from pixel values.",
+      "No user frame cap. The full clip and native padding still materialize in host RAM; available RAM/VRAM and the decoder deadline remain finite.",
+      "Source aspect is retained with only 16-pixel alignment padding at the explicit source_scale; large inputs/scales can greatly increase RAM/VRAM use."
+    ],
+    "limits": [
+      "CPU IMAGE batch is materialized after geometry preparation; this is not streaming temporal H3 refinement or an unlimited-memory path.",
+      "Reads the complete underlying upload; connect raw LoadVideo directly. VIDEO-object trim/crop edits are not applied.",
+      "PQ/HLG rejected; unknown tags are not a guarantee of SDR mastering.",
+      "FIT/PAD applies to input preparation only. A generative refinement model may redraw black bars; exact final letterboxing is not guaranteed.",
+      "Output width and height are selected manually in the downstream latent upscale node; this node does not run a model."
+    ]
+  },
+  "gpu_render_tested": false,
+  "frame_cap_rejects_instead_of_trimming": "Actual CFR24 decode exceeds max_frames=12. No shortened clip is returned. Shorten externally or explicitly raise the limit for stronger hardware.",
+  "sigmas_2step": [
+    0.699999988079071,
+    0.4941176474094391,
+    0.0
+  ],
+  "audio_noise_mask_zero": true
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "singularity_v2",
+    "repo": "WarmBloodAban/Minimax-h3_Singularity",
+    "revision": "1259cf16cd0b655ba691a32fb46a409142762972",
+    "file": "Minimax-h3_Singularity_ref2va_v2_pruned_int8.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "encoder",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "video_vae",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "audio_vae",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "latent_upscale",
+    "repo": "Efficient-Large-Model/Open-H3-Regenerate-2K",
+    "revision": "5809c33730c18b6b1c827b40974855a4288641b3",
+    "file": "latent_upsampler/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "regenerate_lora",
+    "repo": "Efficient-Large-Model/Open-H3-Regenerate-2K",
+    "revision": "5809c33730c18b6b1c827b40974855a4288641b3",
+    "file": "lora/open_h3_regenerate_2k_lora.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "curve_branches",
+    "repo": "Efficient-Large-Model/Open-H3-Regenerate-2K",
+    "revision": "5809c33730c18b6b1c827b40974855a4288641b3",
+    "file": "lora/sharp_curve_branches.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  }
+]

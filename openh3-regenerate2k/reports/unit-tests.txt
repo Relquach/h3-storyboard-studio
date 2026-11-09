@@ -1,0 +1,47 @@
+test_download_hash_verified (test_downloads.DownloadTests.test_download_hash_verified) ... ok
+test_full_corrupt_part_quarantined (test_downloads.DownloadTests.test_full_corrupt_part_quarantined) ... ok
+test_html_not_installed_as_model (test_downloads.DownloadTests.test_html_not_installed_as_model) ... ok
+test_resume_range (test_downloads.DownloadTests.test_resume_range) ... ok
+test_server_ignores_range_restarts (test_downloads.DownloadTests.test_server_ignores_range_restarts) ... ok
+test_alias_wrong_content_not_reused (test_install.InstallTests.test_alias_wrong_content_not_reused) ... Kiểm tra SHA256: /tmp/tmpo4_3s69u/models/loras/nested/alias.safetensors
+ok
+test_combo_options_both_schemas (test_install.InstallTests.test_combo_options_both_schemas) ... ok
+test_copy_is_identical_and_preserves_changed_destination_backup (test_install.InstallTests.test_copy_is_identical_and_preserves_changed_destination_backup) ... Đã chép workflow gốc, đúng từng byte: /tmp/tmpn1dgn4i4/user/default/workflows/OpenH3_Original/OpenH3_Regenerate2K Final.json
+Đã chép workflow gốc, đúng từng byte: /tmp/tmpn1dgn4i4/user/default/workflows/OpenH3_Original/OpenH3_Regenerate2K Final.json
+ok
+test_core_old_missing_native_features (test_install.InstallTests.test_core_old_missing_native_features) ... ok
+test_cross_volume_alias_copy (test_install.InstallTests.test_cross_volume_alias_copy) ... Kiểm tra SHA256: /tmp/tmpqn5muun8/alias.safetensors
+Kiểm tra SHA256: /tmp/tmpqn5muun8/models/loras/expected.safetensors.alias-1794236165322058028
+Dùng lại model bằng copy: /tmp/tmpqn5muun8/models/loras/expected.safetensors
+ok
+test_direct_model_hash_and_existing_wrong_model_not_overwritten (test_install.InstallTests.test_direct_model_hash_and_existing_wrong_model_not_overwritten) ... Kiểm tra SHA256: /tmp/tmpqj8u7gjx/models/loras/expected.safetensors
+Kiểm tra SHA256: /tmp/tmpqj8u7gjx/models/loras/expected.safetensors
+ok
+test_existing_alias_destination_not_overwritten (test_install.InstallTests.test_existing_alias_destination_not_overwritten) ... ok
+test_extra_model_paths_root_direct_name (test_install.InstallTests.test_extra_model_paths_root_direct_name) ... Kiểm tra SHA256: /tmp/tmpmk7_3or1/shared/loras/expected.safetensors
+ok
+test_failed_copy_restores_node (test_install.InstallTests.test_failed_copy_restores_node) ... Verified existing: ComfyUI-OpenH3-Regenerate2K.zip
+ok
+test_manifest_model_names_match_original_widgets (test_install.InstallTests.test_manifest_model_names_match_original_widgets) ... ok
+test_modified_source_rejected (test_install.InstallTests.test_modified_source_rejected) ... ok
+test_nested_canonical_model_can_be_aliased_without_changing_workflow (test_install.InstallTests.test_nested_canonical_model_can_be_aliased_without_changing_workflow) ... Kiểm tra SHA256: /tmp/tmp6zrpx18v/models/loras/nested/alias.safetensors
+Kiểm tra SHA256: /tmp/tmp6zrpx18v/models/loras/nested/alias.safetensors
+Dùng lại model bằng hardlink: /tmp/tmp6zrpx18v/models/loras/expected.safetensors
+ok
+test_node_backup_idempotence (test_install.InstallTests.test_node_backup_idempotence) ... Verified existing: ComfyUI-OpenH3-Regenerate2K.zip
+Đã cài node: ComfyUI-OpenH3-Regenerate2K ; backup: /tmp/tmp6wsply0_/ComfyUI/user/OpenH3_Original/backups/ComfyUI-OpenH3-Regenerate2K-1794236165340677686
+Verified existing: ComfyUI-OpenH3-Regenerate2K.zip
+ok
+test_original_exact_bytes (test_install.InstallTests.test_original_exact_bytes) ... ok
+test_pins_and_vendor_checksums (test_install.InstallTests.test_pins_and_vendor_checksums) ... ok
+test_portable_folder_selection (test_install.InstallTests.test_portable_folder_selection) ... ok
+test_rerun_copy_does_not_reformat (test_install.InstallTests.test_rerun_copy_does_not_reformat) ... Giữ node đúng bản: ComfyUI-OpenH3-Regenerate2K
+Đã chép workflow gốc, đúng từng byte: /tmp/tmp8ixwkz20/user/default/workflows/OpenH3_Original/OpenH3_Regenerate2K Final.json
+Đã chép workflow gốc, đúng từng byte: /tmp/tmp8ixwkz20/user/default/workflows/OpenH3_Original/OpenH3_Regenerate2K Final.json
+ok
+test_zip_traversal_and_symlink_rejected (test_install.InstallTests.test_zip_traversal_and_symlink_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.036s
+
+OK

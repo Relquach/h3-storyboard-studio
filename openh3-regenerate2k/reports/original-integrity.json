@@ -1,0 +1,10 @@
+{
+  "workflow_file": "OpenH3_Regenerate2K Final.json",
+  "original_bytes": 36366,
+  "original_sha256": "77801992727a09a22547b44f0b70b985e9472820da2e21941a87cf778d8e5973",
+  "packaged_workflow_identical": true,
+  "only_one_workflow": true,
+  "existing_skill_unchanged_git_blob_sha": "977fc0fd729e3644d06acb611ca1cfd46cf8bb8e",
+  "pdf_pages": 15,
+  "all_pdf_pages_have_text": true
+}

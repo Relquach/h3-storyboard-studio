@@ -1,0 +1,11 @@
+{
+  "valid": true,
+  "error": null,
+  "outputs": [
+    "26",
+    "27",
+    "1062"
+  ],
+  "node_errors": {},
+  "gpu_render_tested": false
+}

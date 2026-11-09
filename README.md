@@ -1,4 +1,26 @@
-# Apex H3 V7 — bộ cài và skill mới nhất
+# OpenH3 Regenerate2K — bộ nạp workflow gốc
+
+**[TẢI BỘ CÀI OPENH3 REGENERATE2K](dist/OpenH3-Regenerate2K-Original-v1.0.0.zip)** · [Hướng dẫn PDF 15 trang có ảnh](openh3-regenerate2k/docs/HUONG_DAN.pdf) · [Word](openh3-regenerate2k/docs/HUONG_DAN.docx) · [HTML](openh3-regenerate2k/docs/HUONG_DAN.html)
+
+Bộ này dùng cho **video đã render**: MP4 nguồn → latent upscale → OpenH3 refine → decode → lưu MP4 với tiếng nguồn. Trong chuỗi phim: Codex/storyboard → workflow tạo video như Apex → duyệt clip → OpenH3 Regenerate2K để hậu kỳ.
+
+**Chỉ một workflow gốc `OpenH3_Regenerate2K Final.json`, giữ nguyên từng byte; không sửa skill, prompt, setting hoặc dây nối.** [Xem JSON gốc](openh3-regenerate2k/workflows/OpenH3_Regenerate2K%20Final.json).
+
+1. Tải **ZIP OpenH3 riêng ở trên**, giải nén và đóng ComfyUI.
+2. Chạy **CAI_DAT.bat**. Chọn thư mục Portable chứa **ComfyUI và python_embeded** nếu được hỏi. Mặc định `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`.
+3. Bộ nạp kiểm tra core/Python trước khi tải. Nếu thiếu native H3 upscale hoặc direct-buffer VAE, dùng updater chính thức `update/update_comfyui.bat` của Portable rồi thử lại.
+4. Mở lại ComfyUI → chạy **KIEM_TRA.bat** → mở **OpenH3_Original / OpenH3_Regenerate2K Final**.
+5. Chọn **MP4 thật ở Load Video #1**, đặt **width/height ở Upscale Latent #6**, rồi Run. File gốc lưu 2560×1440; clip dọc cần chọn kích thước dọc bằng UI. Kết quả ở `ComfyUI/output/OpenH3_2K`.
+
+Cài **4 pack node + 7 model (~54,45 GB nếu chưa có)**; dùng lại file đúng SHA256, có resume và alias/hardlink để giữ tên model trong JSON gốc. Backup node/workflow ở `ComfyUI/user/OpenH3_Original/backups`. `CAI_LAI_NODE.bat` chỉ cài node. Thời lượng bám video nguồn; `max_frames` là cap từ chối, không phải công cụ cắt clip.
+
+[Hướng dẫn nhanh](openh3-regenerate2k/README.md) · [Model/node và SHA256](openh3-regenerate2k/manifest.json) · [Bằng chứng kiểm thử](openh3-regenerate2k/reports/VALIDATION.md) · [Checksum ZIP](dist/OpenH3-Regenerate2K-Original-v1.0.0.sha256)
+
+Đã qua 23 unit test, nạp UI/schema và chuẩn bị video/audio trên CPU; script cài đã chạy trong Portable giả lập. **Chưa render GPU trên RTX 4060 Ti hoặc kiểm thử Windows thật.** JSON gốc SHA256 `77801992727a09a22547b44f0b70b985e9472820da2e21941a87cf778d8e5973`.
+
+---
+
+# Apex H3 V7 — tạo video từ storyboard
 
 **[TẢI BỘ CÀI APEX V7](dist/Apex-H3-V7-Studio-v1.0.0.zip)** · [Skill H3 v4 riêng](dist/MiniMax-H3-Film-Skill-v4-Apex-V7.zip) · [Hướng dẫn PDF 19 trang có ảnh](apex-v7/docs/HUONG_DAN.pdf) · [Word](apex-v7/docs/HUONG_DAN.docx) · [HTML](apex-v7/docs/HUONG_DAN.html)
 
