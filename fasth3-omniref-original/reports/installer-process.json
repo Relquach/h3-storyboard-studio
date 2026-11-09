@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "isolated_python_install_twice": true,
+  "workflow_byte_identical": true,
+  "real_model_inference": false,
+  "windows_launcher_executed": false,
+  "scope": "Linux isolated subprocess with tiny pre-existing model fixtures, not real downloads or GPU runtime",
+  "files_only": false,
+  "runs": [
+    {
+      "exit_code": 0,
+      "stdout": "Portable đích: /tmp/original-installer-ufopl8sy/portable\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/diffusion_models/fasth3_omniref_8step_pruned_int8_convrot.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/diffusion_models/fasth3_omniref_8step_pruned_int8_convrot.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_video_vae_int8_convrot.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_video_vae_int8_convrot.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_audio_vae_fp32.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_audio_vae_fp32.safetensors\nCần tải khoảng 0.00 GB; SSD trống 0.67 GB.\nĐã chép workflow gốc, đúng từng byte: /tmp/original-installer-ufopl8sy/portable/ComfyUI/user/default/workflows/FastH3_OmniRef_Original/video_fasth3_ominiref_r2v.json\nĐã cài model và chép workflow đúng từng byte. Không có custom node hoặc LoRA cần cài.\nMở lại ComfyUI, chạy KIEM_TRA.bat, mở FastH3_OmniRef_Original và chọn ảnh #137/#149. Đọc docs/HUONG_DAN.pdf.\n",
+      "stderr": ""
+    },
+    {
+      "exit_code": 0,
+      "stdout": "Portable đích: /tmp/original-installer-ufopl8sy/portable\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/diffusion_models/fasth3_omniref_8step_pruned_int8_convrot.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/diffusion_models/fasth3_omniref_8step_pruned_int8_convrot.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_video_vae_int8_convrot.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_video_vae_int8_convrot.safetensors\nKiểm tra SHA256: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_audio_vae_fp32.safetensors\nCó model dùng trực tiếp: /tmp/original-installer-ufopl8sy/portable/ComfyUI/models/vae/minimax_h3_audio_vae_fp32.safetensors\nCần tải khoảng 0.00 GB; SSD trống 0.66 GB.\nĐã chép workflow gốc, đúng từng byte: /tmp/original-installer-ufopl8sy/portable/ComfyUI/user/default/workflows/FastH3_OmniRef_Original/video_fasth3_ominiref_r2v.json\nĐã cài model và chép workflow đúng từng byte. Không có custom node hoặc LoRA cần cài.\nMở lại ComfyUI, chạy KIEM_TRA.bat, mở FastH3_OmniRef_Original và chọn ảnh #137/#149. Đọc docs/HUONG_DAN.pdf.\n",
+      "stderr": ""
+    }
+  ]
+}

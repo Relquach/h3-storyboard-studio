@@ -1,0 +1,49 @@
+test_bundled_nodes_hash_extract_and_idempotence (__main__.suite.<locals>.Tests.test_bundled_nodes_hash_extract_and_idempotence) ... Verified existing: dlss.zip
+Đã cài node: ComfyUI-DLSS5-Enhancer ; backup: không cần
+Verified existing: dlss.zip
+Giữ node đúng bản và runtime hiện có: ComfyUI-DLSS5-Enhancer
+Verified existing: nvidia.zip
+Đã cài node: ComfyUI_Nvidia_VFX_Nodes ; backup: không cần
+Verified existing: nvidia.zip
+Giữ node đúng bản và runtime hiện có: ComfyUI_Nvidia_VFX_Nodes
+Verified existing: vhs.zip
+Đã cài node: ComfyUI-VideoHelperSuite ; backup: không cần
+Verified existing: vhs.zip
+Giữ node đúng bản và runtime hiện có: ComfyUI-VideoHelperSuite
+ok
+test_copy_backup_preserves_original (__main__.suite.<locals>.Tests.test_copy_backup_preserves_original) ... Đã chép workflow gốc, đúng từng byte: /tmp/tmpbhkf8wsr/portable/ComfyUI/user/default/workflows/RelayVSR_RTX_Original/RealVSR-RTX_VFX - upscale.json
+Đã chép workflow gốc, đúng từng byte: /tmp/tmpbhkf8wsr/portable/ComfyUI/user/default/workflows/RelayVSR_RTX_Original/RealVSR-RTX_VFX - upscale.json
+ok
+test_corrupt_download_not_published (__main__.suite.<locals>.Tests.test_corrupt_download_not_published) ... ok
+test_dlss_update_preserves_runtime (__main__.suite.<locals>.Tests.test_dlss_update_preserves_runtime) ... Verified existing: dlss.zip
+Đã cài node: ComfyUI-DLSS5-Enhancer ; backup: không cần
+Verified existing: dlss.zip
+Đã cài node: ComfyUI-DLSS5-Enhancer ; backup: /tmp/tmppxopgay2/portable/ComfyUI/user/RelayVSR_RTX_Original/backups/ComfyUI-DLSS5-Enhancer-1794248503156686085
+ok
+test_existing_runtime_reused (__main__.suite.<locals>.Tests.test_existing_runtime_reused) ... Giữ runtime DLSS5 đang có; không yêu cầu xác nhận tải lại.
+ok
+test_external_model_paths (__main__.suite.<locals>.Tests.test_external_model_paths) ... Kiểm tra SHA256: /tmp/tmpnraz0iuu/shared/same.safetensors
+ok
+test_flat_node_archive (__main__.suite.<locals>.Tests.test_flat_node_archive) ... ok
+test_full_install_blocks_cpu_environment (__main__.suite.<locals>.Tests.test_full_install_blocks_cpu_environment) ... ok
+test_original_hash (__main__.suite.<locals>.Tests.test_original_hash) ... ok
+test_portable_choices (__main__.suite.<locals>.Tests.test_portable_choices) ... ok
+test_preflight_missing_native_blocks_before_download (__main__.suite.<locals>.Tests.test_preflight_missing_native_blocks_before_download) ... ok
+test_reuse_subfolder_and_hardlink (__main__.suite.<locals>.Tests.test_reuse_subfolder_and_hardlink) ... Kiểm tra SHA256: /tmp/tmp1inupcfj/portable/ComfyUI/models/vae/nested/same.safetensors
+Kiểm tra SHA256: /tmp/tmp1inupcfj/portable/ComfyUI/models/vae/nested/same.safetensors
+Dùng lại model bằng hardlink: /tmp/tmp1inupcfj/portable/ComfyUI/models/vae/same.safetensors
+ok
+test_runtime_decline_does_not_claim_success (__main__.suite.<locals>.Tests.test_runtime_decline_does_not_claim_success) ... Trình cài upstream DLSS5 sẽ hiển thị thông báo giấy phép và hỏi Continue? [y/N]. Chỉ nhập y nếu bạn đồng ý. Bộ cài không tự chấp nhận.
+ok
+test_runtime_license_not_autoaccepted (__main__.suite.<locals>.Tests.test_runtime_license_not_autoaccepted) ... Trình cài upstream DLSS5 sẽ hiển thị thông báo giấy phép và hỏi Continue? [y/N]. Chỉ nhập y nếu bạn đồng ý. Bộ cài không tự chấp nhận.
+ok
+test_same_name_wrong_model_kept (__main__.suite.<locals>.Tests.test_same_name_wrong_model_kept) ... ok
+test_tampered_source_rejected (__main__.suite.<locals>.Tests.test_tampered_source_rejected) ... ok
+test_verified_local_download (__main__.suite.<locals>.Tests.test_verified_local_download) ... Verified existing: download.bin
+ok
+test_zip_traversal_rejected (__main__.suite.<locals>.Tests.test_zip_traversal_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.079s
+
+OK

@@ -1,0 +1,1 @@
+Gói chỉ chứa script cài, tài liệu và workflow do người dùng cung cấp; Relay kèm ZIP source node upstream. Model weights, NVIDIA SDK và DLSS runtime được tải riêng theo giấy phép nguồn. Không tự đồng ý điều khoản runtime. Script cài không sửa core/Torch/driver, không tạo ngoại lệ antivirus và không thay đổi skill.

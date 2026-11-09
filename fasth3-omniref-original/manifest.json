@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "workflow": "video_fasth3_ominiref_r2v.json",
+  "workflow_bytes": 41549,
+  "workflow_sha256": "eb2d92ae93e151d4d86dc697c845e428e2b33ce4e845d1859f28654f4f64d0c7",
+  "preserve_original_bytes": true,
+  "models": [
+    {
+      "id": "omniref",
+      "repo": "FastVideo/FastH3-Omni-Comfy",
+      "revision": "82eff2a6eee6c962846879f4bab52610a4df24d3",
+      "file": "diffusion_models/fasth3_omniref_8step_pruned_int8_convrot.safetensors",
+      "category": "diffusion_models",
+      "destination": "fasth3_omniref_8step_pruned_int8_convrot.safetensors",
+      "aliases": [],
+      "bytes": 22213723064,
+      "sha256": "851b2dc9670ed864b7f1e951ac9da047d83b1c04ded9bfcc1a9e5bba0ee33f80"
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "destination": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "bytes": 15687142551,
+      "sha256": "35a88d51044231fe332301d7a62aa81e3f2cba62febeb446e2c1e3e0ef76f2c6",
+      "id": "encoder",
+      "category": "text_encoders",
+      "aliases": []
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+      "destination": "minimax_h3_video_vae_int8_convrot.safetensors",
+      "bytes": 2811065184,
+      "sha256": "52a2c8c73583c86e4f41cdcce3a6ad0ea562987bc0bf3d60a0cef5f5c8e60c0e",
+      "id": "video_vae",
+      "category": "vae",
+      "aliases": []
+    },
+    {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+      "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+      "destination": "minimax_h3_audio_vae_fp32.safetensors",
+      "bytes": 605254808,
+      "sha256": "8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48",
+      "id": "audio_vae",
+      "category": "vae",
+      "aliases": []
+    }
+  ],
+  "nodes": [],
+  "required_types": [
+    "BasicGuider",
+    "BasicScheduler",
+    "BlockSparseAttention",
+    "CLIPLoader",
+    "ComfyMathExpression",
+    "CreateVideo",
+    "KSamplerSelect",
+    "LoadImage",
+    "MiniMaxH3ReferenceToVideo",
+    "MiniMaxH3SigmaShift",
+    "ModelAttentionBackend",
+    "PrimitiveFloat",
+    "PrimitiveStringMultiline",
+    "RandomNoise",
+    "ResolutionSelector",
+    "SamplerCustomAdvanced",
+    "SaveVideo",
+    "UNETLoader",
+    "VAEDecode",
+    "VAEDecodeAudio",
+    "VAELoader"
+  ],
+  "core_required_types": [
+    "BasicGuider",
+    "BasicScheduler",
+    "BlockSparseAttention",
+    "CLIPLoader",
+    "ComfyMathExpression",
+    "CreateVideo",
+    "KSamplerSelect",
+    "LoadImage",
+    "MiniMaxH3ReferenceToVideo",
+    "MiniMaxH3SigmaShift",
+    "ModelAttentionBackend",
+    "PrimitiveFloat",
+    "PrimitiveStringMultiline",
+    "RandomNoise",
+    "ResolutionSelector",
+    "SamplerCustomAdvanced",
+    "SaveVideo",
+    "UNETLoader",
+    "VAEDecode",
+    "VAEDecodeAudio",
+    "VAELoader"
+  ],
+  "known_compatibility": [
+    {
+      "node": 130,
+      "field": "chroma_subsampling",
+      "original": "none",
+      "suggested_ui_value": "auto",
+      "condition": "runtime CreateVideo has this field and does not accept none",
+      "original_json_modified": false
+    }
+  ]
+}

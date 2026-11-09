@@ -1,0 +1,14 @@
+[
+  {
+    "core": "043",
+    "variant": "original",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "92"
+    ],
+    "node_errors": {},
+    "gpu_render_tested": false,
+    "model_files": "zero-byte enum fixtures, no real model inference"
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "tests": 11,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "test_scope": "Temporary Linux fixtures, no Windows launcher/GPU execution"
+}

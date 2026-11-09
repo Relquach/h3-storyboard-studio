@@ -1,0 +1,23 @@
+test_copy_backup_preserves_original (__main__.suite.<locals>.Tests.test_copy_backup_preserves_original) ... Đã chép workflow gốc, đúng từng byte: /tmp/tmp80nxj0v6/portable/ComfyUI/user/default/workflows/FastH3_OmniRef_Original/video_fasth3_ominiref_r2v.json
+Đã chép workflow gốc, đúng từng byte: /tmp/tmp80nxj0v6/portable/ComfyUI/user/default/workflows/FastH3_OmniRef_Original/video_fasth3_ominiref_r2v.json
+ok
+test_corrupt_download_not_published (__main__.suite.<locals>.Tests.test_corrupt_download_not_published) ... ok
+test_external_model_paths (__main__.suite.<locals>.Tests.test_external_model_paths) ... Kiểm tra SHA256: /tmp/tmpv_bo0ech/shared/same.safetensors
+ok
+test_original_hash (__main__.suite.<locals>.Tests.test_original_hash) ... ok
+test_portable_choices (__main__.suite.<locals>.Tests.test_portable_choices) ... ok
+test_preflight_missing_native_blocks_before_download (__main__.suite.<locals>.Tests.test_preflight_missing_native_blocks_before_download) ... ok
+test_reuse_subfolder_and_hardlink (__main__.suite.<locals>.Tests.test_reuse_subfolder_and_hardlink) ... Kiểm tra SHA256: /tmp/tmpbdjljsl8/portable/ComfyUI/models/vae/nested/same.safetensors
+Kiểm tra SHA256: /tmp/tmpbdjljsl8/portable/ComfyUI/models/vae/nested/same.safetensors
+Dùng lại model bằng hardlink: /tmp/tmpbdjljsl8/portable/ComfyUI/models/vae/same.safetensors
+ok
+test_same_name_wrong_model_kept (__main__.suite.<locals>.Tests.test_same_name_wrong_model_kept) ... ok
+test_schema_warning_explains_chroma (__main__.suite.<locals>.Tests.test_schema_warning_explains_chroma) ... ok
+test_tampered_source_rejected (__main__.suite.<locals>.Tests.test_tampered_source_rejected) ... ok
+test_verified_local_download (__main__.suite.<locals>.Tests.test_verified_local_download) ... Verified existing: download.bin
+ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.031s
+
+OK

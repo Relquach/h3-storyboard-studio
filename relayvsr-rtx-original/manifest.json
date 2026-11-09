@@ -1,0 +1,133 @@
+{
+  "version": "1.0.0",
+  "workflow": "RealVSR-RTX_VFX - upscale.json",
+  "workflow_bytes": 32359,
+  "workflow_sha256": "b7ab1d4a880bbec75c0b99957ee6db2b72636967cbc06ec58da2eef05366fa9e",
+  "preserve_original_bytes": true,
+  "models": [
+    {
+      "id": "relay",
+      "repo": "Comfy-Org/RelayVSR",
+      "revision": "ba556c9fab83606eb82285b7eb3a9375232744b6",
+      "file": "diffusion_models/relayvsr_x2_lightx2v_int8_convrot.safetensors",
+      "category": "diffusion_models",
+      "destination": "relayvsr_x2_lightx2v_int8_convrot.safetensors",
+      "aliases": [],
+      "bytes": 5163295248,
+      "sha256": "240e75e0c17cf2845d559b25254a230ff7458f81449d7a8c5e7e3fb8275c7b3c"
+    },
+    {
+      "id": "vae",
+      "repo": "Comfy-Org/RelayVSR",
+      "revision": "ba556c9fab83606eb82285b7eb3a9375232744b6",
+      "file": "vae/relayvsr_flash_vae_x2_fp32.safetensors",
+      "category": "vae",
+      "destination": "relayvsr_flash_vae_x2_fp32.safetensors",
+      "aliases": [],
+      "bytes": 127759464,
+      "sha256": "b5bb0339acb5b52545911ea29a51b4c5b805776a779222b5a14591571f42e21c"
+    }
+  ],
+  "nodes": [
+    {
+      "archive": "dlss.zip",
+      "folder": "ComfyUI-DLSS5-Enhancer",
+      "repo": "Blueforcer/ComfyUI-DLSS5-Enhancer",
+      "revision": "9ca896aa6f85ecfedd0456da00ca165bd0c39cd0",
+      "url": "https://codeload.github.com/Blueforcer/ComfyUI-DLSS5-Enhancer/zip/9ca896aa6f85ecfedd0456da00ca165bd0c39cd0",
+      "bytes": 54100,
+      "sha256": "0bd7c818951005667919f0a418909b791ab4af781cff6123ae4ddcda37eec339",
+      "flat_archive": false,
+      "preserve_paths": [
+        "runtime",
+        "ffmpeg",
+        "config.json"
+      ]
+    },
+    {
+      "archive": "nvidia.zip",
+      "folder": "ComfyUI_Nvidia_VFX_Nodes",
+      "repo": "Comfy-Org/ComfyUI_Nvidia_VFX_Nodes",
+      "revision": "0.2.1",
+      "url": "https://cdn.comfy.org/comfyui/comfyui_nvidia_rtx_nodes/0.2.1/node.zip",
+      "bytes": 322429,
+      "sha256": "7bf843330b82086a1a64b01332a51897f0ddf1c14f7a6e4debcd5b6140a4c440",
+      "flat_archive": true,
+      "preserve_paths": []
+    },
+    {
+      "archive": "vhs.zip",
+      "folder": "ComfyUI-VideoHelperSuite",
+      "repo": "Kosinkadink/ComfyUI-VideoHelperSuite",
+      "revision": "449839959f0153fb8a57211a9364c55163935ca9",
+      "url": "https://codeload.github.com/Kosinkadink/ComfyUI-VideoHelperSuite/zip/449839959f0153fb8a57211a9364c55163935ca9",
+      "bytes": 116302,
+      "sha256": "ba810634da69ed09491781ebf607e12f8d450a355936ecf2e69dcf285c9440a6",
+      "flat_archive": false,
+      "preserve_paths": []
+    }
+  ],
+  "required_types": [
+    "BasicScheduler",
+    "CFGGuider",
+    "ComfyMathExpression",
+    "DLSS5EnhanceImages",
+    "DLSS5Settings",
+    "KSamplerSelect",
+    "ModelAttentionBackend",
+    "PrimitiveInt",
+    "RTXTrueHDR",
+    "RTXVideoFrameGeneration",
+    "RandomNoise",
+    "RelayVSRConditioning",
+    "SamplerCustomAdvanced",
+    "UNETLoader",
+    "VAELoader",
+    "VHS_LoadVideoPath",
+    "VHS_VideoCombine",
+    "VHS_VideoInfo",
+    "VSRDecode"
+  ],
+  "core_required_types": [
+    "BasicScheduler",
+    "CFGGuider",
+    "ComfyMathExpression",
+    "KSamplerSelect",
+    "ModelAttentionBackend",
+    "PrimitiveInt",
+    "RandomNoise",
+    "RelayVSRConditioning",
+    "SamplerCustomAdvanced",
+    "UNETLoader",
+    "VAELoader",
+    "VSRDecode"
+  ],
+  "nvidia_sdk": {
+    "version": "0.2.0.0",
+    "windows_wheels": {
+      "cp310": "https://pypi.nvidia.com/nvidia-vfx/nvidia_vfx-0.2.0.0-cp310-cp310-win_amd64.whl#sha256=19933666e3f5e325631ab7d8dd4c07146e729ef5a125d316525075a9bcec58fb",
+      "cp311": "https://pypi.nvidia.com/nvidia-vfx/nvidia_vfx-0.2.0.0-cp311-cp311-win_amd64.whl#sha256=5aaf6a42bc6b6dbbf52fcb714194c994a6893cbbf7ada38bc2165a1f83e4a6fc",
+      "cp312+": "https://pypi.nvidia.com/nvidia-vfx/nvidia_vfx-0.2.0.0-cp312-abi3-win_amd64.whl#sha256=cebaa12411f7e22b39293205c5c4d07b8073d14ca1e0e7727ee4375207a36445"
+    },
+    "module": "nvvfx",
+    "min_torch_cuda": "13.0",
+    "min_windows_driver": "570.65"
+  },
+  "dlss_runtime": {
+    "version": "3.0",
+    "required_files": [
+      "nvngx.dll",
+      "dxgi.dll",
+      "renodx-dlss5.addon64",
+      "nvngx_dlss.dll",
+      "nvngx_dlssnr.dll"
+    ],
+    "installer": "install_runtime.py",
+    "requires_interactive_confirmation": true,
+    "auto_accept": false
+  },
+  "known_limitations": [
+    "Original TrueHDR output is sent to an 8-bit H264/yuv420p exporter; HDR signaling is not configured in this JSON.",
+    "Empty source video path must be supplied by the user."
+  ]
+}

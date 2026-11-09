@@ -1,3 +1,25 @@
+# Bộ cài workflow gốc — OmniRef tạo video và RelayVSR upscale
+
+Hai bộ riêng cho **ComfyUI Windows Portable**, giữ nguyên từng byte JSON bạn gửi. **Skill hiện tại không thay đổi.**
+
+| Bộ | Tải ZIP cài tự động | Hướng dẫn có ảnh |
+| --- | --- | --- |
+| **FastH3 OmniRef** — tạo video từ storyboard + character sheet + prompt | [TẢI BỘ CÀI OMNIREF](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/FastH3-OmniRef-Original-v1.0.0.zip) | [PDF 7 trang](fasth3-omniref-original/docs/HUONG_DAN.pdf) · [Word](fasth3-omniref-original/docs/HUONG_DAN.docx) · [Markdown](fasth3-omniref-original/docs/HUONG_DAN.md) |
+| **RelayVSR + RTX VFX** — hậu kỳ video đã có: tăng FPS → DLSS5 → upscale 2× → TrueHDR | [TẢI BỘ CÀI RELAYVSR](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/RelayVSR-RTX-VFX-Original-v1.0.0.zip) | [PDF 8 trang](relayvsr-rtx-original/docs/HUONG_DAN.pdf) · [Word](relayvsr-rtx-original/docs/HUONG_DAN.docx) · [Markdown](relayvsr-rtx-original/docs/HUONG_DAN.md) |
+
+**Cài:** tải đúng ZIP riêng ở bảng → giải nén → đóng ComfyUI → chạy **CAI_DAT.bat**. Mặc định dùng `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`. Nếu hỏi đường dẫn, chọn **thư mục chứa ComfyUI và python_embeded**, không chọn JSON. Mở lại ComfyUI rồi chạy **KIEM_TRA.bat**.
+
+- **OmniRef:** bốn model tổng khoảng **41,32 GB**; ba model H3 dùng chung đúng hash được dùng lại, có thể chỉ còn tải OmniRef **22,21 GB**. Không có custom node hoặc LoRA cần thêm. Chọn storyboard ở **#137 / Picture 1**, character sheet ở **#149 / Picture 2**. Ảnh riêng không nằm trong gói. Core mới có `chroma_subsampling` thì chọn **auto ở Create Video #130**; JSON nguồn giữ nguyên. [Cách dùng và setting](fasth3-omniref-original/README.md) · [Manifest](fasth3-omniref-original/manifest.json).
+- **RelayVSR:** hai model tổng khoảng **5,29 GB**, thêm NVIDIA SDK và DLSS runtime. NVIDIA VFX Nodes 0.2.1 yêu cầu **PyTorch CUDA 13.0+**, Windows/NVIDIA CUDA hoạt động; bộ cài không tự thay Torch/driver. Trình cài DLSS upstream hỏi giấy phép **Continue? [y/N]**, không tự chấp nhận. Nhập MP4 thật ở **#10**; cap gốc **151 frame**. File cuối ở `ComfyUI/output/vsr_upscale/`; preview #27/#30 không có tiếng. **Nhánh TrueHDR đang bật nhưng H.264/yuv420p gốc chưa cấu hình HDR signaling chuẩn**; xem hướng dẫn trước khi đánh giá màu. [Cách dùng và setting](relayvsr-rtx-original/README.md) · [Manifest](relayvsr-rtx-original/manifest.json).
+
+Quy trình: tạo storyboard → **người dùng duyệt** → prompt đúng storyboard/ảnh tham chiếu → OmniRef render → duyệt MP4 → RelayVSR hậu kỳ. Không đưa ảnh storyboard vào ô video nguồn của RelayVSR.
+
+Đã qua **29 ca kiểm tra installer**, chạy cài hai lần bằng Python isolated mode trên Portable giả lập; OmniRef kiểm UI/schema trên hai core, Relay kiểm các thành phần khả dụng trên CPU. **Chưa kiểm thử launcher Windows, render GPU hoặc benchmark RTX 4060 Ti 16 GB / RAM 32 GB.** Đủ dependency không bảo đảm mọi cấu hình chạy vừa bộ nhớ. [Chi tiết OmniRef](fasth3-omniref-original/VALIDATION.md) · [Chi tiết RelayVSR](relayvsr-rtx-original/VALIDATION.md).
+
+[Checksum hai ZIP](dist/Original-OmniRef-RelayVSR-v1.0.0.sha256)
+
+---
+
 # OpenH3 Regenerate2K — bộ nạp workflow gốc
 
 **[TẢI BỘ CÀI OPENH3 REGENERATE2K](dist/OpenH3-Regenerate2K-Original-v1.0.0.zip)** · [Hướng dẫn PDF 15 trang có ảnh](openh3-regenerate2k/docs/HUONG_DAN.pdf) · [Word](openh3-regenerate2k/docs/HUONG_DAN.docx) · [HTML](openh3-regenerate2k/docs/HUONG_DAN.html)

@@ -1,0 +1,61 @@
+[
+  {
+    "core": "044",
+    "variant": "original",
+    "valid": false,
+    "error": {
+      "type": "prompt_outputs_failed_validation",
+      "message": "Prompt outputs failed validation",
+      "details": "",
+      "extra_info": {}
+    },
+    "outputs": [],
+    "node_errors": {
+      "130": {
+        "errors": [
+          {
+            "type": "value_not_in_list",
+            "message": "Value not in list",
+            "details": "chroma_subsampling: 'none' not in ['auto', '444', '422', '420']",
+            "extra_info": {
+              "input_name": "chroma_subsampling",
+              "input_config": [
+                "COMBO",
+                {
+                  "tooltip": "444 keeps full color resolution, 422 halves horizontal color resolution, and 420 halves both axes. Auto uses the codec default. Unsupported choices use the closest supported mode and print a console warning.",
+                  "default": "auto",
+                  "multiselect": false,
+                  "options": [
+                    "auto",
+                    "444",
+                    "422",
+                    "420"
+                  ]
+                }
+              ],
+              "received_value": "none"
+            }
+          }
+        ],
+        "dependent_outputs": [
+          "92"
+        ],
+        "class_type": "CreateVideo"
+      }
+    },
+    "gpu_render_tested": false,
+    "model_files": "zero-byte enum fixtures, no real model inference"
+  },
+  {
+    "core": "044",
+    "variant": "ui-auto",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "92"
+    ],
+    "node_errors": {},
+    "gpu_render_tested": false,
+    "model_files": "zero-byte enum fixtures, no real model inference"
+  }
+]

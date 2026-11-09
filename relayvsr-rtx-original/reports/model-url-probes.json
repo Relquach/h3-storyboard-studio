@@ -1,0 +1,20 @@
+[
+  {
+    "id": "relay",
+    "repo": "Comfy-Org/RelayVSR",
+    "revision": "ba556c9fab83606eb82285b7eb3a9375232744b6",
+    "file": "diffusion_models/relayvsr_x2_lightx2v_int8_convrot.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "vae",
+    "repo": "Comfy-Org/RelayVSR",
+    "revision": "ba556c9fab83606eb82285b7eb3a9375232744b6",
+    "file": "vae/relayvsr_flash_vae_x2_fp32.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  }
+]
