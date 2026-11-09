@@ -1,0 +1,38 @@
+test_download_hash_verified (test_pack.DownloadTests.test_download_hash_verified) ... ok
+test_full_corrupt_part_quarantined (test_pack.DownloadTests.test_full_corrupt_part_quarantined) ... ok
+test_html_not_installed_as_model (test_pack.DownloadTests.test_html_not_installed_as_model) ... ok
+test_resume_range (test_pack.DownloadTests.test_resume_range) ... ok
+test_server_ignores_range_restarts (test_pack.DownloadTests.test_server_ignores_range_restarts) ... ok
+test_all_root_links_consistent (test_pack.PackTests.test_all_root_links_consistent) ... ok
+test_compact_numbers_with_gap (test_pack.PackTests.test_compact_numbers_with_gap) ... ok
+test_extra_model_paths_and_nested_name (test_pack.PackTests.test_extra_model_paths_and_nested_name) ... ok
+test_failed_node_copy_restores_backup (test_pack.PackTests.test_failed_node_copy_restores_backup) ... Verified existing: ComfyUI-Spectrum-MiniMax-H3.zip
+ok
+test_fake_approval_not_accepted (test_pack.PackTests.test_fake_approval_not_accepted) ... ok
+test_llm_rewrite_not_accepted (test_pack.PackTests.test_llm_rewrite_not_accepted) ... ok
+test_node_backup_idempotence (test_pack.PackTests.test_node_backup_idempotence) ... Verified existing: ComfyUI-Spectrum-MiniMax-H3.zip
+Đã cài node: ComfyUI-Spectrum-MiniMax-H3 ; backup: /tmp/tmp1wjiqz7p/ComfyUI/user/ApexV7/backups/ComfyUI-Spectrum-MiniMax-H3-1794201196222010187
+Verified existing: ComfyUI-Spectrum-MiniMax-H3.zip
+ok
+test_pending_no_prompt (test_pack.PackTests.test_pending_no_prompt) ... ok
+test_phantom_ref_rejected (test_pack.PackTests.test_phantom_ref_rejected) ... ok
+test_pins_and_sizes (test_pack.PackTests.test_pins_and_sizes) ... ok
+test_portable_root_inner_and_comfy (test_pack.PackTests.test_portable_root_inner_and_comfy) ... ok
+test_real_four_reference_slots (test_pack.PackTests.test_real_four_reference_slots) ... ok
+test_rewrite_names_all_widgets (test_pack.PackTests.test_rewrite_names_all_widgets) ... ok
+test_schema_old_new (test_pack.PackTests.test_schema_old_new) ... ok
+test_schema_reads_default_and_field_order (test_pack.PackTests.test_schema_reads_default_and_field_order) ... ok
+test_shot_sum_mismatch (test_pack.PackTests.test_shot_sum_mismatch) ... ok
+test_source_unchanged (test_pack.PackTests.test_source_unchanged) ... ok
+test_stale_approval (test_pack.PackTests.test_stale_approval) ... ok
+test_timing (test_pack.PackTests.test_timing) ... ok
+test_unwired_loader_rejected (test_pack.PackTests.test_unwired_loader_rejected) ... ok
+test_wrong_existing_model_not_overwritten (test_pack.PackTests.test_wrong_existing_model_not_overwritten) ... ok
+test_zip_symlink_rejected (test_pack.PackTests.test_zip_symlink_rejected) ... ok
+test_zip_traversal_rejected (test_pack.PackTests.test_zip_traversal_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.205s
+
+OK
+Giữ node đúng bản: ComfyUI-Spectrum-MiniMax-H3

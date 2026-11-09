@@ -1,0 +1,36 @@
+[
+  {
+    "unknown": [],
+    "profile": "h3",
+    "api_nodes": 44
+  },
+  {
+    "profile": "h3-all-refs",
+    "unknown": [],
+    "api_nodes": 47,
+    "reference_count": 4
+  },
+  {
+    "profile": "h3-gap-ref",
+    "unknown": [],
+    "api_nodes": 46,
+    "reference_count": 3
+  },
+  {
+    "unknown": [],
+    "profile": "full",
+    "api_nodes": 70
+  },
+  {
+    "profile": "full-all-refs",
+    "unknown": [],
+    "api_nodes": 73,
+    "reference_count": 4
+  },
+  {
+    "profile": "full-gap-ref",
+    "unknown": [],
+    "api_nodes": 72,
+    "reference_count": 3
+  }
+]

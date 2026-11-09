@@ -1,0 +1,71 @@
+{
+  "run_id": "EP01_RUN01_LAN",
+  "seconds": 15,
+  "style": "semi_realistic_3d_east_asian",
+  "aspect": "9:16 (Portrait Widescreen); multiple32; megapixels theo cấu hình hiện dùng",
+  "grid": [
+    2,
+    2
+  ],
+  "assets": [
+    {
+      "id": "STORYBOARD",
+      "role": "storyboard",
+      "node_id": 27,
+      "enabled": true,
+      "file_label": "Ảnh storyboard Lan 2×2 đã tạo (tên đề xuất: lan-storyboard.png)",
+      "description_en": "A 2-row by 2-column storyboard, panels SHOT 1 to SHOT 4 read left to right, top to bottom; golden rice field at sunset."
+    },
+    {
+      "id": "CHAR_01",
+      "role": "character",
+      "node_id": 28,
+      "enabled": true,
+      "file_label": "Sheet Lan áo dài trắng đã duyệt (tên đề xuất: lan-sheet.png)",
+      "description_en": "Lan, a petite adult Vietnamese woman, 155 cm tall, slender build, fair rosy skin, long dark brown half-up hair with a pale pink bow, pearl earrings, opaque white ao dai and white trousers."
+    },
+    {
+      "id": "ENV_01",
+      "role": "environment",
+      "node_id": 93,
+      "enabled": false,
+      "file_label": "Không nạp ảnh riêng; lấy môi trường trong storyboard",
+      "description_en": "The ripe golden rice field, grassy bund, peach-lavender sunset sky and warm low sunlight depicted in the storyboard.",
+      "fallback_from_storyboard": true
+    }
+  ],
+  "shots": [
+    {
+      "label": "SHOT 1",
+      "row": 1,
+      "column": 1,
+      "seconds": 4
+    },
+    {
+      "label": "SHOT 2",
+      "row": 1,
+      "column": 2,
+      "seconds": 3
+    },
+    {
+      "label": "SHOT 3",
+      "row": 2,
+      "column": 1,
+      "seconds": 5
+    },
+    {
+      "label": "SHOT 4",
+      "row": 2,
+      "column": 2,
+      "seconds": 3
+    }
+  ],
+  "video_prompt_template": "subject_definitions:\n<Subject 1> is Lan from {{ref:CHAR_01}}. Preserve her face, hairstyle, body proportions, opaque white ao dai and white trousers.\n<Subject 2> is the rice field and sunset sky from {{ref:ENV_01}}.\nsummary:\n[reference generation] Animate the four panels of {{ref:STORYBOARD}} as a 15-second full-frame cinematic sequence. The grid is a shot plan, not a split-screen or a literal first frame.\nretention_analysis:\nLan keeps one identity throughout SHOT 1, SHOT 2 and SHOT 4. SHOT 3 shows only the sky and a thin distant field edge. Preserve sunset lighting and screen direction across all shots.\ndetailed_description:\nSemi-realistic East Asian 3D CGI romantic film with subtle doll-like facial stylization with expressive eyes, softly shaded rosy skin, finely detailed hair, warm rim light and soft cinematic depth of field. Preserve the reference's animated face; no live-action skin or photorealistic actor conversion.\n[SHOT 1] {{start:SHOT 1}}–{{end:SHOT 1}}, top-left panel. Wide view of Lan seated on a grassy bund among ripe golden rice, hands resting on her lap, gaze gently upward toward screen right. Gentle breeze in rice, hair and ao dai panels. Slow push-in. No standing-up action.\n[SHOT 2] At {{start:SHOT 2}}, cut to the top-right panel, until {{end:SHOT 2}}. Medium close-up of Lan lifting her chin slightly and following the clouds with quiet curiosity. Same field and sunset, stable face and restrained movement.\n[SHOT 3] At {{start:SHOT 3}}, cut to the bottom-left panel, until {{end:SHOT 3}}. Upward sky view. A fluffy white heart-shaped cloud drifts among ordinary clouds, peach-lit vapor edges, a thin distant field edge below. No person or solid heart icon.\n[SHOT 4] At {{start:SHOT 4}}, cut to the bottom-right panel, until {{end:SHOT 4}}. Close-up of Lan looking upward screen right. A tender smile gradually forms, one natural blink. Steady camera, white ao dai collar visible. Hold the ending quietly.\nNo storyboard borders, shot labels, contact sheet, extra faces, subtitles, watermarks or scene text. Shot labels only identify the source panels.\noverall_soundscape:\nSoft breeze through rice, light fabric rustle and faint distant birds. No dialogue or narration.\nnon_diegetic_music:\nN/A",
+  "storyboard_revision": "lan-example-v1",
+  "storyboard_review": {
+    "status": "awaiting_approval",
+    "approved_by": null,
+    "approved_revision": null,
+    "evidence": null
+  }
+}

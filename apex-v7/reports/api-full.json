@@ -1,0 +1,1229 @@
+{
+  "115": {
+    "inputs": {
+      "aspect_ratio": "9:16 (Portrait Widescreen)",
+      "megapixels": 0.2,
+      "multiple": 32
+    },
+    "class_type": "ResolutionSelector",
+    "_meta": {
+      "title": "07 · TỶ LỆ / MP H3 nền",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "119": {
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "120": {
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "121": {
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "120",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeAudio",
+    "_meta": {
+      "title": "VAE Decode Audio",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "122": {
+    "inputs": {
+      "samples": [
+        "125",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "123": {
+    "inputs": {
+      "sampler_name": "res_multistep"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "124": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": [
+        "142",
+        0
+      ],
+      "denoise": 1,
+      "model": [
+        "7139",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "125": {
+    "inputs": {
+      "noise": [
+        "129",
+        0
+      ],
+      "guider": [
+        "126",
+        0
+      ],
+      "sampler": [
+        "123",
+        0
+      ],
+      "sigmas": [
+        "124",
+        0
+      ],
+      "latent_image": [
+        "136",
+        1
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "126": {
+    "inputs": {
+      "model": [
+        "7139",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "Basic Guider",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "127": {
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "128": {
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "129": {
+    "inputs": {
+      "noise_seed": 775635665803310
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "131": {
+    "inputs": {
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+      "values.a": [
+        "132",
+        0
+      ]
+    },
+    "class_type": "ComfyMathExpression",
+    "_meta": {
+      "title": "Math Expression",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "132": {
+    "inputs": {
+      "value": 5
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "06 · THỜI LƯỢNG (giây)",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "136": {
+    "inputs": {
+      "prompt": [
+        "138",
+        0
+      ],
+      "width": [
+        "115",
+        0
+      ],
+      "height": [
+        "115",
+        1
+      ],
+      "length": [
+        "131",
+        1
+      ],
+      "ref_image_size": "max",
+      "clip": [
+        "128",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ],
+      "audio_vae": [
+        "120",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "7330",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "_meta": {
+      "title": "H3 REF2V — storyboard và ảnh tham chiếu",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "138": {
+    "inputs": {
+      "value": ""
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "05 · PROMPT VIDEO từ Codex (sau duyệt)",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "141": {
+    "inputs": {
+      "switch": [
+        "146",
+        0
+      ],
+      "on_false": [
+        "7134",
+        0
+      ],
+      "on_true": [
+        "9415",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch (model)",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "142": {
+    "inputs": {
+      "switch": [
+        "146",
+        0
+      ],
+      "on_false": [
+        "143",
+        0
+      ],
+      "on_true": [
+        "144",
+        0
+      ]
+    },
+    "class_type": "ComfySwitchNode",
+    "_meta": {
+      "title": "If/Else Switch (Steps)",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "143": {
+    "inputs": {
+      "value": 20
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Steps",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "144": {
+    "inputs": {
+      "value": 4
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "Steps Turbo",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "145": {
+    "inputs": {
+      "lora_name": "minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors",
+      "strength_model": 0.8,
+      "model": [
+        "7344",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "146": {
+    "inputs": {
+      "value": false
+    },
+    "class_type": "PrimitiveBoolean",
+    "_meta": {
+      "title": "Turbo nền: TẮT",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "7134": {
+    "inputs": {
+      "enabled": true,
+      "blend_weight": 0.5,
+      "degree": 1,
+      "ridge_lambda": 0.1,
+      "window_size": 2,
+      "flex_window": 0.75,
+      "warmup_steps": 1,
+      "tail_actual_steps": 1,
+      "max_history": 8,
+      "debug": false,
+      "history_storage": "system_ram",
+      "bootstrap_first_forecast": true,
+      "anchor_residual_feedback": false,
+      "selective_rollback_correction": false,
+      "offline_smoothing_replay": true,
+      "audio_blend_weight": 0,
+      "offline_archive_storage": "system_ram",
+      "model_aware_mode": "off",
+      "model_aware_risk_threshold": 0.65,
+      "model_aware_trust_shrinkage": false,
+      "model_aware_replay_generic_correction": false,
+      "generic_correction_mode": "coordinate_rls",
+      "generic_correction_limiter": "hard_clip",
+      "generic_correction_limit": 0.4,
+      "generic_correction_attenuation": "no_attenuation",
+      "sa_pece_forecast_policy": "balanced",
+      "model": [
+        "7344",
+        0
+      ]
+    },
+    "class_type": "SpectrumApplyMiniMaxH3",
+    "_meta": {
+      "title": "Spectrum Apply MiniMax H3",
+      "cnr_id": "comfyui-spectrum-minimax-h3",
+      "ver": "24353c01ce6423a4dba3ddefcc4a53e0541ee875"
+    }
+  },
+  "7136": {
+    "inputs": {
+      "av_latent": [
+        "125",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "Separate AV Latent",
+      "cnr_id": "comfy-core",
+      "ver": "0.34.2"
+    }
+  },
+  "7139": {
+    "inputs": {
+      "max_resolution": 1024,
+      "jpeg_quality": 80,
+      "suppress_default_preview": true,
+      "preview_frames": [
+        "131",
+        1
+      ],
+      "preview_fps": 6,
+      "tiny_vae": "taeh3.safetensors",
+      "model": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "ModelPreviewOverrideKJ",
+    "_meta": {
+      "title": "Model Preview Override",
+      "cnr_id": "comfyui-kjnodes",
+      "ver": "1.4.9"
+    }
+  },
+  "7197": {
+    "inputs": {
+      "source": [
+        "138",
+        0
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Kiểm tra prompt cuối — giống nguyên văn #138",
+      "cnr_id": "comfy-core",
+      "ver": "0.34.6"
+    }
+  },
+  "7330": {
+    "inputs": {
+      "image": "APEX_CHON_ANH_CUA_BAN.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "01 · STORYBOARD (bắt buộc)",
+      "cnr_id": "comfy-core",
+      "ver": "0.36.0"
+    }
+  },
+  "7344": {
+    "inputs": {
+      "attention": "comfy kitchen attention",
+      "model": [
+        "127",
+        0
+      ]
+    },
+    "class_type": "ModelAttentionBackend",
+    "_meta": {
+      "title": "Model Attention Backend",
+      "cnr_id": "comfy-core",
+      "ver": "0.34.2"
+    }
+  },
+  "7347": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "H3/1x",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": false,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": false,
+      "images": [
+        "122",
+        0
+      ],
+      "audio": [
+        "121",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Xem H3 nền — không lưu mặc định",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "1.7.9"
+    }
+  },
+  "7385": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "ApexV7/02_H3_REFINE_DOC",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "7129:6918",
+        0
+      ],
+      "audio": [
+        "121",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "09 · LƯU H3 REFINE + TIẾNG H3 NỀN",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "1.7.9"
+    }
+  },
+  "9259": {
+    "inputs": {
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "ApexV7/03_LTX_1080_DOC",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "9258:9411",
+        0
+      ],
+      "audio": [
+        "121",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "11 · LƯU 1080×1920 + TIẾNG H3 NỀN",
+      "cnr_id": "comfyui-videohelpersuite",
+      "ver": "1.7.9"
+    }
+  },
+  "9370": {
+    "inputs": {
+      "lora_name": "minimax_h3_lms_v1.0_r64.safetensors",
+      "strength_model": 0.5,
+      "model": [
+        "9415",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA",
+      "cnr_id": "comfy-core",
+      "ver": "0.39.2"
+    }
+  },
+  "9415": {
+    "inputs": {
+      "shift_video": 12,
+      "shift_audio": 2,
+      "model": [
+        "145",
+        0
+      ]
+    },
+    "class_type": "MiniMaxH3SigmaShift",
+    "_meta": {
+      "title": "ModelSamplingMiniMaxH3",
+      "cnr_id": "comfy-core",
+      "ver": "0.41.2"
+    }
+  },
+  "7129:6921": {
+    "inputs": {
+      "video_latent": [
+        "7129:6924",
+        0
+      ],
+      "audio_latent": [
+        "7136",
+        1
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "Concat AV Latent",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.2"
+    }
+  },
+  "7129:7033": {
+    "inputs": {
+      "model": [
+        "9370",
+        0
+      ],
+      "conditioning": [
+        "136",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "Basic Guider",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "7129:6924": {
+    "inputs": {
+      "model_name": "minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors",
+      "mode": "target dimensions",
+      "mode.width": [
+        "7129:7346",
+        0
+      ],
+      "mode.height": [
+        "7129:7346",
+        1
+      ],
+      "align": 32,
+      "keep_proportion": false,
+      "device": "cuda",
+      "precision": "bf16",
+      "latent": [
+        "7136",
+        0
+      ]
+    },
+    "class_type": "MinimaxH3LatentUpscaler3D",
+    "_meta": {
+      "title": "Minimax H3 Latent Upscaler (3D)",
+      "aux_id": "LBH-123-AI/Comfyui_Minimax_h3_latent_Upscaler",
+      "ver": "64fc9d4c7e2c03e8c61d6886182e3309365a1962"
+    }
+  },
+  "7129:7230": {
+    "inputs": {
+      "sampler_name": "euler_ancestral"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "Fast Speed Sampling",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.2"
+    }
+  },
+  "7129:7269": {
+    "inputs": {
+      "start_step": 0,
+      "end_step": -1,
+      "sigmas": [
+        "7129:9483",
+        0
+      ]
+    },
+    "class_type": "VisualizeSigmasKJ",
+    "_meta": {
+      "title": "VisualizeSigmasKJ",
+      "cnr_id": "comfyui-kjnodes",
+      "ver": "1.5.0"
+    }
+  },
+  "7129:7350": {
+    "inputs": {
+      "images": [
+        "7129:7269",
+        1
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image",
+      "cnr_id": "comfy-core",
+      "ver": "0.37.2"
+    }
+  },
+  "7129:6920": {
+    "inputs": {
+      "noise": [
+        "129",
+        0
+      ],
+      "guider": [
+        "7129:7033",
+        0
+      ],
+      "sampler": [
+        "7129:7230",
+        0
+      ],
+      "sigmas": [
+        "7129:7269",
+        0
+      ],
+      "latent_image": [
+        "7129:6921",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.2"
+    }
+  },
+  "7129:7066": {
+    "inputs": {
+      "fps": 24,
+      "bit_depth": 8,
+      "color_space": "sRGB",
+      "codec": "none",
+      "images": [
+        "7129:6918",
+        0
+      ],
+      "audio": [
+        "7129:7138",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Create Video",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "7129:6918": {
+    "inputs": {
+      "samples": [
+        "7129:6920",
+        0
+      ],
+      "vae": [
+        "119",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode",
+      "cnr_id": "comfy-core",
+      "ver": "0.30.1"
+    }
+  },
+  "7129:7138": {
+    "inputs": {
+      "samples": [
+        "7129:6920",
+        0
+      ],
+      "vae": [
+        "120",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeAudio",
+    "_meta": {
+      "title": "VAE Decode Audio",
+      "cnr_id": "comfy-core",
+      "ver": "0.34.2"
+    }
+  },
+  "7129:7346": {
+    "inputs": {
+      "aspect_ratio": "9:16 (Portrait Widescreen)",
+      "megapixels": 0.7,
+      "multiple": 32
+    },
+    "class_type": "ResolutionSelector",
+    "_meta": {
+      "title": "TỶ LỆ REFINE — khớp #115 ngoài nhóm",
+      "cnr_id": "comfy-core",
+      "ver": "0.33.0"
+    }
+  },
+  "7129:9483": {
+    "inputs": {
+      "sigmas": "0.80, 0.60, 0.35, 0.00"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "3 khoảng denoise — không phải 4 bước",
+      "cnr_id": "comfy-core",
+      "ver": "0.14.1"
+    }
+  },
+  "9258:7359": {
+    "inputs": {
+      "noise": [
+        "9258:7356",
+        0
+      ],
+      "guider": [
+        "9258:7355",
+        0
+      ],
+      "sampler": [
+        "9258:7354",
+        0
+      ],
+      "sigmas": [
+        "9258:9289",
+        0
+      ],
+      "latent_image": [
+        "9258:7353",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.75"
+    }
+  },
+  "9258:7355": {
+    "inputs": {
+      "video_cfg": 1,
+      "audio_cfg": 1,
+      "model": [
+        "9258:9298",
+        0
+      ],
+      "positive": [
+        "9258:7394",
+        0
+      ],
+      "negative": [
+        "9258:7372",
+        1
+      ]
+    },
+    "class_type": "LTXVDualCFGGuider",
+    "_meta": {
+      "title": "LTXV Dual CFG Guider",
+      "cnr_id": "comfy-core",
+      "ver": "0.28.0"
+    }
+  },
+  "9258:7356": {
+    "inputs": {
+      "noise_seed": 42
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.75"
+    }
+  },
+  "9258:7372": {
+    "inputs": {
+      "frame_rate": 24,
+      "positive": [
+        "9258:7366",
+        0
+      ],
+      "negative": [
+        "9258:7365",
+        0
+      ]
+    },
+    "class_type": "LTXVConditioning",
+    "_meta": {
+      "title": "LTXVConditioning",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.56"
+    }
+  },
+  "9258:7354": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.75"
+    }
+  },
+  "9258:7366": {
+    "inputs": {
+      "text": "Preserve the input semi-realistic East Asian 3D CGI animation and subtle doll-like character design. Retain facial proportions, outfit, shot order, lighting and motion. Clean temporal consistency, detailed hair, soft subsurface skin shading. No style conversion.",
+      "clip": [
+        "9258:9295",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.56"
+    }
+  },
+  "9258:7353": {
+    "inputs": {
+      "video_latent": [
+        "9258:7352",
+        0
+      ],
+      "audio_latent": [
+        "9258:7383",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "Concat AV Latent",
+      "cnr_id": "comfy-core",
+      "ver": "0.5.1"
+    }
+  },
+  "9258:7365": {
+    "inputs": {
+      "text": "flicker, face warping, identity drift, distorted hands, duplicated characters, text, grid borders, watermarks, oversharpening, live-action style conversion",
+      "clip": [
+        "9258:9295",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)",
+      "cnr_id": "comfy-core",
+      "ver": "0.3.56"
+    }
+  },
+  "9258:7352": {
+    "inputs": {
+      "samples": [
+        "9258:9314",
+        0
+      ],
+      "upscale_model": [
+        "9258:7364",
+        0
+      ],
+      "vae": [
+        "9258:9293",
+        0
+      ]
+    },
+    "class_type": "LTXVLatentUpsampler",
+    "_meta": {
+      "title": "LTXVLatentUpsampler",
+      "cnr_id": "comfy-core",
+      "ver": "0.14.1"
+    }
+  },
+  "9258:7383": {
+    "inputs": {
+      "audio": [
+        "121",
+        0
+      ],
+      "vae": [
+        "9258:9294",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeAudio",
+    "_meta": {
+      "title": "VAE Encode Audio",
+      "cnr_id": "comfy-core",
+      "ver": "0.37.2"
+    }
+  },
+  "9258:7360": {
+    "inputs": {
+      "av_latent": [
+        "9258:7359",
+        0
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "Separate AV Latent",
+      "cnr_id": "comfy-core",
+      "ver": "0.5.1"
+    }
+  },
+  "9258:7362": {
+    "inputs": {
+      "samples": [
+        "9258:7360",
+        1
+      ],
+      "audio_vae": [
+        "9258:9294",
+        0
+      ]
+    },
+    "class_type": "LTXVAudioVAEDecode",
+    "_meta": {
+      "title": "LTXV Audio VAE Decode",
+      "cnr_id": "comfy-core",
+      "ver": "0.7.0"
+    }
+  },
+  "9258:7386": {
+    "inputs": {
+      "samples": [
+        "9258:7360",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode",
+      "cnr_id": "comfy-core",
+      "ver": "0.37.2"
+    }
+  },
+  "9258:7363": {
+    "inputs": {
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 64,
+      "temporal_overlap": 16,
+      "samples": [
+        "9258:7360",
+        0
+      ],
+      "vae": [
+        "9258:9293",
+        0
+      ]
+    },
+    "class_type": "VAEDecodeTiled",
+    "_meta": {
+      "title": "VAE Decode (Tiled)",
+      "cnr_id": "comfy-core",
+      "ver": "0.14.1"
+    }
+  },
+  "9258:7361": {
+    "inputs": {
+      "fps": 24,
+      "bit_depth": 8,
+      "color_space": "sRGB",
+      "codec": "none",
+      "images": [
+        "9258:9411",
+        0
+      ],
+      "audio": [
+        "9258:7362",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "Create Video",
+      "cnr_id": "comfy-core",
+      "ver": "0.5.1"
+    }
+  },
+  "9258:7364": {
+    "inputs": {
+      "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "Load Latent Upscale Model",
+      "cnr_id": "comfy-core",
+      "ver": "0.7.0"
+    }
+  },
+  "9258:7394": {
+    "inputs": {
+      "empty_cache": true,
+      "gc_collect": true,
+      "unload_all_models": true,
+      "any_input": [
+        "9258:7372",
+        0
+      ]
+    },
+    "class_type": "VRAM_Debug",
+    "_meta": {
+      "title": "VRAM Debug",
+      "cnr_id": "comfyui-kjnodes",
+      "ver": "1.5.2"
+    }
+  },
+  "9258:9289": {
+    "inputs": {
+      "scheduler": "beta",
+      "steps": 2,
+      "denoise": 0.2,
+      "model": [
+        "9258:9298",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler",
+      "cnr_id": "comfy-core",
+      "ver": "0.38.2"
+    }
+  },
+  "9258:9292": {
+    "inputs": {
+      "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model",
+      "cnr_id": "comfy-core",
+      "ver": "0.38.2"
+    }
+  },
+  "9258:9293": {
+    "inputs": {
+      "vae_name": "ltx-2.5-video-vae-conv-bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.38.2"
+    }
+  },
+  "9258:9294": {
+    "inputs": {
+      "vae_name": "ltx-2.5-audio-vae-bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE",
+      "cnr_id": "comfy-core",
+      "ver": "0.38.2"
+    }
+  },
+  "9258:9295": {
+    "inputs": {
+      "clip_name1": "gemma-3-12b-it-heretic-v2_fp8_e4m3fn.safetensors",
+      "clip_name2": "ltx-2.3_text_projection_bf16.safetensors",
+      "type": "ltxv",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {
+      "title": "Load CLIP (Dual)",
+      "cnr_id": "comfy-core",
+      "ver": "0.19.3"
+    }
+  },
+  "9258:9298": {
+    "inputs": {
+      "attention": "comfy kitchen attention",
+      "model": [
+        "9258:9292",
+        0
+      ]
+    },
+    "class_type": "ModelAttentionBackend",
+    "_meta": {
+      "title": "Model Attention Backend",
+      "cnr_id": "comfy-core",
+      "ver": "0.38.2"
+    }
+  },
+  "9258:9314": {
+    "inputs": {
+      "pixels": [
+        "7129:6918",
+        0
+      ],
+      "vae": [
+        "9258:9293",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode",
+      "cnr_id": "comfy-core",
+      "ver": "0.39.2"
+    }
+  },
+  "9258:9411": {
+    "inputs": {
+      "resize_type": "scale dimensions",
+      "resize_type.width": 1080,
+      "resize_type.height": 1920,
+      "resize_type.crop": "center",
+      "scale_method": "lanczos",
+      "input": [
+        "9258:7363",
+        0
+      ]
+    },
+    "class_type": "ResizeImageMaskNode",
+    "_meta": {
+      "title": "Resize Image/Mask",
+      "cnr_id": "comfy-core",
+      "ver": "0.41.2"
+    }
+  }
+}

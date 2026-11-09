@@ -1,0 +1,1 @@
+v4: xem tests và báo cáo /reports trong bộ Apex-H3-V7-Studio. Kiểm tra CPU/schema/UI không phải render GPU. Ví dụ Apex chưa duyệt cố ý không có prompt video.

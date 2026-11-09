@@ -1,4 +1,26 @@
-> **Skill v3 — storyboard phải được duyệt trước prompt video:** [Tải ZIP đầy đủ](dist/MiniMax-H3-Storyboard-Skill-v3.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Quy trình mới](skills/minimax-h3-film/QUY_TRINH_MOI.md) · [Cách nhận diện workflow](skills/minimax-h3-film/references/workflow-mode-routing.md). Phân biệt FastH3 I2V với Singularity Ref2V, kiểm tra ảnh/Picture và duration, giữ style 3D bán hiện thực Á Đông. Bản công khai không kèm JSON/video/frame/thoại riêng của người dùng. Đã qua 34 kiểm tra CPU; chưa render GPU mới.
+# Apex H3 V7 — bộ cài và skill mới nhất
+
+**[TẢI BỘ CÀI APEX V7](dist/Apex-H3-V7-Studio-v1.0.0.zip)** · [Skill H3 v4 riêng](dist/MiniMax-H3-Film-Skill-v4-Apex-V7.zip) · [Hướng dẫn PDF 19 trang có ảnh](apex-v7/docs/HUONG_DAN.pdf) · [Word](apex-v7/docs/HUONG_DAN.docx) · [HTML](apex-v7/docs/HUONG_DAN.html)
+
+Nội dung Việt → Codex tạo storyboard → **bạn duyệt ảnh** → prompt video tiếng Anh và bảng ảnh/Picture → ComfyUI. Preset dành cho **3D bán hiện thực Á Đông / CGI beauty render, pha nét búp bê**, dọc 9:16.
+
+1. Tải **ZIP Apex riêng ở trên**, giải nén và đóng ComfyUI.
+2. Máy **RTX 4060 Ti 16 GB / RAM 32 GB**: nên chạy **CAI_DAT_H3_NHE.bat** trước, tối đa khoảng **53,8 GB** model nếu chưa có file.
+3. Muốn đủ H3 + LTX 2.5 hoàn thiện 1080×1920: chạy **CAI_DAT.bat**, tối đa khoảng **93,7 GB**. File có sẵn đúng SHA256 được dùng lại.
+4. Chọn thư mục Portable chứa **ComfyUI và python_embeded** nếu bộ cài hỏi. Mặc định `C:\Ai\ComfyUI_windows_portable_nvidia\ComfyUI_windows_portable`.
+5. Mở lại ComfyUI, chạy **KIEM_TRA.bat**, mở workflow **01_APEX_V7_3D_H3_2PASS_DOC**. Nạp storyboard **#7330**, dán prompt đã duyệt **#138**, đặt giây **#132**. Bắt đầu 5 giây.
+
+Có hai preset: **H3 hai chặng** và **H3 + LTX 1080p**. Ảnh phụ có dây thật và mặc định bypass; phải đồng bộ số Picture theo ảnh đang bật. Prompt Codex nối trực tiếp, giữ tiếng H3 nền ở đầu ra cuối. JSON tác giả được giữ trong source của gói; các điều chỉnh Studio ghi trong [CHANGELOG](apex-v7/CHANGELOG.md).
+
+[Đọc hướng dẫn nhanh](apex-v7/README.md) · [Đọc skill v4](skills/minimax-h3-film/SKILL.md) · [Model/node, revision và SHA256](apex-v7/manifest.json) · [Kiểm thử](apex-v7/reports/VALIDATION.md) · [Checksum tệp tải](dist/Apex-H3-V7-downloads.sha256)
+
+Đã kiểm tra **28 test bộ cài/handoff, 45 test skill, 6 cấu hình UI/API/schema, 14 URL model** và script cài trên Portable giả lập. **Chưa render GPU, chạy Windows thật hoặc benchmark tốc độ/chất lượng trên 4060 Ti.** RAM 32 GB có thể cần offload/pagefile nhiều.
+
+---
+
+## Các bản trước
+
+> **Skill v3 lưu trữ — đã có v4 ở trên:** [Tải ZIP đầy đủ](dist/MiniMax-H3-Storyboard-Skill-v3.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Quy trình mới](skills/minimax-h3-film/QUY_TRINH_MOI.md) · [Cách nhận diện workflow](skills/minimax-h3-film/references/workflow-mode-routing.md). Phân biệt FastH3 I2V với Singularity Ref2V, kiểm tra ảnh/Picture và duration, giữ style 3D bán hiện thực Á Đông. Bản công khai không kèm JSON/video/frame/thoại riêng của người dùng. Đã qua 34 kiểm tra CPU; chưa render GPU mới.
 
 > **Hướng dẫn workflow gốc — 36 trang có ảnh:** [Đọc/tải PDF](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.pdf) · [Word có thể chỉnh sửa](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.docx) · [Tải gói đầy đủ](docs/workflow-guide/Huong-dan-MiniMax-H3-tron-bo.zip) · [Cách đọc tài liệu](docs/workflow-guide/README.md). Giải thích setting, ảnh-node-Picture, quy trình tạo nháp → chọn take → upscale và ví dụ Lan 15 giây. Gói đầy đủ có thêm HTML ngoại tuyến tìm kiếm được và prompt mẫu.
 

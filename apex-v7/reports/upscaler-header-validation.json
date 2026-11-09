@@ -1,0 +1,20 @@
+{
+  "source": "LBH-123-AI/Minimax_h3_latent_Upscaler",
+  "revision": "3f941d5d182014dd5c0a5e16330420ee2d4aa0c6",
+  "file": "minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors",
+  "header_bytes": 32552,
+  "tensors": 322,
+  "architecture": {
+    "in_channels": 24,
+    "in_blocks": 12,
+    "out_blocks": 12,
+    "channels": 512,
+    "dropout": 0.1,
+    "attn": false,
+    "temporal_every": 2,
+    "temporal_kernel": 5
+  },
+  "strict_keys_and_shapes_match": true,
+  "weights_downloaded": false,
+  "gpu_render_tested": false
+}

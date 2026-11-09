@@ -1,0 +1,39 @@
+test_bypass_middle_renumbers_later_asset_once (test_handoff.HandoffTests.test_bypass_middle_renumbers_later_asset_once) ... ok
+test_bypass_needs_explicit_storyboard_fallback (test_handoff.HandoffTests.test_bypass_needs_explicit_storyboard_fallback) ... ok
+test_changed_prompt_wiring_needs_readback (test_handoff.HandoffTests.test_changed_prompt_wiring_needs_readback) ... ok
+test_duplicate_asset_or_loader_rejected (test_handoff.HandoffTests.test_duplicate_asset_or_loader_rejected) ... ok
+test_duplicate_grid_position_rejected (test_handoff.HandoffTests.test_duplicate_grid_position_rejected) ... ok
+test_empty_grid_cells_must_be_declared (test_handoff.HandoffTests.test_empty_grid_cells_must_be_declared) ... ok
+test_extracts_wires_in_socket_order (test_handoff.HandoffTests.test_extracts_wires_in_socket_order) ... ok
+test_helper_does_not_add_unwired_images (test_handoff.HandoffTests.test_helper_does_not_add_unwired_images) ... ok
+test_invalid_seconds (test_handoff.HandoffTests.test_invalid_seconds) ... ok
+test_missing_asset_is_not_silently_remapped (test_handoff.HandoffTests.test_missing_asset_is_not_silently_remapped) ... ok
+test_no_sheet_cannot_disable_storyboard (test_handoff.HandoffTests.test_no_sheet_cannot_disable_storyboard) ... ok
+test_realism_trigger_rejected_for_3d (test_handoff.HandoffTests.test_realism_trigger_rejected_for_3d) ... ok
+test_shot_total_must_match (test_handoff.HandoffTests.test_shot_total_must_match) ... ok
+test_storyboard_only_has_no_dangling_picture_2 (test_handoff.HandoffTests.test_storyboard_only_has_no_dangling_picture_2) ... ok
+test_thirty_seconds_is_not_assumed_gpu_profile (test_handoff.HandoffTests.test_thirty_seconds_is_not_assumed_gpu_profile) ... ok
+test_timestamps_generated_from_single_shot_timeline (test_handoff.HandoffTests.test_timestamps_generated_from_single_shot_timeline) ... ok
+test_two_images_and_old_extra_node_explicitly_bypassed (test_handoff.HandoffTests.test_two_images_and_old_extra_node_explicitly_bypassed) ... ok
+test_uploaded_workflow_is_exact_original (test_handoff.HandoffTests.test_uploaded_workflow_is_exact_original) ... ok
+test_write_outputs_does_not_change_original (test_handoff.HandoffTests.test_write_outputs_does_not_change_original) ... ok
+test_missing_approval_is_not_initial_request_approval (test_storyboard_approval.StoryboardApprovalTests.test_missing_approval_is_not_initial_request_approval) ... ok
+test_new_image_revision_invalidates_old_approval (test_storyboard_approval.StoryboardApprovalTests.test_new_image_revision_invalidates_old_approval) ... ok
+test_self_approval_and_empty_evidence_are_rejected (test_storyboard_approval.StoryboardApprovalTests.test_self_approval_and_empty_evidence_are_rejected) ... ok
+test_synthetic_approval_for_current_revision_allows_compile (test_storyboard_approval.StoryboardApprovalTests.test_synthetic_approval_for_current_revision_allows_compile) ... ok
+test_unapproved_example_cannot_compile_prompt (test_storyboard_approval.StoryboardApprovalTests.test_unapproved_example_cannot_compile_prompt) ... ok
+test_blocks_grid_missing_reference_and_short_duration (test_workflow_audit.WorkflowAuditTests.test_blocks_grid_missing_reference_and_short_duration) ... ok
+test_clean_image_and_short_prompt_do_not_certify_fasth3_i2v (test_workflow_audit.WorkflowAuditTests.test_clean_image_and_short_prompt_do_not_certify_fasth3_i2v) ... ok
+test_duration_fix_only_removes_duration_failure (test_workflow_audit.WorkflowAuditTests.test_duration_fix_only_removes_duration_failure) ... ok
+test_frame_grid (test_workflow_audit.WorkflowAuditTests.test_frame_grid) ... ok
+test_missing_group_widget_schema_fails_explicitly (test_workflow_audit.WorkflowAuditTests.test_missing_group_widget_schema_fails_explicitly) ... ok
+test_original_profile_remains_distinct (test_workflow_audit.WorkflowAuditTests.test_original_profile_remains_distinct) ... ok
+test_prompt_duration_changes_do_not_mutate_workflow (test_workflow_audit.WorkflowAuditTests.test_prompt_duration_changes_do_not_mutate_workflow) ... ok
+test_reads_exposed_prompt_and_duration_not_internal_demo (test_workflow_audit.WorkflowAuditTests.test_reads_exposed_prompt_and_duration_not_internal_demo) ... ok
+test_real_first_last_inputs_do_not_become_identity_sheet_slots (test_workflow_audit.WorkflowAuditTests.test_real_first_last_inputs_do_not_become_identity_sheet_slots) ... ok
+test_video_metadata_has_priority_over_current_widget (test_workflow_audit.WorkflowAuditTests.test_video_metadata_has_priority_over_current_widget) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.024s
+
+OK

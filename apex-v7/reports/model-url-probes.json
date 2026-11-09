@@ -1,0 +1,128 @@
+[
+  {
+    "id": "h3",
+    "repo": "WarmBloodAban/Minimax-h3_Singularity",
+    "revision": "1259cf16cd0b655ba691a32fb46a409142762972",
+    "file": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "h3_text",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "h3_vae",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "h3_audio",
+    "repo": "Comfy-Org/MiniMax-H3",
+    "revision": "54472221d27c695fca9621b0c3ed52f06c4af707",
+    "file": "vae/minimax_h3_audio_vae_fp32.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "dmad",
+    "repo": "Kijai/MiniMax-H3-experimental",
+    "revision": "4e6da46acdd9e8cab79b061a0e76663c50f70ddc",
+    "file": "loras/minimax_h3_DMAD_4step_full_lora_avg_rank_39_bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "lms",
+    "repo": "RunningHubAI/rh-minimax-h3-lms-v1.0-r64.safetensors-lora",
+    "revision": "3bbd0b6cd60b676ac91d3a7b86a143fd0cde776f",
+    "file": "minimax_h3_lms_v1.0_r64.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "h3_up",
+    "repo": "LBH-123-AI/Minimax_h3_latent_Upscaler",
+    "revision": "3f941d5d182014dd5c0a5e16330420ee2d4aa0c6",
+    "file": "minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "taeh3",
+    "repo": "Kijai/MiniMax-H3-TAE",
+    "revision": "a213ac8bf2f148b4f32372279a7f207846978900",
+    "file": "vae_approx/taeh3.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "ltx",
+    "repo": "PulpCut/LTX-2.5-INT8-ConvRot-safetensors",
+    "revision": "7597fb305b4cab9e7ff2c1d1e9551279c2932f0f",
+    "file": "diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "ltx_vae",
+    "repo": "PulpCut/LTX-2.5-INT8-ConvRot-safetensors",
+    "revision": "7597fb305b4cab9e7ff2c1d1e9551279c2932f0f",
+    "file": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "ltx_audio",
+    "repo": "PulpCut/LTX-2.5-INT8-ConvRot-safetensors",
+    "revision": "7597fb305b4cab9e7ff2c1d1e9551279c2932f0f",
+    "file": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "gemma",
+    "repo": "DreamFast/gemma-3-12b-it-heretic-v2",
+    "revision": "9cc4aa14f425ab38ddd25344a11c4d8af88ac35f",
+    "file": "comfyui/gemma-3-12b-it-heretic-v2_fp8_e4m3fn.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "ltx_proj",
+    "repo": "Kijai/LTX2.3_comfy",
+    "revision": "6d980fde0d330f2fed6ff8dfdfddb06d88a004e5",
+    "file": "text_encoders/ltx-2.3_text_projection_bf16.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  },
+  {
+    "id": "ltx_up",
+    "repo": "comfyicu/LTX-2.5",
+    "revision": "1026e00f808dbd9601911479b22d65b760737dc8",
+    "file": "latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+    "http_status": 206,
+    "content_type": "application/octet-stream",
+    "safetensors_header_prefix_valid": true
+  }
+]

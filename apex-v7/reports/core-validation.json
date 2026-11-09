@@ -1,0 +1,77 @@
+[
+  {
+    "profile": "full-all-refs",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "9259",
+      "7197",
+      "7347",
+      "7129:7350",
+      "7385"
+    ],
+    "node_errors": {}
+  },
+  {
+    "profile": "full-gap-ref",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "9259",
+      "7197",
+      "7347",
+      "7129:7350",
+      "7385"
+    ],
+    "node_errors": {}
+  },
+  {
+    "profile": "full",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "9259",
+      "7197",
+      "7347",
+      "7129:7350",
+      "7385"
+    ],
+    "node_errors": {}
+  },
+  {
+    "profile": "h3-all-refs",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "7197",
+      "7385",
+      "7129:7350",
+      "7347"
+    ],
+    "node_errors": {}
+  },
+  {
+    "profile": "h3-gap-ref",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "7197",
+      "7385",
+      "7129:7350",
+      "7347"
+    ],
+    "node_errors": {}
+  },
+  {
+    "profile": "h3",
+    "valid": true,
+    "error": null,
+    "outputs": [
+      "7197",
+      "7385",
+      "7129:7350",
+      "7347"
+    ],
+    "node_errors": {}
+  }
+]

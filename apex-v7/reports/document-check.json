@@ -1,0 +1,13 @@
+{
+  "pages": 19,
+  "all_pages_have_text": true,
+  "visually_reviewed": [
+    "cover",
+    "page6-input-controls",
+    "page14-style-audio",
+    "whole-document-contact-sheet"
+  ],
+  "source_language": "Vietnamese",
+  "embedded_font": "NotoSans",
+  "no_gpu_claim": true
+}

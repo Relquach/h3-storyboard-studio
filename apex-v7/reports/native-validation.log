@@ -1,0 +1,20 @@
+WARNING:root:KJNodes: PatchTritonVAE node could not be imported. PatchTritonVAE will be unavailable.
+Traceback (most recent call last):
+  File "/workspace/singularity-storyboard-studio/research/comfy-core/ComfyUI-086099f5d8886163ef77dc354f8382cb7431582a/custom_nodes/ComfyUI-KJNodes/nodes/triton_vae.py", line 11, in <module>
+    import triton
+ModuleNotFoundError: No module named 'triton'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/singularity-storyboard-studio/research/comfy-core/ComfyUI-086099f5d8886163ef77dc354f8382cb7431582a/custom_nodes/ComfyUI-KJNodes/__init__.py", line 394, in <module>
+    from .nodes.triton_vae import PatchTritonVAE
+  File "/workspace/singularity-storyboard-studio/research/comfy-core/ComfyUI-086099f5d8886163ef77dc354f8382cb7431582a/custom_nodes/ComfyUI-KJNodes/nodes/triton_vae.py", line 14, in <module>
+    raise ImportError("PatchTritonVAE requires triton (pip install triton, or triton-windows)") from e
+ImportError: PatchTritonVAE requires triton (pip install triton, or triton-windows)
+VALIDATE api-full-all-refs.json True {}
+VALIDATE api-full-gap-ref.json True {}
+VALIDATE api-full.json True {}
+VALIDATE api-h3-all-refs.json True {}
+VALIDATE api-h3-gap-ref.json True {}
+VALIDATE api-h3.json True {}
