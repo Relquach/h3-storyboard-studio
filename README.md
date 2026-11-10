@@ -1,3 +1,15 @@
+## Gỡ RelayVSR khỏi Portable
+
+**[TẢI BỘ GỠ RELAYVSR — ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/RelayVSR-Uninstaller-v1.0.0.zip)** · [Hướng dẫn](relayvsr-uninstaller/README.md) · [Kiểm tra](relayvsr-uninstaller/reports/VALIDATION.md) · [Checksum](dist/RelayVSR-Uninstaller-v1.0.0.sha256)
+
+Đóng ComfyUI/backend → giải nén ZIP → chạy **GO_RELAYVSR.bat**. Gỡ trực tiếp hai model Relay (~5,29 GB), các phần tải dở, DLSS5/NVIDIA VFX node và runtime/FFmpeg nằm trong pack, SDK `nvidia-vfx` nếu không dùng chung, cùng workflow gốc/metadata của bộ Relay. Có **XEM_TRUOC.bat** nếu muốn xem danh sách trước. Tự kiểm tra thư mục Portable mặc định; không yêu cầu bạn xóa file thủ công.
+
+**Giữ VideoHelperSuite dùng chung**, model H3/OmniRef, input/output video, workflow đã sửa, Torch/CUDA/driver và ComfyUI core. SDK được node khác dùng hoặc nằm ngoài Portable cũng được giữ và ghi lý do. Không quét/xóa Downloads hay pip/NVIDIA cache chung. Native Relay nodes thuộc ComfyUI core vẫn hiện trong danh sách node sau khi gỡ model/pack riêng.
+
+Đã qua **26 test** và hai lượt gỡ trong Portable giả lập bằng Python isolated; chưa chạy BAT/PowerShell trên Windows thật. [Danh sách chính xác phần gỡ/giữ](relayvsr-uninstaller/README.md).
+
+---
+
 # Bộ cài workflow gốc — OmniRef tạo video và RelayVSR upscale
 
 Hai bộ riêng cho **ComfyUI Windows Portable**, giữ nguyên từng byte JSON bạn gửi. **Skill hiện tại không thay đổi.**

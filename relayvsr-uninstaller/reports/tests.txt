@@ -1,0 +1,58 @@
+test_changed_target_not_deleted (__main__.RemoveTests.test_changed_target_not_deleted) ... CHUA GO: /tmp/tmpazvsikxl/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors File/thu muc da doi sau khi quet; khong xoa.
+ok
+test_deletion_failure_does_not_claim_complete (__main__.RemoveTests.test_deletion_failure_does_not_claim_complete) ... CHUA GO: /tmp/tmp6aklqpoz/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors locked
+ok
+test_directory_symlink_not_followed_in_model_scan (__main__.RemoveTests.test_directory_symlink_not_followed_in_model_scan) ... ok
+test_disabled_and_legacy_node_aliases (__main__.RemoveTests.test_disabled_and_legacy_node_aliases) ... DA GO: /tmp/tmpmljuuv7u/portable/ComfyUI/custom_nodes/ComfyUI-DLSS5-Enhancer-main.disabled
+DA GO: /tmp/tmpmljuuv7u/portable/ComfyUI/custom_nodes/ComfyUI_Nvidia_VFX_Nodes-master
+DA GO: /tmp/tmpmljuuv7u/portable/ComfyUI/custom_nodes/comfyui_nvidia_rtx_nodes
+ok
+test_exact_models_removed_h3_preserved (__main__.RemoveTests.test_exact_models_removed_h3_preserved) ... DA GO: /tmp/tmp762eazqk/portable/ComfyUI/models/diffusion_models/relayvsr_x2_lightx2v_int8_convrot.safetensors
+DA GO: /tmp/tmp762eazqk/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors
+ok
+test_external_configured_model_path (__main__.RemoveTests.test_external_configured_model_path) ... DA GO: /tmp/tmpxtmt55e9/shared/relayvsr_x2_lightx2v_int8_convrot.safetensors
+ok
+test_external_sdk_kept (__main__.RemoveTests.test_external_sdk_kept) ... ok
+test_injected_arbitrary_saved_plan_rejected (__main__.RemoveTests.test_injected_arbitrary_saved_plan_rejected) ... CHUA GO: /tmp/tmpq9bj5o3n/portable/ComfyUI/models/vae/h3.safetensors File/thu muc da doi sau khi quet; khong xoa.
+ok
+test_input_output_and_user_edited_workflow_preserved (__main__.RemoveTests.test_input_output_and_user_edited_workflow_preserved) ... ok
+test_invalid_yaml_is_reported_not_silent_success (__main__.RemoveTests.test_invalid_yaml_is_reported_not_silent_success) ... ok
+test_model_file_symlink_unlinks_only_link (__main__.RemoveTests.test_model_file_symlink_unlinks_only_link) ... DA GO: /tmp/tmp25k5y860/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors
+ok
+test_model_subfolder_and_legacy_unet (__main__.RemoveTests.test_model_subfolder_and_legacy_unet) ... DA GO: /tmp/tmpr432m4os/portable/ComfyUI/models/diffusion_models/nested/relayvsr_x2_lightx2v_int8_convrot.safetensors
+DA GO: /tmp/tmpr432m4os/portable/ComfyUI/models/unet/relayvsr_x2_lightx2v_int8_convrot.safetensors
+ok
+test_no_dangerous_global_cleanup_commands (__main__.RemoveTests.test_no_dangerous_global_cleanup_commands) ... ok
+test_node_runtime_removed_shared_nodes_preserved (__main__.RemoveTests.test_node_runtime_removed_shared_nodes_preserved) ... DA GO: /tmp/tmp45u9j0fr/portable/ComfyUI/custom_nodes/ComfyUI_Nvidia_VFX_Nodes
+DA GO: /tmp/tmp45u9j0fr/portable/ComfyUI/custom_nodes/ComfyUI-DLSS5-Enhancer
+ok
+test_node_symlink_removes_link_not_external_application (__main__.RemoveTests.test_node_symlink_removes_link_not_external_application) ... DA GO: /tmp/tmpr6l1dvmq/portable/ComfyUI/custom_nodes/ComfyUI-DLSS5-Enhancer
+ok
+test_original_workflow_removed_with_hash_match (__main__.RemoveTests.test_original_workflow_removed_with_hash_match) ... DA GO: /tmp/tmpgzeutnp7/portable/ComfyUI/user/default/workflows/RelayVSR_RTX_Original/RealVSR-RTX_VFX - upscale.json
+ok
+test_partial_and_corrupt_downloads_only (__main__.RemoveTests.test_partial_and_corrupt_downloads_only) ... DA GO: /tmp/tmpa44lmjim/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors.part
+DA GO: /tmp/tmpa44lmjim/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors.alias-456
+DA GO: /tmp/tmpa44lmjim/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors.part.corrupt-123
+ok
+test_portable_root_and_child (__main__.RemoveTests.test_portable_root_and_child) ... ok
+test_repeated_cleanup_is_idempotent (__main__.RemoveTests.test_repeated_cleanup_is_idempotent) ... DA GO: /tmp/tmpoqbpaxfc/portable/ComfyUI/models/vae/relayvsr_flash_vae_x2_fp32.safetensors
+DA GO: /tmp/tmpoqbpaxfc/portable/ComfyUI/custom_nodes/ComfyUI-DLSS5-Enhancer
+ok
+test_running_comfy_blocks_deletion (__main__.RemoveTests.test_running_comfy_blocks_deletion) ... ok
+test_sdk_changed_to_external_location_not_uninstalled (__main__.RemoveTests.test_sdk_changed_to_external_location_not_uninstalled) ... ok
+test_sdk_pip_failure_not_reported_as_success (__main__.RemoveTests.test_sdk_pip_failure_not_reported_as_success) ... GO SDK nvidia-vfx bang Python Portable...
+
+ok
+test_sdk_shared_by_other_node_kept (__main__.RemoveTests.test_sdk_shared_by_other_node_kept) ... ok
+test_sdk_uninstall_only_specific_distribution_and_verify_absent (__main__.RemoveTests.test_sdk_uninstall_only_specific_distribution_and_verify_absent) ... GO SDK nvidia-vfx bang Python Portable...
+uninstalled
+ok
+test_shared_backups_preserved_exclusive_backups_removed (__main__.RemoveTests.test_shared_backups_preserved_exclusive_backups_removed) ... DA GO: /tmp/tmp7zs59o12/portable/ComfyUI/user/RelayVSR_RTX_Original/backups/ComfyUI-DLSS5-Enhancer-123
+DA GO: /tmp/tmp7zs59o12/portable/ComfyUI/user/RelayVSR_RTX_Original/backups/ComfyUI_Nvidia_VFX_Nodes-456
+ok
+test_unknown_sdk_metadata_is_not_complete (__main__.RemoveTests.test_unknown_sdk_metadata_is_not_complete) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.042s
+
+OK

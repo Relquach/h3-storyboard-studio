@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "model_unchanged": true,
+  "plan_lists_exact_model": true,
+  "windows_executed": false,
+  "scope": "Python -I preview process on Linux fixture; no model/SDK actually removed outside fixtures"
+}

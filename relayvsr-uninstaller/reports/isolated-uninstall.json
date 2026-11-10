@@ -1,0 +1,15 @@
+{
+  "real_fixture_cleanup": true,
+  "isolated_python_runs": [
+    {
+      "exit_code": 0
+    },
+    {
+      "exit_code": 0
+    }
+  ],
+  "h3_video_vhs_preserved": true,
+  "second_run_idempotent": true,
+  "sdk_metadata": "simulated absent via fixture executable; no real package uninstalled",
+  "windows_executed": false
+}

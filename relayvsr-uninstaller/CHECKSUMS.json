@@ -1,0 +1,12 @@
+{
+  "GO_RELAYVSR.bat": "437c5c775c52f7960b30bce95f049f35fb84bc60de783349e66a3ed7645c6e75",
+  "README.md": "8c7072bf64dde113da6e73e24fb4f7b460bb69792c0c3bf8e4b71973de3abcaa",
+  "XEM_TRUOC.bat": "469650f0d9ed89d7a2f3dcdcf1cc0fd1f11d734aed4b1ce08edb1130420020bf",
+  "reports/VALIDATION.md": "b8ee94ca15932e44b8ece39838a9af5c293eae947b605cdd286a058511b2aee1",
+  "reports/isolated-preview.json": "69597d983b0774e9f16e338c9ff8b6564e9e612390dd3e73a731fdd3377012cd",
+  "reports/isolated-uninstall.json": "bec323802d1ef6cc5106edad06c3f8b79e475801ac7c1d7627d36830c596e3d4",
+  "reports/tests.txt": "bd3ceedf263c22efd590ffb5f26a6e9f851d5aa1cdfae2ab8fd6d27d338eceb2",
+  "scripts/run.ps1": "719c261331d35acf9373bfe5934e1984fc3cd002e4d7a127d5d55f4f9e64151a",
+  "scripts/uninstall.py": "9f9284dd64c3e998be5e44383eca13e834c955cc7fa859587f1ddb7036bc2aa4",
+  "tests/test_uninstall.py": "39db848319ab121894e4cb7dadcc17e095f985b91082ff2f494832cdbb44a102"
+}
