@@ -1,0 +1,38 @@
+test_actual_llm_output_not_inferred_from_its_input (test_portable_contract.ContractTests.test_actual_llm_output_not_inferred_from_its_input) ... ok
+test_approval_missing_fails (test_portable_contract.ContractTests.test_approval_missing_fails) ... ok
+test_caption_changed_without_permission_fails (test_portable_contract.ContractTests.test_caption_changed_without_permission_fails) ... ok
+test_caption_duplicate_time_requires_resolution (test_portable_contract.ContractTests.test_caption_duplicate_time_requires_resolution) ... ok
+test_confirmed_voice_and_exact_dialogue (test_portable_contract.ContractTests.test_confirmed_voice_and_exact_dialogue) ... ok
+test_delegated_timing_record_accepted (test_portable_contract.ContractTests.test_delegated_timing_record_accepted) ... ok
+test_dialogue_not_paraphrased (test_portable_contract.ContractTests.test_dialogue_not_paraphrased) ... ok
+test_empty_panel_not_a_shot (test_portable_contract.ContractTests.test_empty_panel_not_a_shot) ... ok
+test_final_duration_wrong_fails (test_portable_contract.ContractTests.test_final_duration_wrong_fails) ... ok
+test_final_timeline_overlap_fails (test_portable_contract.ContractTests.test_final_timeline_overlap_fails) ... ok
+test_forbidding_one_take_is_not_a_positive_one_take_request (test_portable_contract.ContractTests.test_forbidding_one_take_is_not_a_positive_one_take_request) ... ok
+test_four_labels_without_distinct_details_fails (test_portable_contract.ContractTests.test_four_labels_without_distinct_details_fails) ... ok
+test_four_panels_four_blocks (test_portable_contract.ContractTests.test_four_panels_four_blocks) ... ok
+test_missing_camera_angle_detected (test_portable_contract.ContractTests.test_missing_camera_angle_detected) ... ok
+test_newline_convention_not_false_difference (test_portable_contract.ContractTests.test_newline_convention_not_false_difference) ... ok
+test_no_shot_blocks_in_continuous_summary (test_portable_contract.ContractTests.test_no_shot_blocks_in_continuous_summary) ... ok
+test_node_prompt_links_resolved_read_only (test_portable_contract.ContractTests.test_node_prompt_links_resolved_read_only) ... ok
+test_phantom_reference_fails (test_portable_contract.ContractTests.test_phantom_reference_fails) ... ok
+test_prompt_timestamp_not_table_fails (test_portable_contract.ContractTests.test_prompt_timestamp_not_table_fails) ... ok
+test_regression_four_panels_collapsed_to_two (test_portable_contract.ContractTests.test_regression_four_panels_collapsed_to_two) ... ok
+test_rendered_missing_blocks_does_not_match_expected (test_portable_contract.ContractTests.test_rendered_missing_blocks_does_not_match_expected) ... ok
+test_reordered_panels_fail (test_portable_contract.ContractTests.test_reordered_panels_fail) ... ok
+test_revision_changed_requires_review (test_portable_contract.ContractTests.test_revision_changed_requires_review) ... ok
+test_sheet_as_i2v_first_frame_fails (test_portable_contract.ContractTests.test_sheet_as_i2v_first_frame_fails) ... ok
+test_silent_clip_pending_voice_allowed (test_portable_contract.ContractTests.test_silent_clip_pending_voice_allowed) ... ok
+test_source_gap_requires_resolution (test_portable_contract.ContractTests.test_source_gap_requires_resolution) ... ok
+test_spoken_clip_pending_voice_rejected (test_portable_contract.ContractTests.test_spoken_clip_pending_voice_rejected) ... ok
+test_timing_approval_can_resolve_conflict (test_portable_contract.ContractTests.test_timing_approval_can_resolve_conflict) ... ok
+test_two_character_voices_differ_in_two_attributes (test_portable_contract.ContractTests.test_two_character_voices_differ_in_two_attributes) ... ok
+test_two_voice_ids_same_anchor_rejected (test_portable_contract.ContractTests.test_two_voice_ids_same_anchor_rejected) ... ok
+test_unknown_speaker_rejected (test_portable_contract.ContractTests.test_unknown_speaker_rejected) ... ok
+test_voice_anchor_omitted (test_portable_contract.ContractTests.test_voice_anchor_omitted) ... ok
+test_wrong_shot_size_detected (test_portable_contract.ContractTests.test_wrong_shot_size_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.009s
+
+OK

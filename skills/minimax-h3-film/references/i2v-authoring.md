@@ -1,3 +1,5 @@
+> Tham khảo profile cụ thể từ gói trước. Chỉ áp dụng khi workflow/task/checkpoint thực tế khớp. Các quy tắc duyệt, 1 ô–1 shot, giọng và kiểm prompt của SKILL.md v5 luôn áp dụng; không suy ra đây là profile mặc định.
+
 # Storyboard là bản kế hoạch; ảnh I2V là trạng thái đầu
 
 ## Chuẩn bị tài sản

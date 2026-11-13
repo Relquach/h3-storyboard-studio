@@ -1,3 +1,23 @@
+# Skill MiniMax H3 Film v5 — dùng với AI khác
+
+**[TẢI RIÊNG SKILL.md](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/skills/minimax-h3-film/SKILL.md)** · **[TẢI BỘ SKILL v5 ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/MiniMax-H3-Film-Skill-v5.0.0.zip)** · [Đọc trên GitHub](skills/minimax-h3-film/SKILL.md) · [Cách dùng](skills/minimax-h3-film/README.md) · [Checksum](dist/MiniMax-H3-Film-Skill-v5.0.0.sha256)
+
+Gửi **SKILL.md** cùng yêu cầu của bạn cho AI. Quy tắc bắt buộc nằm trọn trong một file, không cần AI có lịch sử chat cũ hoặc chạy Python. Với dự án đang làm, gửi thêm storyboard cuối, workflow/ảnh tham chiếu thật, **CHARACTERS.json** và **PROJECT_STATE.md** đã điền để giữ nhân vật, giọng và trạng thái duyệt.
+
+- **N ô SHOT riêng → đủ N block**, đúng thứ tự, vị trí ô, cỡ cảnh, góc máy, tư thế, đạo cụ và diễn xuất; không tự tóm/gộp bốn shot thành hai.
+- Timeline trùng/chồng/không khớp cần được giải quyết rõ; không pha yêu cầu one-take/tĩnh toàn clip với storyboard có nhiều cut.
+- **Hỏi giọng lần đầu từng nhân vật**, lưu tại `characters[].voice`, lặp mô tả giọng đã chốt cho người có lời nói, giữ thoại Việt nguyên văn. Đổi AI phải chuyển hồ sơ; prompt không phải cơ chế voice clone/khóa giọng tuyệt đối.
+- Một prompt cuối duy nhất; đối chiếu giá trị thật tại node hoặc metadata video để phát hiện bản đã bị rút gọn/thay trước render.
+- Storyboard trước → người dùng duyệt → prompt sau. Nếu chỉ được yêu cầu sửa skill/phân tích, không tự sáng tác phim.
+
+[Hồ sơ nhân vật/giọng trống](skills/minimax-h3-film/templates/CHARACTERS.json) · [Trạng thái dự án trống](skills/minimax-h3-film/templates/PROJECT_STATE.md) · [Thay đổi v5](skills/minimax-h3-film/CHANGELOG.md) · [Kiểm tra](skills/minimax-h3-film/reports/VALIDATION.md)
+
+Đã qua **33 kiểm tra logic** và kiểm checksum ZIP. Chưa thử một dịch vụ AI bên ngoài hoặc render GPU; các kiểm tra này không bảo đảm mọi AI/model luôn bám đủ shot hoặc giữ mặt/giọng. Gói v5 không kèm ảnh, video, prompt hoặc tên nhân vật riêng của người dùng.
+
+**[Bản skill v4 lưu trữ](skills/minimax-h3-film-v4-archive/)** được giữ nguyên để tham khảo các workflow cũ; đường dẫn `skills/minimax-h3-film/` hiện là v5.
+
+---
+
 ## Gỡ RelayVSR khỏi Portable
 
 **[TẢI BỘ GỠ RELAYVSR — ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/RelayVSR-Uninstaller-v1.0.0.zip)** · [Hướng dẫn](relayvsr-uninstaller/README.md) · [Kiểm tra](relayvsr-uninstaller/reports/VALIDATION.md) · [Checksum](dist/RelayVSR-Uninstaller-v1.0.0.sha256)
@@ -70,7 +90,7 @@ Nội dung Việt → Codex tạo storyboard → **bạn duyệt ảnh** → pro
 
 Có hai preset: **H3 hai chặng** và **H3 + LTX 1080p**. Ảnh phụ có dây thật và mặc định bypass; phải đồng bộ số Picture theo ảnh đang bật. Prompt Codex nối trực tiếp, giữ tiếng H3 nền ở đầu ra cuối. JSON tác giả được giữ trong source của gói; các điều chỉnh Studio ghi trong [CHANGELOG](apex-v7/CHANGELOG.md).
 
-[Đọc hướng dẫn nhanh](apex-v7/README.md) · [Đọc skill v4](skills/minimax-h3-film/SKILL.md) · [Model/node, revision và SHA256](apex-v7/manifest.json) · [Kiểm thử](apex-v7/reports/VALIDATION.md) · [Checksum tệp tải](dist/Apex-H3-V7-downloads.sha256)
+[Đọc hướng dẫn nhanh](apex-v7/README.md) · [Đọc skill v4](skills/minimax-h3-film-v4-archive/SKILL.md) · [Model/node, revision và SHA256](apex-v7/manifest.json) · [Kiểm thử](apex-v7/reports/VALIDATION.md) · [Checksum tệp tải](dist/Apex-H3-V7-downloads.sha256)
 
 Đã kiểm tra **28 test bộ cài/handoff, 45 test skill, 6 cấu hình UI/API/schema, 14 URL model** và script cài trên Portable giả lập. **Chưa render GPU, chạy Windows thật hoặc benchmark tốc độ/chất lượng trên 4060 Ti.** RAM 32 GB có thể cần offload/pagefile nhiều.
 
@@ -78,7 +98,7 @@ Có hai preset: **H3 hai chặng** và **H3 + LTX 1080p**. Ảnh phụ có dây 
 
 ## Các bản trước
 
-> **Skill v3 lưu trữ — đã có v4 ở trên:** [Tải ZIP đầy đủ](dist/MiniMax-H3-Storyboard-Skill-v3.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Quy trình mới](skills/minimax-h3-film/QUY_TRINH_MOI.md) · [Cách nhận diện workflow](skills/minimax-h3-film/references/workflow-mode-routing.md). Phân biệt FastH3 I2V với Singularity Ref2V, kiểm tra ảnh/Picture và duration, giữ style 3D bán hiện thực Á Đông. Bản công khai không kèm JSON/video/frame/thoại riêng của người dùng. Đã qua 34 kiểm tra CPU; chưa render GPU mới.
+> **Skill v3 lưu trữ — đã có v4 ở trên:** [Tải ZIP đầy đủ](dist/MiniMax-H3-Storyboard-Skill-v3.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film-v4-archive/SKILL.md) · [Quy trình mới](skills/minimax-h3-film-v4-archive/QUY_TRINH_MOI.md) · [Cách nhận diện workflow](skills/minimax-h3-film-v4-archive/references/workflow-mode-routing.md). Phân biệt FastH3 I2V với Singularity Ref2V, kiểm tra ảnh/Picture và duration, giữ style 3D bán hiện thực Á Đông. Bản công khai không kèm JSON/video/frame/thoại riêng của người dùng. Đã qua 34 kiểm tra CPU; chưa render GPU mới.
 
 > **Hướng dẫn workflow gốc — 36 trang có ảnh:** [Đọc/tải PDF](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.pdf) · [Word có thể chỉnh sửa](docs/workflow-guide/Huong-dan-workflow-goc-MiniMax-H3.docx) · [Tải gói đầy đủ](docs/workflow-guide/Huong-dan-MiniMax-H3-tron-bo.zip) · [Cách đọc tài liệu](docs/workflow-guide/README.md). Giải thích setting, ảnh-node-Picture, quy trình tạo nháp → chọn take → upscale và ví dụ Lan 15 giây. Gói đầy đủ có thêm HTML ngoại tuyến tìm kiếm được và prompt mẫu.
 
@@ -86,9 +106,9 @@ Có hai preset: **H3 hai chặng** và **H3 + LTX 1080p**. Ảnh phụ có dây 
 
 > **Bản vá các phần thiếu trong workflow gốc:** [Tải ZIP](dist/H3-Original-Missing-Parts-v1.0.0.zip) · [Hướng dẫn](original-workflow-missing-fix/README.md). Chạy CAI_PHAN_CON_THIEU.bat để thêm Pixaroma, Realism People LoRA và video VAE INT8 vào đúng Portable hiện có (~2.94 GB model). Giữ nguyên workflow, Torch và ComfyUI core.
 
-> **Skill v2 lưu trữ cho workflow Singularity gốc (đã được thay bằng v3 ở trên):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.
+> **Skill v2 lưu trữ cho workflow Singularity gốc (đã được thay bằng v3 ở trên):** [Tải ZIP skill](dist/MiniMax-H3-Original-Workflow-Skill-v2.0.0.zip) · [Đọc SKILL.md](skills/minimax-h3-film-v4-archive/SKILL.md) · [Bảng node gốc](skills/minimax-h3-film-v4-archive/references/workflow-original.md). Codex tạo storyboard và prompt để nạp trực tiếp vào workflow gốc; không cần bộ cài hay PREPARE riêng. File workflow gốc được giữ nguyên trong gói skill.
 
-> **Bộ cài mới theo workflow/video Singularity V2:** [Tải ZIP riêng](dist/Singularity-Storyboard-Studio-v1.0.0.zip) · [Hướng dẫn](singularity-v2/README.md) · [Skill đã cập nhật](singularity-v2/skills/minimax-h3-film/SKILL.md). Giải nén ZIP riêng rồi chạy INSTALL.bat bên trong; không dùng bộ cài GGUF cũ ở phần dưới. Đã kiểm tra UI/schema/take trên CPU, chưa render GPU/Windows.
+> **Bộ cài mới theo workflow/video Singularity V2:** [Tải ZIP riêng](dist/Singularity-Storyboard-Studio-v1.0.0.zip) · [Hướng dẫn](singularity-v2/README.md) · [Skill đã cập nhật](singularity-v2/skills/minimax-h3-film-v4-archive/SKILL.md). Giải nén ZIP riêng rồi chạy INSTALL.bat bên trong; không dùng bộ cài GGUF cũ ở phần dưới. Đã kiểm tra UI/schema/take trên CPU, chưa render GPU/Windows.
 
 # H3 Storyboard Studio — Windows Portable
 

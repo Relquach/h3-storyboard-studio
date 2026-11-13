@@ -1,3 +1,5 @@
+> Tham khảo profile cụ thể từ gói trước. Chỉ áp dụng khi workflow/task/checkpoint thực tế khớp. Các quy tắc duyệt, 1 ô–1 shot, giọng và kiểm prompt của SKILL.md v5 luôn áp dụng; không suy ra đây là profile mặc định.
+
 # FastH3 và I2V: kiểm tra trước khi viết prompt
 
 Bản công khai không kèm JSON, video hoặc frame của người dùng. Đọc workflow trong chính cuộc trò chuyện để lấy node ID và setting; không giả định hai graph dùng cùng ID.
