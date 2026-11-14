@@ -1,11 +1,11 @@
 ---
 name: minimax-h3-film
-description: Chuyển nội dung Việt thành storyboard, chờ duyệt ảnh rồi viết prompt video tiếng Anh cho đúng workflow H3. Bắt buộc một ô tương ứng một shot, timeline không chồng, mô tả đủ góc máy và diễn xuất; hỏi và lưu giọng riêng từng nhân vật; đối chiếu prompt thực tế trước render. Các quy tắc thiết yếu nằm ngay trong file này để dùng với AI khác.
+description: Nội dung Việt → storyboard → duyệt → prompt đúng workflow H3. Giữ đủ shot/góc máy; kiểm trạng thái hành động để tránh lặp/reset qua cut; lịch thoại độc lập; lưu giọng từng nhân vật và phân biệt mô tả với audio đã nghe duyệt. Xuất TXT sạch tách khỏi hướng dẫn node. Quy tắc thiết yếu nằm trong một file để AI khác dùng.
 ---
 
-# MiniMax H3 Film · v5.0.0
+# MiniMax H3 Film · v5.1.0
 
-## Tám điều phải giữ dù chỉ đọc file này
+## Các điều phải giữ dù chỉ đọc file này
 
 1. Làm đúng loại yêu cầu. Chỉ sửa skill/phân tích thì không tự sáng tác phim.
 2. Xem ảnh storyboard thật, đếm đủ mọi ô SHOT riêng; **N ô = N block shot**, không tự gộp/tóm tắt.
@@ -15,6 +15,9 @@ description: Chuyển nội dung Việt thành storyboard, chờ duyệt ảnh r
 6. Tạo storyboard trước, chờ người dùng duyệt đúng ảnh rồi mới viết prompt video cuối.
 7. Hỏi giọng lần đầu từng nhân vật; lưu tại `CHARACTERS.json → characters[].voice`; dùng lại giọng đã chốt và đưa mô tả đó vào prompt có lời nói.
 8. Chỉ một prompt cuối; đối chiếu prompt thực tại node/metadata khi có thể, không giả định bản đã giao chắc chắn là bản được render.
+9. Mỗi hành động hữu hạn có trạng thái trước/sau và dấu hoàn thành. Qua cut phải giữ kết quả đã đạt, không khởi động lại hành động để lấp thời gian.
+10. Thoại có lịch riêng và mỗi câu chỉ xuất hiện đúng số lần trong kịch bản. Kiểm thời gian nói và cách đọc tên/số; không ép nhanh, kéo dài giọng hoặc tự đổi câu.
+11. Ô prompt model chỉ nhận văn bản phim sạch. Hướng dẫn node, số node, bật/bypass, code fence và hướng dẫn sao chép nằm trong file bàn giao khác.
 
 ## Đọc trước — phạm vi và nguyên tắc
 
@@ -61,7 +64,11 @@ Lưu hồ sơ nhỏ theo từng nhân vật:
     "distinctive_traits": [],
     "voice_anchor_en": null,
     "approval_evidence": null,
-    "reference_audio": null
+    "reference_audio": null,
+    "generation_mode": null,
+    "delivery_choice_evidence": null,
+    "strict_identity_required": null,
+    "verification": {"status": "untested", "audio_asset": null, "evidence": null}
   }
 }
 ```
@@ -73,6 +80,30 @@ Hai nhân vật có lời nói cần giọng phân biệt bằng ít nhất hai 
 Trong prompt có thoại, chèn **nguyên `voice_anchor_en` cho mỗi người nói**, gắn rõ tên/nhận diện nhân vật → giọng → nguyên câu Việt → khoảng thời gian → nói trong cảnh hay voice-over. Không chỉ ghi mã VOICE vì model không biết mã nội bộ. Không tự dịch, phiên âm, thêm câu hoặc chuyển lời sang người khác. Người không có lượt nói giữ im lặng. Cảnh im lặng vẫn mang hồ sơ giọng trong tài liệu bàn giao, nhưng prompt audio yêu cầu ambience/im lặng phù hợp, không kích hoạt lời nói tự phát.
 
 Nếu có mẫu giọng: lưu nguồn/quyền dùng và chỉ ghi `connected=true` khi audio thật được nối vào cơ chế hỗ trợ. Dùng cùng mô tả chữ giúp định hướng, **không phải voice clone hay speaker lock**. Khi cần giọng nhất quán chặt qua nhiều tập, đề xuất cùng mẫu audio/speaker ID trong TTS hoặc pipeline có hỗ trợ, đọc dây thật và không tự nhận workflow đã có tính năng đó.
+
+### 2.1. Tách giọng mong muốn khỏi giọng đã kiểm chứng
+
+`voice.status=approved` chỉ có nghĩa người dùng đã chốt **bản thiết kế giọng**, không có nghĩa H3 đã phát ra đúng giọng. Bổ sung `generation_mode`, `delivery_choice_evidence`, `verification` và `strict_identity_required` trong hồ sơ giọng. `verification` ghi `untested`, `accepted` hoặc `rejected`, clip/audio mẫu thật và lời đánh giá thực. Không tự nâng untested thành accepted từ việc đã viết “giọng miền Nam, nam trầm”.
+
+Hỏi gộp một lần khi chốt cách làm âm thanh, không hỏi lại những đặc điểm giọng đã biết:
+
+- `native_exploratory`: H3 sinh hình/tiếng cùng lúc; người dùng chấp nhận đây là giọng thử, có thể lệch vùng giọng/danh tính giữa các clip. Dùng mô tả ngắn, nhất quán; nghe thử từng take. Không hứa exact voice hoặc đúng mọi chữ.
+- `audio_reference`: dùng mẫu giọng qua **cổng/adapter thật có hỗ trợ**, kiểm nối audio và quyền dùng; chỉ có audio VAE hoặc decoder không đồng nghĩa có audio reference. Không ghi đã điều khiển bằng mẫu khi chỉ nối storyboard.
+- `external_voiceover`: thu/TTS với cùng speaker/model/version hoặc mẫu được phép dùng, rồi dựng âm thanh vào clip. Phải có kế hoạch nạp/dựng tiếng thực tế; không tự nhận workflow hiện tại đã có TTS hoặc tự sửa JSON.
+
+Nếu ưu tiên **đúng câu Việt, đúng vùng giọng và một giọng xuyên nhiều tập**, nói rõ native prompt-only chưa đáp ứng bảo đảm đó. Đề xuất audio reference/TTS/thu riêng và để người dùng chọn trong phạm vi họ giao. Không lặp cách “thêm nhiều tính từ, in hoa SOUTHERN VIETNAMESE” như một cách khóa giọng. Nếu người dùng vẫn chọn native, ghi giới hạn và tiêu chí nghe duyệt từng clip, không đổi yêu cầu thành “đã đúng giọng”. Nếu đã chốt phương án, dùng lại phương án đó.
+
+Người dẫn chuyện offscreen vẫn có hồ sơ giọng riêng, nhưng không cần ảnh nhân vật hiện hình. Cảnh POV chỉ tay/đạo cụ không thêm mặt người hoặc yêu cầu diễn xuất môi/mặt từ một template chung. Không đồng thời viết “không có mặt người” và “giữ mặt/biểu cảm người rõ”.
+
+### 2.2. Lịch thoại độc lập với lịch cut
+
+Lập `audio.dialogue` theo các câu/đơn vị lời nói, mỗi đơn vị có ID, người nói, nguyên văn, thời điểm và kiểu `offscreen`/`in_scene`. Một câu chạy qua nhiều cut chỉ là **một lượt phát âm liên tục**; shot khác có thể tham chiếu cùng ID, không chép lại câu vào mỗi shot làm lệnh nói lại. Không ngắt hoặc bắt đầu lại lời kể ở từng cut chỉ vì video đổi cảnh. Lời lặp có chủ ý trong kịch bản phải ghi rõ số lần; không tự loại lời lặp mà người dùng đã viết.
+
+Kiểm thời gian bằng audio thu/TTS thật nếu có; nếu chưa có thì ước lượng theo nhịp nói đã chốt và ghi đây là ước lượng, có chỗ cho dấu câu/hít thở. Với tiếng Việt, số cụm cách nhau bằng khoảng trắng chỉ gần số âm tiết, không phải phép đo phát âm chắc chắn. Không kết luận thoại quá dài chỉ vì câu có nhiều chữ. Nếu lượng lời vượt thời gian: hỏi/đề xuất kéo thời lượng, chia lượt hoặc biên tập câu với người dùng; không tự lược câu, tăng tốc tiếng hay kéo âm để “khớp”.
+
+Tên riêng, mã sản phẩm, chữ viết tắt, số, ngày và đơn vị cần cách đọc rõ. Giữ `text` là câu gốc. Nếu cần bản để phát âm khác chữ viết, dùng `spoken_text` và bảng phát âm **đã được người dùng chốt**, không âm thầm thay thoại hoặc tự viết phiên âm tiếng Việt/Anh. Không cho người nói đọc ID, timestamp, tên trường, số node hay chỉ dẫn tiếng Anh.
+
+Khi thử clip, kiểm riêng: đủ/thiếu/lặp câu, đúng tên/số, người nói, vùng giọng, âm sắc/nhịp, và khớp hình khi có người nói trong cảnh. ASR chỉ là tín hiệu đối chiếu chữ, không xác nhận vùng giọng hoặc danh tính. Chỉ nghe/duyệt thật mới ghi đã nghe/đã chấp nhận. Cảnh offscreen không ép khẩu hình nhân vật hiện hình.
 
 **Lưu nhớ có thể chuyển AI:** mỗi lần chốt/đổi giọng phải xuất hoặc cập nhật `CHARACTERS.json` và tóm tắt trong `PROJECT_STATE.md` ngay; không chỉ trả lời “đã nhớ”. File JSON có mảng `characters`, mỗi phần tử theo cấu trúc trên; giọng nằm duy nhất tại `characters[].voice`, không tạo hai bản phẳng/lồng mâu thuẫn. Nếu công cụ không ghi được file, giao khối JSON để người dùng lưu cùng dự án. Khi AI khác nhận hồ sơ, dùng lại lựa chọn đã duyệt; không hỏi/đặt lại giọng chỉ vì bắt đầu chat mới. Không hứa bộ nhớ tự truyền sang AI khác khi hồ sơ chưa được cung cấp.
 
@@ -133,6 +164,18 @@ Mỗi block tự đủ để hiểu cảnh đó; không chỉ ghi “same woman,
 
 **Phân biệt cut và one-take:** nhiều shot có cỡ cảnh/góc khác nhau → viết `Hard cut to …` hoặc chuyển cảnh đã duyệt tại ranh giới. Không đồng thời yêu cầu toàn clip là `one continuous shot`, `single unbroken take`, `no cuts` hoặc `static steady close-up throughout`. “Chuyển động mượt” chỉ áp dụng bên trong shot, không được xóa cut. Nếu chủ ý một take với camera di chuyển qua nhiều keyframe, phải thiết kế/duyệt như một take ngay từ storyboard.
 
+### Trạng thái hành động — không chỉ ghi “do it once”
+
+Trước khi chốt prompt, lập sổ trạng thái cho các thao tác và đạo cụ quan trọng: vật đang ở đâu, mở/đóng, trong tay ai, dấu đã vẽ hay chưa, đồ đã đặt xuống hay chưa. Mỗi sự kiện hữu hạn có `event_id` ổn định và số lần có chủ ý. Mỗi shot xác định **trạng thái vào → một chuyển đổi chính → điều kiện hoàn tất → trạng thái giữ sau hoàn tất**. Mô tả các điểm này bằng câu tự nhiên trong block; model không biết mã event nội bộ.
+
+Shot sau bắt đầu từ kết quả shot trước, trừ khi kịch bản có hồi tưởng/đảo thời gian/thay trạng thái ngoài hình đã được chốt. Đồ đã đặt xuống không tự trở lại tay; hộp đã mở không tự đóng để mở lại; nét đã hoàn tất không tự biến mất để vẽ lại. Không lặp cả động tác chỉ vì đổi sang cận cảnh. Nếu một hành động thực sự trải qua nhiều shot, đánh dấu các pha `start` → `continue` → `complete` của cùng sự kiện, không coi mỗi pha là một lần thực hiện mới.
+
+Sau khi hoàn thành sớm, nhân vật/đạo cụ giữ kết quả ổn định với chuyển động sống nhỏ phù hợp; không vặn/xoay/gõ/nhặt lại để lấp thời lượng. Không biến “giữ trạng thái” thành đóng băng toàn bộ khung hình; chớp mắt, thở, đi bộ hoặc chuyển động tuần hoàn được yêu cầu vẫn có thể tự nhiên. Các chuyển động có chủ ý lặp phải có số lần/nhịp hoặc bằng chứng từ yêu cầu, không bị cấm bừa.
+
+Chuyển sổ trạng thái sang AI khác bằng `ACTION_STATE.json` và tóm tắt trong `PROJECT_STATE.md`. Sau render, chỉ cập nhật “đã hoàn tất” theo trạng thái **thực tế của clip đã được duyệt**, không theo câu prompt mong muốn. Nếu video chưa đặt đồ xuống như yêu cầu, không đánh dấu đã đặt xuống rồi dùng trạng thái đó làm đầu clip kế.
+
+Đánh giá tải nội dung trước khi tạo board: nhiều cut, tay thao tác tinh, chữ/số nhỏ và thoại cùng lúc làm một lượt khó hơn. Không coi 8 shot/15s là cấu hình bảo đảm. Nếu slot không đủ cho hành động rõ, đề xuất đổi nhịp/chia lượt trong quyền được giao; không tự bỏ hoặc gộp các ô đã duyệt. Giảm từ ngữ lặp và giới hạn một mục đích chuyển động chính mỗi shot; một danh sách dài “no loops/no repeat/never replay” không thay thế sổ trạng thái và kết thúc hành động cụ thể.
+
 Timeline tính từ đầu lượt hiện tại, các khoảng liên tiếp không chồng và kết thúc đúng tổng giây mục tiêu. Không nhầm thời gian nội dung với số frame sau lượng tử hóa (ví dụ H3 24 FPS: mục tiêu 10s thường thành 243 frame ≈10,125s). Timestamp là chỉ dẫn, không phải cam kết cut đúng frame.
 
 Không rút ngắn prompt bằng cách xóa shot hoặc góc máy. Nếu quá dài: rút tính từ style lặp, giữ đủ block và dữ kiện cốt lõi. Nếu model vẫn không bám sau khi kiểm đầu vào, đề xuất lượt ít shot hoặc render từng shot để dựng; không tự đổi workflow/tách shot khi chưa được giao. Với I2V, mỗi lượt dùng frame sạch phù hợp, không hứa grid trở thành montage.
@@ -142,6 +185,10 @@ Không rút ngắn prompt bằng cách xóa shot hoặc góc máy. Nếu quá d�
 Giao ngắn gọn: bảng shot/timeline cuối → bảng nạp ảnh → prompt đầy đủ → setting cần áp dụng ở node thật. Không thêm preset/JSON mới khi người dùng không yêu cầu. Khi cần giữ tính liên tục qua AI khác, kèm `CHARACTERS.json` và `PROJECT_STATE.md` để mang theo; người dùng chỉ cần nạp ảnh/prompt theo workflow, không phải chạy script để được quyền dùng prompt.
 
 Lưu đúng prompt cuối trong một file UTF-8 duy nhất, đặt revision rõ nếu có sửa. **Không giao thêm một “bản rút gọn” mất shot để người dùng không biết nên dán bản nào.** Nếu có LLM/translator/rewriter/switch giữa ô prompt và sampler, kiểm đầu ra thật sau chuỗi đó; không coi văn bản Codex giao là văn bản chắc chắn đã render. Không tự bỏ qua node hoặc sửa dây để khắc phục.
+
+**Tách hai đầu ra:** `video_prompt.txt` chỉ chứa văn bản điện ảnh để model đọc; `COMFYUI_HANDOFF.md` chứa file ảnh cần nạp, số node/socket thật, bật/bypass, seed/thời lượng và thứ tự chạy. Không để trong video_prompt.txt các câu “chỉ sao chép khối dưới”, dòng “BẬT loader/BYPASS loader”, `#node=value`, lệnh lưu take, tiêu đề công việc hoặc dấu ```text/```. Khi trả qua chat bằng code block, người dùng chỉ sao chép phần chữ bên trong; nếu có thể tạo file thì lấy TXT sạch làm nguồn chính. Trước Run phải kiểm trường prompt không còn phần hướng dẫn bên ngoài.
+
+Không lấy ID của workflow cũ để hướng dẫn graph mới. Metadata graph thực quyết định node nào là prompt; con số viết trong văn bản không điều khiển node. Nếu không kiểm được workflow, ghi chưa xác minh mapping thay vì đoán số node.
 
 Trước Run, đối chiếu chuỗi thực tại node: số block, thứ tự, timestamp, cỡ cảnh/góc, vai trò Picture, người nói và nguyên câu thoại. Có công cụ thì so nguyên văn/hash file với node/API export; không có công cụ thì hướng dẫn người dùng kiểm các dấu hiệu đó. Chỉ gọi “đã đối chiếu” nếu thực sự thấy giá trị.
 
@@ -157,17 +204,20 @@ Không bỏ bảng kiểm này dù chỉ đọc một file skill:
 - [ ] Đúng storyboard/revision đã được người dùng duyệt; không tự nhận im lặng là duyệt.
 - [ ] Đã đếm mọi ô phim, tách EMPTY/keyframe, **N ô SHOT riêng = N block prompt**, đúng thứ tự/vị trí.
 - [ ] Mỗi block giữ cỡ cảnh, góc, tư thế, đạo cụ, hướng nhìn, biểu cảm và diễn biến của đúng ô; không chỉ đủ nhãn.
+- [ ] Mỗi thao tác có điều kiện hoàn tất; trạng thái vật/tay được chuyển qua cut, không reset hoặc replay sự kiện đã hoàn thành. Lời nói phát theo lượt riêng, không khởi động lại ở mỗi shot.
 - [ ] Timeline không trùng/chồng/khoảng hở, cộng đủ tổng giây; các sửa mâu thuẫn đã được chốt đúng quyền hạn.
 - [ ] Cut/camera không xung đột với lệnh one-take/continuous/static toàn clip.
 - [ ] Không tự thêm thoại, nhạc, nhân vật, hành động nối cảnh hoặc đổi mức cười.
 - [ ] Người nói có hồ sơ giọng đã chốt; mỗi người dùng đúng giọng, đúng câu Việt và đúng lượt. Các giọng được thiết kế phân biệt, không hứa speaker lock bằng chữ.
+- [ ] Đã phân biệt thiết kế giọng được duyệt với âm thanh đã nghe duyệt; chốt native/reference/TTS đúng khả năng workflow, kiểm cách đọc và ngân sách thời gian thoại.
 - [ ] Hồ sơ giọng và trạng thái dự án đã được lưu/cung cấp để AI khác đọc; không phụ thuộc trí nhớ ngầm.
 - [ ] Prompt bàn giao chỉ có một bản cuối; đã kiểm đầu vào thực nếu có quyền/công cụ, hoặc nêu rõ chưa kiểm được.
+- [ ] Prompt model sạch, không có lệnh UI/số node/bật-bypass/code fence lẫn trong văn bản phim; hướng dẫn thao tác nằm ở file khác.
 
 Thiếu mục nào thì sửa hoặc nói đúng phần chưa đủ, không gọi bản nháp là render-ready. Có thể dùng `scripts/validate_handoff.py` để kiểm lỗi cơ học; nó không đọc hình/nghe tiếng, không thay thế đánh giá thực của AI/người dùng hoặc chứng thực lời duyệt. Model có thể vẫn bỏ cut/đổi mặt/đổi giọng dù input hợp lệ; kiểm video nháp trước upscale.
 
 ## 8. Trạng thái có thể chuyển cho AI khác
 
-Giữ gói dự án tối thiểu: nội dung Việt đã chốt; ảnh storyboard cuối và bằng chứng duyệt; bảng ô/shot/timeline; ảnh tham chiếu cùng vai trò + mapping node/Picture; `CHARACTERS.json`; `PROJECT_STATE.md`; prompt cuối khi đủ điều kiện. Không nhét tài sản riêng vào skill dùng chung.
+Giữ gói dự án tối thiểu: nội dung Việt đã chốt; ảnh storyboard cuối và bằng chứng duyệt; bảng ô/shot/timeline; ảnh tham chiếu cùng vai trò + mapping node/Picture; `CHARACTERS.json`; `PROJECT_STATE.md`; `ACTION_STATE.json` và `AUDIO_PLAN.json` khi có thao tác/thoại; prompt cuối khi đủ điều kiện. Các file trạng thái phục vụ AI, không phải các node cần người dùng tự thêm vào ComfyUI. Không nhét tài sản riêng vào skill dùng chung.
 
 Khi nhận lại dự án: đọc trạng thái trước → tiếp tục đúng giai đoạn → chỉ hỏi phần chưa biết. Nếu không được nhận ảnh/hồ sơ từ AI trước, nói rõ cần chúng; không dựng lại người/giọng từ tên. Yêu cầu sửa skill không kích hoạt tự sáng tác. Đây là cách giữ yêu cầu khi đổi AI; không phải lời hứa mọi AI có cùng năng lực nhìn ảnh, tuân thủ hoặc công cụ.

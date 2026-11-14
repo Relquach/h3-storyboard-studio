@@ -1,11 +1,12 @@
-# Kiểm tra MiniMax H3 Film Skill 5.0.0 · 13/11/2026
+# Kiểm tra skill v5.1.0 · 14/11/2026
 
-- 33 kiểm tra logic thành công: bốn ô bị gộp còn hai shot; đủ nhãn nhưng thiếu góc/diễn biến; sai cỡ cảnh; nhãn giờ trùng, giờ nguồn bị đổi, khoảng hở/chồng, thiếu quyết định; Picture không tồn tại; grid vào first_frame; chưa duyệt hoặc đổi revision.
-- Kiểm tra giọng pending cho cảnh im lặng/có thoại, thiếu mô tả giọng, thay thoại, người nói chưa biết, hai giọng giống nhau và hai giọng phân biệt.
-- Kiểm tra đọc dây prompt, không giả suy output LLM từ input, so prompt mong đợi/metadata, chuẩn hóa newline.
-- Đã thử resolve nguồn prompt từ metadata MP4 người dùng cung cấp bằng đọc dữ liệu; không queue/render. Video/ảnh/prompt/tên nhân vật riêng không được đưa vào gói skill.
-- Đã đọc lại quy tắc chính trong một SKILL.md; cấu trúc JSON giọng trong file và template hợp lệ. File tham khảo/script chỉ tùy chọn.
+57 kiểm tra logic thành công (33 quy tắc v5 và 24 kiểm tra mới):
 
-Các test kiểm logic dựa trên dữ kiện khai báo, không chứng minh mọi AI tuân thủ, không đọc/đánh giá đúng pixel storyboard, không xác minh lời duyệt thật, không thử speaker lock, không nghe/đo giọng và không render GPU. Chưa thử một dịch vụ AI bên ngoài bằng tài sản của người dùng.
+- Dán nhầm hướng dẫn node/bật-bypass/code fence vào prompt; nhận diện nhãn shot cũ mà không đếm lặp header.
+- Hành động đã hoàn tất bị replay, reset trạng thái qua cut, start lại sự kiện đang chạy, thiếu trạng thái vào/ra, thiếu điều kiện hoàn tất/giữ trong prompt; pha kéo dài qua shot, hold và chuyển tiếp clip có chủ ý.
+- Câu bị lặp/ID trùng theo shot, thoại vượt ngân sách, cách đọc bị đổi chưa chốt; mô tả giọng được duyệt bị nhầm thành khóa giọng, audio reference chưa nối, external audio chưa có kế hoạch, khai báo đã nghe duyệt thiếu bằng chứng.
+- Giữ các kiểm tra số ô/shot, thứ tự/camera/timeline, duyệt/revision, Picture thật, giọng từng người và prompt metadata từ v5.
 
-Không tạo câu chuyện, storyboard hoặc prompt video mới cho ca đang trao đổi.
+Đã kiểm riêng clip người dùng gửi: đọc metadata, xem frame mẫu và chạy ASR multilingual small trên CPU trong môi trường phân tích riêng. ASR chỉ gợi ý nội dung/thời gian lời, không chứng thực chữ chính xác, vùng giọng hoặc speaker identity. Không nghe/duyệt bằng người, không có storyboard ảnh gốc của clip để đối chiếu đầy đủ. Video, âm thanh, frame, metadata/prompt và nội dung thoại riêng không đưa vào gói skill.
+
+Đã giải nén ZIP mới, kiểm checksum và chạy lại các test bằng Python isolated mode. Chưa chạy dịch vụ AI khác, không tạo clip/storyboard/prompt phim mới, không render GPU, không đo hiệu quả giảm lặp hoặc giữ giọng trên một lần render mới. Các test kiểm khai báo dữ liệu, không chứng minh mọi AI/model sẽ làm đúng.

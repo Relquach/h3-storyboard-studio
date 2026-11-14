@@ -1,5 +1,6 @@
 """Optional mechanical checks for a declared storyboard handoff. Does not inspect pixels/audio."""
-import argparse,json,math,pathlib,re,sys
+import argparse,json,math,pathlib,re,sys,importlib.util
+_spec=importlib.util.spec_from_file_location('_h3_production_checks',pathlib.Path(__file__).with_name('production_checks.py'));production=importlib.util.module_from_spec(_spec);_spec.loader.exec_module(production)
 BLOCK=re.compile(r'\[shot\s+(\d+)\]\s*\[\s*([\d.]+)\s*-\s*([\d.]+)\s*s\s*\]',re.I)
 TAGS=re.compile(r'\[shot\s+(\d+)\]',re.I)
 def norm(s):return re.sub(r'[^\w]+',' ',str(s).casefold()).strip()
@@ -65,6 +66,10 @@ def validate(p):
    elif norm(s[field]) not in norm(text):fail('shot_detail_omitted',f'Shot {s.get("id")} thiếu dữ kiện đã khai báo: {field}.')
   if i and not s.get('transition_en'):fail('missing_transition','Shot sau cần nêu chuyển cảnh.')
   if s.get('transition_en') and norm(s['transition_en']) not in norm(text):fail('transition_omitted','Chuyển cảnh chưa có trong block prompt.')
+  for action in s.get('actions',[]) if isinstance(s.get('actions'),list) else []:
+   if action.get('phase','complete')=='complete':
+    for field in ['completion_en','hold_en']:
+     if action.get(field) and norm(action[field]) not in norm(text):fail('action_endpoint_omitted','Điểm hoàn tất/giữ trạng thái của hành động chưa có trong block prompt.')
  if len(shots)>1 and p.get('editing_mode','cuts')=='cuts':
   if one_take_conflict(prompt):fail('contradictory_one_take','Lệnh one-take/không cut mâu thuẫn storyboard nhiều shot.')
  assets=[a for a in p.get('assets',[]) if a.get('active') and a.get('connected')]
@@ -85,7 +90,8 @@ def validate(p):
   if v.get('status')!='approved' or not str(v.get('approval_evidence','')).strip():fail('voice_not_approved','Người nói chưa có giọng đã chốt.')
   anchor=v.get('voice_anchor_en','')
   if not str(anchor).strip() or norm(anchor) not in norm(prompt):fail('voice_anchor_missing','Prompt chưa lặp mô tả giọng của người nói.')
-  if not str(d.get('text','')).strip() or d['text'] not in prompt:fail('dialogue_modified','Thiếu/thay câu thoại nguyên văn trong prompt.')
+  spoken=d.get('spoken_text') or d.get('text','')
+  if not isinstance(spoken,str) or not spoken.strip() or spoken not in prompt:fail('dialogue_modified','Thiếu/thay câu thoại/cách đọc đã khai báo trong prompt.')
   a,b=d.get('start_s'),d.get('end_s')
   if not numeric(a) or not numeric(b) or a<0 or b<=a or not numeric(duration) or b>duration+.001:fail('dialogue_timing','Thoại thiếu khoảng thời gian hợp lệ.')
   signature=norm(anchor)
@@ -102,8 +108,9 @@ def validate(p):
   v=c.get('voice',{})
   if v.get('status')=='approved' and not v.get('voice_anchor_en'):fail('missing_saved_voice','Giọng đã chốt cần câu mô tả cố định để chuyển AI.')
  if not speech:warnings.append('Không thoại: giọng pending không chặn cảnh im lặng; checker không tự thêm lời nói.')
+ extra=production.validate_production(p);errors.extend(extra['errors']);warnings.extend(extra['warnings'])
  warnings.append('Chỉ kiểm cấu trúc và dữ kiện đã khai báo. Không đọc pixel, nghe giọng, xác minh lời duyệt thật hoặc bảo đảm model tuân thủ.')
- return {'valid':not errors,'errors':errors,'warnings':warnings,'declared_panels':len(film),'declared_shots':len(shots),'prompt_shot_blocks':len(blocks),'gpu_render_tested':False}
+ return {'valid':not errors,'errors':errors,'warnings':warnings,'declared_panels':len(film),'declared_shots':len(shots),'prompt_shot_blocks':len(blocks),'production':{k:v for k,v in extra.items() if k not in {'errors','warnings'}},'gpu_render_tested':False}
 
 def main():
  a=argparse.ArgumentParser();a.add_argument('handoff');a=a.parse_args();p=json.loads(pathlib.Path(a.handoff).read_text(encoding='utf-8-sig'));result=validate(p);print(json.dumps(result,ensure_ascii=False,indent=2));return 0 if result['valid'] else 2

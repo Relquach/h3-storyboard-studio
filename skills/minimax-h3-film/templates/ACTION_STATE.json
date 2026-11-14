@@ -1,0 +1,13 @@
+{
+  "status": "not_started",
+  "initial_states": {},
+  "shots": [],
+  "expected_final_states": {},
+  "carry_actions_to_next_clip": [],
+  "rendered_state_review": {
+    "status": "untested",
+    "evidence": null,
+    "observed_final_states": {}
+  },
+  "note": "Mẫu trống: AI điền từ nội dung/ảnh đã chốt; kết quả mong muốn không phải trạng thái video đã được duyệt. Không có câu chuyện/shot mới trong mẫu này."
+}

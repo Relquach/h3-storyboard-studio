@@ -1,0 +1,17 @@
+{
+  "CHANGELOG.md": "9c85561856878e03cc44bf97d611cee5eff4d847a3a4ef17cb6cdcf5990295c3",
+  "README.md": "03a3c2cf4357a2dfd060c40772cf6586d5d0899f0ba690f9a24d5dd547ced662",
+  "SKILL.md": "7ee2ac9f46ebe8a643f17797b36e6fe336495ad645641b5e13445b927d1741be",
+  "references/apex-v7.md": "16eae31da084f7c71585f9896909988c21de6941b8c8284c70547e76d284e0df",
+  "references/fastvideo-fasth3-i2v.md": "0f38f0a2f95cd826bf2ead1fb59d367ed6d1091e5fa1370059971571f49098a6",
+  "references/handoff-structure.md": "f9324c44cdbf3f217fb25462f6e11c3f70302717fd9145cf71229832ace8f1f7",
+  "references/i2v-authoring.md": "41c0b7f0d38f007f5a801831ec14d14f77ba5b6e8738b1f665f8544465071a76",
+  "reports/VALIDATION.md": "283687a2c7da8ef46e8be5e4b08b9809ebbac69e20c1a02cf9ce698db8955aa4",
+  "reports/summary.json": "f28cf16f96bf61c72f3879b59422749e9b0d52f3e8058683e5fddabff44a1cd4",
+  "reports/tests.txt": "57508d4643debcb28a0b948dec634a2dcaf4e1632a8a5d30af5fd63dc621d6de",
+  "scripts/audit_render_prompt.py": "c540deecbec6db5befa7b6ba6881e01242c7c54f7f127cb2c3e6058788178f8e",
+  "scripts/validate_handoff.py": "68a820fc25808bfa48569f2989e4ac8458fd1e3bd544cb34beeaf2209af31a27",
+  "templates/CHARACTERS.json": "997e87b99beb7f8dbac790c83125d07496bc8a6370d7454aed9e393852031567",
+  "templates/PROJECT_STATE.md": "6a3a0938bda622f5261e4f243ca1a9f41fa3fbfad9a5bf379d9d30e90244e06c",
+  "tests/test_portable_contract.py": "74487138963ebc13da5e093bfa93627e24942caf59268415051fbda65daba26b"
+}

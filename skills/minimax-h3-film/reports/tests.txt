@@ -31,8 +31,32 @@ test_two_voice_ids_same_anchor_rejected (test_portable_contract.ContractTests.te
 test_unknown_speaker_rejected (test_portable_contract.ContractTests.test_unknown_speaker_rejected) ... ok
 test_voice_anchor_omitted (test_portable_contract.ContractTests.test_voice_anchor_omitted) ... ok
 test_wrong_shot_size_detected (test_portable_contract.ContractTests.test_wrong_shot_size_detected) ... ok
+test_approved_intentional_repetition_is_allowed (test_production_checks.ProductionTests.test_approved_intentional_repetition_is_allowed) ... ok
+test_approved_spoken_text_can_replace_display_text_without_duplicate_utterance (test_production_checks.ProductionTests.test_approved_spoken_text_can_replace_display_text_without_duplicate_utterance) ... ok
+test_completed_state_held_wrongly_is_detected (test_production_checks.ProductionTests.test_completed_state_held_wrongly_is_detected) ... ok
+test_endpoint_and_hold_need_to_reach_model_text (test_production_checks.ProductionTests.test_endpoint_and_hold_need_to_reach_model_text) ... ok
+test_external_voice_needs_delivery_plan (test_production_checks.ProductionTests.test_external_voice_needs_delivery_plan) ... ok
+test_false_accepted_voice_claim_is_rejected (test_production_checks.ProductionTests.test_false_accepted_voice_claim_is_rejected) ... ok
+test_finite_event_cannot_replay_after_completion (test_production_checks.ProductionTests.test_finite_event_cannot_replay_after_completion) ... ok
+test_hold_only_shot_does_not_invent_new_motion (test_production_checks.ProductionTests.test_hold_only_shot_does_not_invent_new_motion) ... ok
+test_initial_state_required_for_tracked_prop (test_production_checks.ProductionTests.test_initial_state_required_for_tracked_prop) ... ok
+test_legacy_timestamp_labels_detected_without_header_double_count (test_production_checks.ProductionTests.test_legacy_timestamp_labels_detected_without_header_double_count) ... ok
+test_legitimate_event_continues_across_shots_without_replay (test_production_checks.ProductionTests.test_legitimate_event_continues_across_shots_without_replay) ... ok
+test_native_description_is_not_verified_voice_lock (test_production_checks.ProductionTests.test_native_description_is_not_verified_voice_lock) ... ok
+test_number_pronunciation_not_silently_rewritten (test_production_checks.ProductionTests.test_number_pronunciation_not_silently_rewritten) ... ok
+test_only_saying_once_is_insufficient (test_production_checks.ProductionTests.test_only_saying_once_is_insufficient) ... ok
+test_pending_audio_method_is_not_silently_native (test_production_checks.ProductionTests.test_pending_audio_method_is_not_silently_native) ... ok
+test_previous_prop_state_cannot_reset (test_production_checks.ProductionTests.test_previous_prop_state_cannot_reset) ... ok
+test_reference_not_connected_is_rejected (test_production_checks.ProductionTests.test_reference_not_connected_is_rejected) ... ok
+test_reusing_same_utterance_id_twice_rejected (test_production_checks.ProductionTests.test_reusing_same_utterance_id_twice_rejected) ... ok
+test_sentence_cannot_restart_at_every_cut (test_production_checks.ProductionTests.test_sentence_cannot_restart_at_every_cut) ... ok
+test_spoken_time_over_budget_rejected (test_production_checks.ProductionTests.test_spoken_time_over_budget_rejected) ... ok
+test_ui_handoff_copied_into_prompt_is_rejected (test_production_checks.ProductionTests.test_ui_handoff_copied_into_prompt_is_rejected) ... ok
+test_unfinished_event_needs_explicit_carry (test_production_checks.ProductionTests.test_unfinished_event_needs_explicit_carry) ... ok
+test_unknown_next_action_cannot_restart_running_event (test_production_checks.ProductionTests.test_unknown_next_action_cannot_restart_running_event) ... ok
+test_unrelated_number_in_dialogue_not_node_assignment (test_production_checks.ProductionTests.test_unrelated_number_in_dialogue_not_node_assignment) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 0.009s
+Ran 57 tests in 0.031s
 
 OK

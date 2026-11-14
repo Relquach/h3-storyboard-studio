@@ -1,6 +1,13 @@
 """Read-only comparison of an expected prompt with a ComfyUI prompt embedded in video metadata."""
 import argparse,hashlib,json,pathlib,re,subprocess
 
+def shot_labels(text):
+ bracket=re.findall(r'(?im)^\s*\[shot\s+(\d+)\]',text)
+ if bracket:return [str(int(x)) for x in bracket]
+ legacy=re.findall(r'(?im)^\s*\d[\d:.]*\s*[–-]\s*\d[\d:.]*s?\s*\|\s*SHOT\s*0*(\d+)\s*:',text)
+ if legacy:return [str(int(x)) for x in legacy]
+ return [str(int(x)) for x in re.findall(r'\[shot\s+(\d+)\]',text,re.I)]
+
 def get_prompt(api,node_id=None):
  if node_id is None:
   targets=[k for k,n in api.items() if n.get('class_type') in {'MiniMaxH3ReferenceToVideo','MiniMaxH3ImageToVideo'}]
@@ -23,7 +30,7 @@ def get_prompt(api,node_id=None):
 def compare(expected,actual):
  normalize=lambda s:s.replace('\r\n','\n').strip()
  a,b=normalize(expected),normalize(actual)
- return {'prompt_matches':a==b,'expected_sha256':hashlib.sha256(a.encode()).hexdigest(),'rendered_sha256':hashlib.sha256(b.encode()).hexdigest(),'expected_shot_labels':re.findall(r'\[shot\s+(\d+)\]',a,re.I),'rendered_shot_labels':re.findall(r'\[shot\s+(\d+)\]',b,re.I),'comparison':'UTF-8 text with CRLF normalized and outside whitespace trimmed','gpu_render_tested':False,'audio_listened':False}
+ return {'prompt_matches':a==b,'expected_sha256':hashlib.sha256(a.encode()).hexdigest(),'rendered_sha256':hashlib.sha256(b.encode()).hexdigest(),'expected_shot_labels':shot_labels(a),'rendered_shot_labels':shot_labels(b),'comparison':'UTF-8 text with CRLF normalized and outside whitespace trimmed','gpu_render_tested':False,'audio_listened':False}
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--video',required=True);p.add_argument('--expected-prompt',required=True);p.add_argument('--node-id');p.add_argument('--output');a=p.parse_args()

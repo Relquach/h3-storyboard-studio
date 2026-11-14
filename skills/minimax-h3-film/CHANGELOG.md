@@ -1,3 +1,12 @@
+# v5.1.0 · 14/11/2026
+
+- Chặn prompt lẫn lệnh UI của workflow khác; tách file TXT model và Markdown thao tác.
+- Sổ trạng thái hành động, pha start/continue/complete, kết quả giữ qua cut, không replay; trạng thái quan sát từ clip đã duyệt tách khỏi trạng thái mong muốn.
+- Lịch thoại theo câu độc lập với cut, ID lượt lời, ngân sách thời gian, cách đọc tên/số, không tự lược hay nói lại.
+- Tách duyệt thiết kế giọng với duyệt audio; khai báo phương án native/reference/external và giới hạn điều khiển giọng thực tế.
+- Audit đọc được nhãn shot kiểu cũ; thêm kiểm hồi quy cho các lỗi trên.
+- Không tạo câu chuyện, storyboard hoặc prompt phim mới; không sửa workflow.
+
 # v5.0.0 · 13/11/2026
 
 - Chuyển từ profile Apex mặc định sang nhận diện workflow thực tế; giữ tài liệu profile cũ như tham khảo có điều kiện.

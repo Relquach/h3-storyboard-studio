@@ -6,6 +6,9 @@
 - Style/tỷ lệ/thời lượng: chưa chốt theo dự án này.
 - Nhân vật và file CHARACTERS.json: chưa có.
 - Câu hỏi về giọng đã hỏi / còn pending: chưa có.
+- Phương án native/reference/TTS đã chốt, audio mẫu nối thật và kết quả nghe duyệt: chưa có.
+- Lịch câu thoại riêng, cách đọc tên/số đã chốt và ngân sách thời gian: chưa có.
+- Sự kiện đã hoàn tất và trạng thái đạo cụ/tay mang qua shot/clip: chưa có.
 - Storyboard cuối và revision: chưa có.
 - Lời duyệt ảnh thực tế / nguồn: chưa có; không tự ghi đã duyệt.
 - Bảng từng ô / cỡ cảnh / góc / tư thế / hành động: chưa có.

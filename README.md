@@ -1,6 +1,26 @@
+# Skill MiniMax H3 Film v5.1 — trạng thái hành động, thoại và giọng
+
+**[TẢI SKILL.md MỚI](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/skills/minimax-h3-film/SKILL.md)** · **[TẢI BỘ SKILL v5.1 ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/MiniMax-H3-Film-Skill-v5.1.0.zip)** · [Đọc trên GitHub](skills/minimax-h3-film/SKILL.md) · [Thay đổi](skills/minimax-h3-film/CHANGELOG.md) · [Checksum](dist/MiniMax-H3-Film-Skill-v5.1.0.sha256)
+
+Gửi SKILL.md cùng yêu cầu cho AI. Các quy tắc bắt buộc nằm trong một file; script chỉ hỗ trợ kiểm logic. Khi tiếp tục dự án, chuyển cả storyboard cuối, ảnh/workflow thật và hồ sơ nhân vật/trạng thái để AI khác không tự đoán lại.
+
+- **Hành động có điểm hoàn tất:** theo dõi trạng thái trước/sau và kết quả qua cut, không reset/replay sự kiện đã hoàn tất. Giữ trạng thái sau khi xong thay vì lặp cử chỉ để lấp giờ. Chuyển động tự nhiên hoặc lặp có chủ ý vẫn được phép theo kịch bản.
+- **Lịch thoại riêng:** mỗi lượt lời có một ID, không chép lại câu khi đổi shot; kiểm thời gian, tên/số/cách đọc. Không tự lược câu, tua tiếng hoặc kéo âm để ép khớp.
+- **Giọng thiết kế khác giọng đã nghe duyệt:** chốt native thử / audio reference / external voiceover theo graph thật. Chỉ có mô tả chữ hoặc audio VAE không có nghĩa đã khóa giọng; khi cần đúng chữ/giọng ổn định, phải chọn và thực hiện phương án audio phù hợp.
+- **TXT sạch:** video_prompt.txt tách khỏi COMFYUI_HANDOFF.md. Chặn code fence, lệnh bật/bypass, số node=value và hướng dẫn sao chép bị dán nhầm vào ô model.
+- Giữ các quy tắc v5: đủ N ô–N block, đúng cỡ cảnh/góc/tư thế, giải quyết timeline trùng, storyboard trước–duyệt–prompt sau, không tự sáng tác khi chỉ được giao sửa skill.
+
+[Hồ sơ giọng](skills/minimax-h3-film/templates/CHARACTERS.json) · [Trạng thái dự án](skills/minimax-h3-film/templates/PROJECT_STATE.md) · [Sổ thao tác trống](skills/minimax-h3-film/templates/ACTION_STATE.json) · [Lịch audio trống](skills/minimax-h3-film/templates/AUDIO_PLAN.json) · [Cách dùng](skills/minimax-h3-film/README.md)
+
+Đã qua **57 kiểm tra logic**, giải nén/kiểm checksum ZIP và đọc metadata/ASR riêng để phân tích clip được gửi. **Chưa render H3 mới, chưa thử dịch vụ AI khác, không xác minh accent/khóa giọng bằng ASR.** Test không chứng minh model luôn bám đúng hành động/thoại. [Phạm vi kiểm tra](skills/minimax-h3-film/reports/VALIDATION.md).
+
+Gói không chứa video, audio, frame, prompt, thoại hoặc nhân vật riêng của người dùng. [Nguồn skill v5.0 lưu trữ](skills/minimax-h3-film-v5.0-archive/) vẫn được giữ nguyên; các workflow và bộ cài không thay đổi.
+
+---
+
 # Skill MiniMax H3 Film v5 — dùng với AI khác
 
-**[TẢI RIÊNG SKILL.md](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/skills/minimax-h3-film/SKILL.md)** · **[TẢI BỘ SKILL v5 ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/MiniMax-H3-Film-Skill-v5.0.0.zip)** · [Đọc trên GitHub](skills/minimax-h3-film/SKILL.md) · [Cách dùng](skills/minimax-h3-film/README.md) · [Checksum](dist/MiniMax-H3-Film-Skill-v5.0.0.sha256)
+**[TẢI RIÊNG SKILL.md](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/skills/minimax-h3-film-v5.0-archive/SKILL.md)** · **[TẢI BỘ SKILL v5 ZIP](https://github.com/Relquach/h3-storyboard-studio/raw/refs/heads/main/dist/MiniMax-H3-Film-Skill-v5.0.0.zip)** · [Đọc trên GitHub](skills/minimax-h3-film-v5.0-archive/SKILL.md) · [Cách dùng](skills/minimax-h3-film-v5.0-archive/README.md) · [Checksum](dist/MiniMax-H3-Film-Skill-v5.0.0.sha256)
 
 Gửi **SKILL.md** cùng yêu cầu của bạn cho AI. Quy tắc bắt buộc nằm trọn trong một file, không cần AI có lịch sử chat cũ hoặc chạy Python. Với dự án đang làm, gửi thêm storyboard cuối, workflow/ảnh tham chiếu thật, **CHARACTERS.json** và **PROJECT_STATE.md** đã điền để giữ nhân vật, giọng và trạng thái duyệt.
 
@@ -10,11 +30,11 @@ Gửi **SKILL.md** cùng yêu cầu của bạn cho AI. Quy tắc bắt buộc n
 - Một prompt cuối duy nhất; đối chiếu giá trị thật tại node hoặc metadata video để phát hiện bản đã bị rút gọn/thay trước render.
 - Storyboard trước → người dùng duyệt → prompt sau. Nếu chỉ được yêu cầu sửa skill/phân tích, không tự sáng tác phim.
 
-[Hồ sơ nhân vật/giọng trống](skills/minimax-h3-film/templates/CHARACTERS.json) · [Trạng thái dự án trống](skills/minimax-h3-film/templates/PROJECT_STATE.md) · [Thay đổi v5](skills/minimax-h3-film/CHANGELOG.md) · [Kiểm tra](skills/minimax-h3-film/reports/VALIDATION.md)
+[Hồ sơ nhân vật/giọng trống](skills/minimax-h3-film-v5.0-archive/templates/CHARACTERS.json) · [Trạng thái dự án trống](skills/minimax-h3-film-v5.0-archive/templates/PROJECT_STATE.md) · [Thay đổi v5](skills/minimax-h3-film-v5.0-archive/CHANGELOG.md) · [Kiểm tra](skills/minimax-h3-film-v5.0-archive/reports/VALIDATION.md)
 
 Đã qua **33 kiểm tra logic** và kiểm checksum ZIP. Chưa thử một dịch vụ AI bên ngoài hoặc render GPU; các kiểm tra này không bảo đảm mọi AI/model luôn bám đủ shot hoặc giữ mặt/giọng. Gói v5 không kèm ảnh, video, prompt hoặc tên nhân vật riêng của người dùng.
 
-**[Bản skill v4 lưu trữ](skills/minimax-h3-film-v4-archive/)** được giữ nguyên để tham khảo các workflow cũ; đường dẫn `skills/minimax-h3-film/` hiện là v5.
+**[Bản skill v4 lưu trữ](skills/minimax-h3-film-v4-archive/)** được giữ nguyên để tham khảo các workflow cũ; đường dẫn `skills/minimax-h3-film-v5.0-archive/` hiện là v5.
 
 ---
 

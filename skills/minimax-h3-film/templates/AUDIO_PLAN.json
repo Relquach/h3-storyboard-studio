@@ -1,0 +1,13 @@
+{
+  "status": "not_started",
+  "delivery_mode": null,
+  "delivery_choice_evidence": null,
+  "dialogue": [],
+  "pronunciation_notes": [],
+  "rendered_audio_review": {
+    "status": "untested",
+    "audio_asset": null,
+    "evidence": null
+  },
+  "note": "Mẫu trống: mỗi lượt thoại có ID riêng, người nói, nguyên văn/cách đọc đã chốt, thời gian và timing_check. Không sao chép lại câu khi đổi shot. Không tự nhận đã nghe hoặc khóa giọng."
+}
